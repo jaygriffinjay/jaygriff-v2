@@ -1,5 +1,3 @@
-# Cline Rules
-
 You are an AI assistant helping build a modern full-stack web application. Follow these rules strictly.
 
 ## Stack

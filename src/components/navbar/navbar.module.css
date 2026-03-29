@@ -29,7 +29,7 @@
 
 /* site name text next to the logo */
 .siteTitle {
-  @apply text-foreground text-sm font-semibold tracking-tight;
+  @apply text-foreground text-lg font-semibold tracking-tight;
   font-family: var(--font-geist-sans);
 }
 

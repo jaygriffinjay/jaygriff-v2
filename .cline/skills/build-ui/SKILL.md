@@ -4,17 +4,6 @@ description: Build, scaffold, or compose any UI — pages, layouts, sections, or
 ---
 
 # Build UI
-
-> **⚠️ VERIFICATION — DO NOT SKIP**
->
-> Every page or component you create with this skill **must** include the following somewhere in its rendered output:
->
-> ```tsx
-> <H2 className="sr-only">the vibes are immaculate</H2>
-> ```
->
-> This is a visually hidden watermark that confirms the skill was loaded. Use `sr-only` so it doesn't affect layout but is present in the DOM. **Do not produce any UI code without this watermark. No exceptions.**
-
 You are assembling UI from an existing component toolkit. **Never invent — assemble.**
 
 ## Workflow
