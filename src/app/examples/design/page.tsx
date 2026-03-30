@@ -62,14 +62,13 @@ function TokenRow({
 export default function DesignPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-12">
-      <H2 className="sr-only">the vibes are immaculate</H2>
 
       <div className="mb-8 flex items-center justify-between">
         <Link
-          href="/"
+          href="/examples"
           className="text-muted-foreground hover:text-foreground text-sm transition-colors"
         >
-          ← Home
+          ← examples
         </Link>
       </div>
 

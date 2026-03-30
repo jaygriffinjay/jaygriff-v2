@@ -3,7 +3,8 @@
  */
 export const navRoutes = [
   { label: "Home", href: "/" },
+  { label: "Posts", href: "/posts" },
+  { label: "Docs", href: "/docs" },
   { label: "Examples", href: "/examples" },
-  // { label: "Docs", href: "/docs" },
   // { label: "About", href: "/about" },
 ];

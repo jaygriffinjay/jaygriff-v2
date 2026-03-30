@@ -219,10 +219,10 @@ export default function ArticlePage() {
       <header className="border-border/30 bg-background/80 sticky top-0 z-40 border-b backdrop-blur-md">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-3">
           <Link
-            href="/"
+            href="/examples"
             className="text-muted-foreground hover:text-foreground text-sm no-underline transition-colors"
           >
-            ← Home
+            ← examples
           </Link>
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-xs">
@@ -573,10 +573,10 @@ export default function ArticlePage() {
         {/* Footer */}
         <div className="mt-12 flex items-center justify-between">
           <Link
-            href="/"
+            href="/examples"
             className="text-muted-foreground hover:text-foreground text-sm no-underline transition-colors"
           >
-            ← Back to home
+            ← Back to examples
           </Link>
           <Small className="text-muted-foreground/40">
             Built with the very stack this article describes.

@@ -1,0 +1,21 @@
+@reference "../../../app/globals.css";
+
+/* article max-width and vertical spacing */
+.article {
+  @apply max-w-3xl mx-auto py-12;
+}
+
+/* header block above the content */
+.header {
+  @apply flex flex-col gap-2 mb-2;
+}
+
+/* lead description under the title */
+.description {
+  @apply text-lg text-muted-foreground;
+}
+
+/* separator between header and body */
+.divider {
+  @apply my-8;
+}
