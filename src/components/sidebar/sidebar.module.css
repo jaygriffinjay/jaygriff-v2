@@ -1,0 +1,32 @@
+@reference "../../app/globals.css";
+
+/* ─── Logo / header area ─────────────────────────────────────── */
+
+/* icon container — always visible in both expanded and collapsed states */
+.logoIcon {
+  @apply flex size-7 items-center justify-center rounded-md bg-sidebar-primary text-sidebar-primary-foreground shrink-0;
+}
+
+/* logo image if a png/svg is provided */
+.logoImg {
+  @apply size-5 object-contain;
+}
+
+/* emoji fallback (e.g. "JG") */
+.logoEmoji {
+  @apply text-xs font-bold leading-none;
+}
+
+/* site name text — hidden when the sidebar collapses to icon-only */
+.siteTitle {
+  @apply font-semibold text-sm truncate;
+  font-family: var(--font-geist-sans);
+}
+
+/* ─── Nav items ──────────────────────────────────────────────── */
+
+/* explicit text color on nav buttons — overrides <a> tag default */
+/* also bumps text and icon size slightly above the shadcn sm default */
+.navButton {
+  @apply text-foreground/60 text-base [&>svg]:size-5;
+}

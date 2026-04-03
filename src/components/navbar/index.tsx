@@ -1,4 +1,5 @@
 import Image from "next/image";
+import NextLink from "next/link";
 import { siteConfig } from "@/site-config";
 import { NavMenu } from "./nav-menu";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,7 @@ function NavbarLogo() {
   const logoSrc = siteConfig.logo.png ?? siteConfig.logo.svg;
 
   return (
-    <div className={styles.logoWrapper}>
+    <NextLink href="/" className={styles.logoWrapper}>
       {logoSrc ? (
         <Image src={logoSrc} alt={siteConfig.name} width={28} height={28} className={styles.logoImg} />
       ) : (
@@ -24,7 +25,7 @@ function NavbarLogo() {
       <span className={styles.siteTitle}>
         {siteConfig.name}
       </span>
-    </div>
+    </NextLink>
   );
 }
 

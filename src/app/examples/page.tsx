@@ -10,6 +10,11 @@ import { Container } from "@/components/layout/Container";
 
 const EXAMPLES = [
   {
+    href: "/examples/blocks",
+    title: "Blocks",
+    description: "10 standalone components built from the primitive system.",
+  },
+  {
     href: "/examples/typography",
     title: "Typography",
     description:

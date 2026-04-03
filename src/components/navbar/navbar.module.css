@@ -12,9 +12,9 @@
   @apply mx-auto flex h-14 max-w-[640px] items-center justify-between px-4;
 }
 
-/* logo image + site name, side by side */
+/* logo image + site name, side by side — also used as the homepage link */
 .logoWrapper {
-  @apply flex items-center gap-2.5;
+  @apply flex items-center gap-2.5 no-underline text-inherit;
 }
 
 /* logo image */
@@ -47,7 +47,7 @@
 
 /* the dropdown panel */
 .dropdownContent {
-  @apply w-48;
+  @apply w-48 bg-background;
 }
 
 /* theme toggle row: label on left, icon on right */

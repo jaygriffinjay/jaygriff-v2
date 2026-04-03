@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { fontVariables } from "./fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Navbar } from "@/components/navbar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/sidebar";
 import { siteConfig } from "@/site-config";
 import "./globals.css";
 
@@ -77,8 +78,12 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <Navbar />
-            {children}
+            <SidebarProvider>
+              <AppSidebar />
+              <SidebarInset>
+                {children}
+              </SidebarInset>
+            </SidebarProvider>
           </TooltipProvider>
         </ThemeProvider>
       </body>
