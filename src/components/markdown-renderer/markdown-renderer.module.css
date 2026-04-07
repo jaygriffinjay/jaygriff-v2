@@ -25,11 +25,6 @@
   @apply block mt-2 text-sm text-muted-foreground italic;
 }
 
-/* fenced code block */
-.pre {
-  @apply bg-muted rounded-md p-4 overflow-x-auto text-sm font-mono;
-}
-
 /* table scroll wrapper */
 .tableWrapper {
   @apply w-full overflow-x-auto;

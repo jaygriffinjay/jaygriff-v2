@@ -8,7 +8,7 @@ export function InlineCode({ children, className, ...props }: InlineCodeProps) {
   return (
     <code
       className={cn(
-        "bg-muted rounded-sm border px-1.5 py-0.5 text-sm",
+        "bg-muted rounded-sm border px-1 text-[0.85em] [box-decoration-break:clone]",
         className,
       )}
       style={{ fontFamily: "var(--font-jetbrains-mono)", ...props.style }}

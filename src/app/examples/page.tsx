@@ -104,9 +104,9 @@ export default function ExamplesPage() {
 
         <div className="mt-12">
           <Separator className="mb-6" />
-          <Small className="text-muted-foreground/40">
+          <Small className="text-muted-foreground">
             These routes live at{" "}
-            <code className="text-muted-foreground/60 text-xs">
+            <code className="text-muted-foreground text-xs">
               src/app/examples/
             </code>{" "}
             — delete or keep as reference.

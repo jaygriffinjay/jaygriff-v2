@@ -1,0 +1,11 @@
+@reference "../../app/globals.css";
+
+/* fenced code block — outer wrapper */
+.root {
+  @apply bg-muted rounded-md p-4 overflow-x-auto text-sm;
+}
+
+/* code content inside the pre block */
+.code {
+  font-family: var(--font-jetbrains-mono);
+}

@@ -69,6 +69,13 @@ export async function getAllPublished(type?: ContentRow["type"]): Promise<Conten
   return result.rows.map((r) => parseRow(r as Record<string, unknown>));
 }
 
+export async function getAllContent(): Promise<ContentRow[]> {
+  const result = await db.execute(
+    "SELECT * FROM content ORDER BY created_at DESC"
+  );
+  return result.rows.map((r) => parseRow(r as Record<string, unknown>));
+}
+
 export function readMarkdownFile(filePath: string): string {
   return readFileSync(join(process.cwd(), filePath), "utf-8");
 }

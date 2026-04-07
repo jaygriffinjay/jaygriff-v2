@@ -1,0 +1,33 @@
+@reference "../../globals.css";
+
+/* ─── Login Page ─── */
+
+/* centered login container */
+.container {
+  @apply flex min-h-svh items-center justify-center p-4;
+}
+
+/* login card wrapper */
+.card {
+  @apply w-full max-w-sm space-y-6;
+}
+
+/* page heading */
+.heading {
+  @apply text-center;
+}
+
+/* subtitle text */
+.subtitle {
+  @apply text-center text-muted-foreground;
+}
+
+/* login form */
+.form {
+  @apply space-y-4;
+}
+
+/* error message */
+.error {
+  @apply text-sm text-destructive text-center;
+}

@@ -22,69 +22,6 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 9. **Dark mode is automatic.** Use theme colors (`text-foreground`, `bg-background`, `text-muted-foreground`, `bg-muted`, `text-primary`, `bg-primary`, `text-destructive`, etc.) and they flip automatically. For manual dark overrides: `className="text-black dark:text-white"`.
 10. **Shadcn components use direct imports.** No barrel file — import from the specific path: `import { Button } from "@/components/ui/button"`.
 
-## Typography Components
-
-All imported from `@/components/typography`:
-
-### Headings
-
-`H1`, `H2`, `H3`, `H4`, `H5`, `H6` — each renders the corresponding `<h1>`–`<h6>`. Override size/weight/color/font via `className` or `style`.
-
-### Inline Decorators
-
-- `Bold` — `<strong>`, font-bold
-- `Italic` — `<em>`, italic
-- `Underline` — `<span>`, underline with offset
-- `Strikethrough` — `<s>`, line-through
-- `Highlight` — `<mark>`, bg-primary/20 background
-- `InlineCode` — `<code>`, JetBrains Mono, bg-muted, border
-- `Small` — `<small>`, text-sm text-muted-foreground
-
-### Block-Level
-
-- `Paragraph` — `<p>`, text-base leading-relaxed
-- `Text` — `<span>`, no default styles, for inline fragments
-- `Blockquote` — `<blockquote>`, left border, italic, muted
-- `List` — `<ul>`/`<ol>`, pass `ordered` for numbered. Contains `ListItem`s
-- `ListItem` — `<li>`
-- `Link` — wraps Next.js Link, text-primary, underline, dashed on hover
-
-All composable: `<H1>Welcome to <Highlight>our site</Highlight></H1>` works.
-
-## CSS Module Convention
-
-Every component folder uses a matching `.module.css` file for all Tailwind styles. **No inline Tailwind class strings in JSX** — all classes live in the CSS module and are referenced via `styles.className`.
-
-### Rules
-
-1. **One CSS module per component folder.** Name it after the folder: `navbar/navbar.module.css`, `layout/layout.module.css`, etc.
-2. **All Tailwind classes go in the CSS module.** JSX elements use `className={styles.foo}`, not `className="..."`.
-3. **Exception: `cn()` for merging external `className` props.** When a component accepts a `className` prop, use `cn(styles.foo, className)` so callers can still override.
-4. **Every class gets a comment** explaining what element or role it styles.
-5. **Group classes by component** with a section comment when multiple components share one module file (e.g. `/* ─── NavMenu ─── */`).
-6. **Start the file with `@reference "../../app/globals.css";`** so `@apply` can resolve Tailwind utilities.
-
-### Example
-
-```css
-/* navbar/navbar.module.css */
-@reference "../../app/globals.css";
-
-/* sticky bar across the top of the page */
-.header {
-  @apply border-border/40 bg-background/80 sticky top-0 z-40 border-b backdrop-blur-md;
-}
-```
-
-```tsx
-// navbar/index.tsx
-import styles from "./navbar.module.css";
-
-export function Navbar({ className }: { className?: string }) {
-  return <header className={cn(styles.header, className)}>...</header>;
-}
-```
-
 ## File Structure
 
 ```

@@ -10,6 +10,7 @@ import {
   NewspaperIcon,
   BookOpenIcon,
   LayoutGridIcon,
+  ShieldIcon,
   SunIcon,
   MoonIcon,
   PanelLeftIcon,
@@ -35,6 +36,9 @@ const navItems = [
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Docs", href: "/docs", icon: BookOpenIcon },
   { label: "Examples", href: "/examples", icon: LayoutGridIcon },
+  ...(process.env.NODE_ENV === "development"
+    ? [{ label: "Admin", href: "/admin", icon: ShieldIcon }]
+    : []),
 ];
 
 export function AppSidebar() {
@@ -52,15 +56,13 @@ export function AppSidebar() {
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild size="lg" tooltip={siteConfig.name}>
+            <SidebarMenuButton asChild tooltip={siteConfig.name} className={styles.navButton}>
               <NextLink href="/">
-                <span className={styles.logoIcon}>
-                  {logoSrc ? (
-                    <Image src={logoSrc} alt={siteConfig.name} width={24} height={24} className={styles.logoImg} />
-                  ) : (
-                    <span className={styles.logoEmoji}>{siteConfig.logo.emoji}</span>
-                  )}
-                </span>
+                {logoSrc ? (
+                  <img src={logoSrc} alt={siteConfig.name} className={styles.logoImg} />
+                ) : (
+                  <span className={styles.logoEmoji}>{siteConfig.logo.emoji}</span>
+                )}
                 <span className={styles.siteTitle}>{siteConfig.name}</span>
               </NextLink>
             </SidebarMenuButton>
@@ -72,7 +74,7 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className={styles.navMenu}>
               {navItems.map(({ label, href, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
                   <SidebarMenuButton asChild isActive={pathname === href} tooltip={label} className={styles.navButton}>
@@ -104,7 +106,7 @@ export function AppSidebar() {
           <SidebarMenuItem>
             <SidebarMenuButton tooltip="Toggle sidebar" onClick={toggleSidebar} className={styles.navButton}>
               <PanelLeftIcon />
-              <span>Collapse</span>
+              <span>Sidebar</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

@@ -14,6 +14,7 @@ import {
   Italic,
   Strikethrough,
 } from "@/components/typography";
+import { CodeBlock } from "@/components/code-block";
 import { Separator } from "@/components/ui/separator";
 import styles from "./markdown-renderer.module.css";
 
@@ -65,14 +66,10 @@ export default function MarkdownRenderer({ content, className }: MarkdownRendere
           pre: ({ children }) => {
             const child = Array.isArray(children) ? children[0] : children;
             const props = (child as React.ReactElement<{ className?: string; children?: React.ReactNode }>)?.props;
-            if (!props) return <pre className={styles.pre}>{children}</pre>;
+            if (!props) return <CodeBlock>{String(children)}</CodeBlock>;
             const lang = /language-(\w+)/.exec(props.className ?? "")?.[1];
             const code = String(props.children ?? "").replace(/\n$/, "");
-            return (
-              <pre className={styles.pre} data-language={lang}>
-                <code>{code}</code>
-              </pre>
-            );
+            return <CodeBlock language={lang}>{code}</CodeBlock>;
           },
           code: ({ children }) => <InlineCode>{children}</InlineCode>,
           table: ({ children }) => (

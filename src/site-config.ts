@@ -4,7 +4,7 @@
  * tab title, favicon, navbar logo, og:image, apple touch icon, twitter card.
  */
 export const siteConfig = {
-  name: "jaygriff-v2",
+  name: "Jay Griffin",
   description: "CHANGEME",
   author: "Jay Griffin",
 
@@ -17,10 +17,10 @@ export const siteConfig = {
     // Emoji fallback — always shown if no svg/png provided.
     emoji: "JG",
     // Optional: path to logo SVG in /public (e.g. "/logo.svg")
-    svg: undefined as string | undefined,
+    svg: "/logo.svg",
     // Optional: path to logo PNG in /public (e.g. "/logo.png")
     // Also used as apple-touch-icon if provided.
-    png: undefined as string | undefined,
+    png: "/logo.png",
   },
 
   // Optional: path to a static 1200x630 og:image in /public (e.g. "/og.png").

@@ -1,0 +1,18 @@
+@reference "../globals.css";
+
+/* ─── Admin Layout ─── */
+
+/* top bar for admin pages */
+.header {
+  @apply border-border/40 flex items-center justify-between border-b px-6 py-3;
+}
+
+/* admin title in header */
+.title {
+  @apply text-sm font-medium text-muted-foreground;
+}
+
+/* main content area */
+.main {
+  @apply flex-1;
+}

@@ -1,0 +1,33 @@
+@reference "../../globals.css";
+
+/* ─── Admin Content Page ─── */
+
+/* page wrapper */
+.page {
+  @apply p-6 space-y-6;
+}
+
+/* page title */
+.heading {
+  @apply text-lg font-semibold;
+}
+
+/* status badge base */
+.badge {
+  @apply cursor-pointer select-none transition-opacity hover:opacity-80;
+}
+
+/* type badge */
+.typeBadge {
+  @apply capitalize;
+}
+
+/* date cell */
+.date {
+  @apply text-muted-foreground text-sm;
+}
+
+/* title cell */
+.titleCell {
+  @apply font-medium;
+}
