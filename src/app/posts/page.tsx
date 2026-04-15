@@ -8,15 +8,15 @@ export default async function PostsPage() {
   const posts = await getAllPublished("post");
 
   return (
-    <Container>
-      <div className="mb-10">
-        <H1 className="text-4xl font-bold tracking-tight">Posts</H1>
-        <Paragraph className="text-muted-foreground mt-3">
+    <Container className="max-w-4xl">
+      <div className="space-y-2">
+        <H1>Posts</H1>
+        <Paragraph className="text-lg text-muted-foreground">
           Writing, opinions, and longer-form thoughts.
         </Paragraph>
       </div>
 
-      <Separator className="mb-10" />
+      <Separator className="my-6" />
 
       {posts.length === 0 ? (
         <Paragraph className="text-muted-foreground">Nothing published yet.</Paragraph>

@@ -8,15 +8,15 @@ export default async function DocsPage() {
   const docs = await getAllPublished("doc");
 
   return (
-    <Container>
-      <div className="mb-10">
-        <H1 className="text-4xl font-bold tracking-tight">Docs</H1>
-        <Paragraph className="text-muted-foreground mt-3">
+    <Container className="max-w-4xl">
+      <div className="space-y-2">
+        <H1>Docs</H1>
+        <Paragraph className="text-lg text-muted-foreground">
           Reference material, technical notes, and how-tos.
         </Paragraph>
       </div>
 
-      <Separator className="mb-10" />
+      <Separator className="my-6" />
 
       {docs.length === 0 ? (
         <Paragraph className="text-muted-foreground">Nothing published yet.</Paragraph>

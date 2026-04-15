@@ -1,0 +1,23 @@
+@reference "../../app/globals.css";
+
+/* ─── Apps Page ─── */
+
+/* page header area */
+.header {
+  @apply space-y-2;
+}
+
+/* description text under page title */
+.description {
+  @apply text-lg text-muted-foreground;
+}
+
+/* app cards grid */
+.grid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* app card description */
+.cardDescription {
+  @apply text-sm text-muted-foreground;
+}

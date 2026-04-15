@@ -1,5 +1,6 @@
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import type { Root } from "mdast";
 import NextImage from "next/image";
 import { cn } from "@/lib/utils";
 import {
@@ -23,11 +24,30 @@ interface MarkdownRendererProps {
   className?: string;
 }
 
+/** Strip the leading H1, its following paragraph, and the --- divider
+ *  from the AST. Route pages render title + description from DB metadata,
+ *  so the duplicates in the markdown source need to be removed. */
+function remarkStripLeadingH1() {
+  return (tree: Root) => {
+    const first = tree.children[0];
+    if (first?.type === "heading" && first.depth === 1) {
+      tree.children.shift();
+      const next = tree.children[0];
+      if (next?.type === "paragraph") {
+        tree.children.shift();
+      }
+      if (tree.children[0]?.type === "thematicBreak") {
+        tree.children.shift();
+      }
+    }
+  };
+}
+
 export default function MarkdownRenderer({ content, className }: MarkdownRendererProps) {
   return (
     <div className={cn(styles.root, className)}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkStripLeadingH1]}
         components={{
           h1: ({ children }) => <H1>{children}</H1>,
           h2: ({ children }) => <H2>{children}</H2>,

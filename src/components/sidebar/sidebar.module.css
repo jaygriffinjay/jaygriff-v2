@@ -2,25 +2,29 @@
 
 /* ─── Logo / header area ─────────────────────────────────────── */
 
-/* icon container — always visible in both expanded and collapsed states */
-.logoIcon {
-  @apply flex size-7 items-center justify-center rounded-md text-sidebar-primary-foreground shrink-0;
+/* header container */
+.header {
+  @apply items-start;
 }
 
-/* logo image if a png/svg is provided */
+:global([data-state="collapsed"]) .header {
+  @apply items-center;
+}
+
+/* collapsed: logo link centered */
+.logoLink {
+  @apply flex items-center justify-center;
+}
+
+/* logo image */
 .logoImg {
-  @apply size-5 shrink-0;
+  @apply size-9! ml-1;
 }
 
-/* emoji fallback (e.g. "JG") */
-.logoEmoji {
-  @apply text-xs font-bold leading-none;
-}
-
-/* site name text — hidden when the sidebar collapses to icon-only */
+/* expanded: site name — pl-2.5 aligns with nav icon start */
 .siteTitle {
-  @apply font-semibold text-2xl truncate;
-  font-family: var(--font-geist-sans);
+  @apply font-semibold text-2xl truncate pl-3.5 mt-1 mb-3;
+  font-family: var(--font-sekuya);
 }
 
 /* ─── Nav items ──────────────────────────────────────────────── */
@@ -28,7 +32,7 @@
 /* explicit text color on nav buttons — overrides <a> tag default */
 /* bumps text/icon size and container height above shadcn sm default */
 .navButton {
-  @apply text-foreground/70 text-base h-10 p-2.5 [&>svg]:size-5 [&>img]:size-8 [&>img]:shrink-0;
+  @apply text-foreground/70 text-base h-10 p-2.5 [&>svg]:size-5;
 }
 
 /* make collapsed buttons fill available width so highlight isn't clipped */

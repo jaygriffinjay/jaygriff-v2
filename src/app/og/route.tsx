@@ -1,19 +1,12 @@
 import { ImageResponse } from "next/og";
-import { siteConfig } from "@/site-config";
 
 export const runtime = "edge";
 
-// Generates a 1200x630 og:image from siteConfig.
-// Visit /og in the browser to preview it.
-// Logo fallback chain: png → svg → emoji
-export async function GET() {
-  // ImageResponse requires absolute URLs for images
-  const logoUrl = siteConfig.logo.png
-    ? `${siteConfig.url}${siteConfig.logo.png}`
-    : siteConfig.logo.svg
-      ? `${siteConfig.url}${siteConfig.logo.svg}`
-      : null;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
+// Generates a 1200x630 og:image.
+// Visit /og in the browser to preview it.
+export async function GET() {
   return new ImageResponse(
     <div
       style={{
@@ -23,28 +16,20 @@ export async function GET() {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: "#09090b", // zinc-950
+        backgroundColor: "#09090b",
         gap: 24,
         padding: 80,
       }}
     >
-      {/* Logo: image if available, emoji as fallback */}
-      {logoUrl ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={logoUrl}
-          width={120}
-          height={120}
-          style={{ borderRadius: 24, objectFit: "contain" }}
-          alt=""
-        />
-      ) : (
-        <div style={{ fontSize: 80, lineHeight: 1 }}>
-          {siteConfig.logo.emoji}
-        </div>
-      )}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={`${siteUrl}/logo.svg`}
+        width={120}
+        height={120}
+        style={{ borderRadius: 24, objectFit: "contain" }}
+        alt=""
+      />
 
-      {/* App name */}
       <div
         style={{
           fontSize: 64,
@@ -54,20 +39,19 @@ export async function GET() {
           textAlign: "center",
         }}
       >
-        {siteConfig.name}
+        Jay Griffin
       </div>
 
-      {/* Description */}
       <div
         style={{
           fontSize: 28,
-          color: "#a1a1aa", // zinc-400
+          color: "#a1a1aa",
           maxWidth: 700,
           textAlign: "center",
           lineHeight: 1.5,
         }}
       >
-        {siteConfig.description}
+        Full-stack developer building modern web applications with React, Next.js, and TypeScript.
       </div>
     </div>,
     { width: 1200, height: 630 },

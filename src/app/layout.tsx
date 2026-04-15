@@ -1,73 +1,56 @@
 import type { Metadata } from "next";
+import { cookies } from "next/headers";
 import { fontVariables } from "./fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar";
-import { siteConfig } from "@/site-config";
 import "./globals.css";
 
-// Favicon fallback chain: svg → png → emoji SVG data URL
-const faviconHref =
-  siteConfig.logo.svg ??
-  siteConfig.logo.png ??
-  `data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>${siteConfig.logo.emoji}</text></svg>`;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 
 export const metadata: Metadata = {
-  // Makes relative URLs in metadata absolute (required for og:image etc.)
-  metadataBase: new URL(siteConfig.url),
+  metadataBase: new URL(siteUrl),
 
-  // Title template: child pages export title: "Page Name" → becomes "Page Name | App Name"
   title: {
-    default: siteConfig.name,
-    template: `%s | ${siteConfig.name}`,
+    default: "Jay Griffin",
+    template: "%s | Jay Griffin",
   },
 
-  description: siteConfig.description,
-  authors: [{ name: siteConfig.author }],
+  description: "Full-stack developer building modern web applications with React, Next.js, and TypeScript.",
+  authors: [{ name: "Jay Griffin" }],
 
-  // Open Graph — controls link previews in Slack, iMessage, LinkedIn, etc.
   openGraph: {
     type: "website",
-    siteName: siteConfig.name,
-    title: siteConfig.name,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    // Uses static ogImage if provided, otherwise falls back to the dynamic /og route
-    images: [
-      {
-        url: siteConfig.ogImage ?? "/og",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    siteName: "Jay Griffin",
+    title: "Jay Griffin",
+    description: "Full-stack developer building modern web applications with React, Next.js, and TypeScript.",
+    url: siteUrl,
+    images: [{ url: "/og", width: 1200, height: 630 }],
   },
 
-  // Twitter/X card
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.name,
-    description: siteConfig.description,
-    images: [siteConfig.ogImage ?? "/og"],
+    title: "Jay Griffin",
+    description: "Full-stack developer building modern web applications with React, Next.js, and TypeScript.",
+    images: ["/og"],
   },
 
-  // Icons
   icons: {
-    // To use favicon.ico instead, delete the `icon` line below.
-    // Next.js will automatically pick up public/favicon.ico.
-    icon: faviconHref,
-    // Apple touch icon: uses png if available, falls back to svg
-    apple: siteConfig.logo.png ?? siteConfig.logo.svg,
+    icon: "/logo.svg",
+    apple: "/logo.png",
   },
 
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const sidebarOpen = cookieStore.get("sidebar_state")?.value !== "false";
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontVariables} antialiased`}>
@@ -78,7 +61,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SidebarProvider>
+            <SidebarProvider defaultOpen={sidebarOpen}>
               <AppSidebar />
               <SidebarInset>
                 {children}

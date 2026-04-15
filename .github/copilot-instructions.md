@@ -26,7 +26,6 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 
 ```
 src/
-  site-config.ts    # Site metadata, logo config, URLs — edit this to configure the app
   app/              # Pages and layouts (App Router)
     fonts.ts        # Font definitions (Geist, Geist Mono, JetBrains Mono, Sekuya)
     globals.css     # Tailwind config, theme variables, base styles

@@ -1,9 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Image from "next/image";
 import NextLink from "next/link";
-import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   HomeIcon,
@@ -15,7 +13,7 @@ import {
   MoonIcon,
   PanelLeftIcon,
 } from "lucide-react";
-import { siteConfig } from "@/site-config";
+
 import {
   Sidebar,
   SidebarContent,
@@ -26,48 +24,41 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
 import styles from "./sidebar.module.css";
+import { Logo } from "./logo";
 
 const navItems = [
   { label: "Home", href: "/", icon: HomeIcon },
+  { label: "Apps", href: "/apps", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Docs", href: "/docs", icon: BookOpenIcon },
-  { label: "Examples", href: "/examples", icon: LayoutGridIcon },
   ...(process.env.NODE_ENV === "development"
     ? [{ label: "Admin", href: "/admin", icon: ShieldIcon }]
     : []),
 ];
 
 export function AppSidebar() {
-  const pathname = usePathname();
   const { resolvedTheme, setTheme } = useTheme();
-  const { toggleSidebar } = useSidebar();
+  const { toggleSidebar, state } = useSidebar();
+  const collapsed = state === "collapsed";
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
   const isDark = resolvedTheme === "dark";
-  const logoSrc = siteConfig.logo.png ?? siteConfig.logo.svg;
-
   return (
     <Sidebar collapsible="icon">
       {/* Header: logo + site name */}
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild tooltip={siteConfig.name} className={styles.navButton}>
-              <NextLink href="/">
-                {logoSrc ? (
-                  <img src={logoSrc} alt={siteConfig.name} className={styles.logoImg} />
-                ) : (
-                  <span className={styles.logoEmoji}>{siteConfig.logo.emoji}</span>
-                )}
-                <span className={styles.siteTitle}>{siteConfig.name}</span>
-              </NextLink>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className={styles.header}>
+        {collapsed ? (
+          <NextLink href="/" className={styles.logoLink}>
+            <Logo className={styles.logoImg} />
+          </NextLink>
+        ) : (
+          <NextLink href="/" className={styles.siteTitle}>
+            Jay Griffin
+          </NextLink>
+        )}
       </SidebarHeader>
 
       {/* Main nav */}
@@ -77,7 +68,7 @@ export function AppSidebar() {
             <SidebarMenu className={styles.navMenu}>
               {navItems.map(({ label, href, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
-                  <SidebarMenuButton asChild isActive={pathname === href} tooltip={label} className={styles.navButton}>
+                  <SidebarMenuButton asChild tooltip={label} className={styles.navButton}>
                     <NextLink href={href}>
                       <Icon />
                       <span>{label}</span>
@@ -111,9 +102,6 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
-
-      {/* Drag-to-resize rail */}
-      <SidebarRail />
     </Sidebar>
   );
 }

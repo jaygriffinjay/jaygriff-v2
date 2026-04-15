@@ -1,0 +1,237 @@
+@reference "../../app/globals.css";
+
+/* ─── Page Layout ─── */
+
+/* page header area */
+.header {
+  @apply space-y-2;
+}
+
+/* description text under page title */
+.description {
+  @apply text-lg text-muted-foreground;
+}
+
+/* ─── Dashboard Grid ─── */
+
+/* main dashboard grid layout */
+.grid {
+  @apply grid gap-6 sm:grid-cols-2;
+}
+
+/* full-width section spanning the grid */
+.fullWidth {
+  @apply sm:col-span-2;
+}
+
+/* ─── Metric Status ─── */
+
+/* metric reading value */
+.metricValue {
+  @apply text-2xl font-semibold tabular-nums;
+}
+
+/* metric unit label */
+.metricUnit {
+  @apply text-sm text-muted-foreground ml-1;
+}
+
+/* metric range label under value */
+.metricRange {
+  @apply text-xs text-muted-foreground;
+}
+
+/* status indicator dot */
+.statusDot {
+  @apply size-2.5 rounded-full shrink-0;
+}
+
+/* status colors — dark red → light red → light green → dark green */
+.statusVeryLow {
+  background-color: oklch(0.505 0.213 27.325);
+}
+
+.statusLow {
+  background-color: oklch(0.704 0.191 22.216);
+}
+
+.statusGood {
+  background-color: oklch(0.792 0.209 151.711);
+}
+
+.statusIdeal {
+  background-color: oklch(0.627 0.194 149.214);
+}
+
+.statusHigh {
+  background-color: oklch(0.704 0.191 22.216);
+}
+
+.statusVeryHigh {
+  background-color: oklch(0.505 0.213 27.325);
+}
+
+.statusNone {
+  @apply bg-muted-foreground/30;
+}
+
+/* ─── Time-Since Trackers ─── */
+
+/* tracker row */
+.trackerRow {
+  @apply flex items-center justify-between py-2;
+}
+
+/* tracker label */
+.trackerLabel {
+  @apply text-sm;
+}
+
+/* tracker elapsed time */
+.trackerElapsed {
+  @apply text-sm font-medium tabular-nums;
+}
+
+/* tracker status colors */
+.trackerGreen {
+  @apply text-emerald-600 dark:text-emerald-400;
+}
+
+.trackerYellow {
+  @apply text-amber-600 dark:text-amber-400;
+}
+
+.trackerRed {
+  @apply text-red-600 dark:text-red-400;
+}
+
+/* ─── Recommendations ─── */
+
+/* recommendation card */
+.recCard {
+  @apply flex items-start gap-3 p-3 rounded-md bg-muted/50;
+}
+
+/* recommendation amount highlight */
+.recAmount {
+  @apply font-semibold;
+}
+
+/* ─── Test Log ─── */
+
+/* test log form row */
+.formRow {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* form field */
+.formField {
+  @apply space-y-1.5;
+}
+
+/* ─── Reference Tables ─── */
+
+/* reference table wrapper */
+.tableWrap {
+  @apply overflow-x-auto;
+}
+
+/* error code row */
+.errorRow {
+  @apply text-sm;
+}
+
+/* history table badge */
+.historyBadge {
+  @apply border-0;
+}
+
+/* ─── Slider Form ─── */
+
+/* individual slider field wrapper */
+.sliderField {
+  @apply space-y-2 py-4;
+}
+
+/* header row: label + value + badge */
+.sliderHeader {
+  @apply flex items-center justify-between gap-2;
+}
+
+/* clickable label (enabled state) */
+.sliderLabel {
+  @apply text-sm font-medium cursor-pointer select-none;
+}
+
+/* clickable label (disabled state) */
+.sliderLabelOff {
+  @apply text-sm font-medium cursor-pointer select-none text-muted-foreground;
+}
+
+/* metric description below label */
+.sliderDescription {
+  @apply text-xs text-muted-foreground;
+}
+
+/* right side: badge + value group */
+.sliderValueGroup {
+  @apply flex items-center gap-2;
+}
+
+/* status text label next to value */
+.sliderStatusText {
+  @apply text-xs font-semibold;
+}
+
+/* current slider value text */
+.sliderValue {
+  @apply text-sm font-semibold tabular-nums;
+}
+
+/* value text when slider is disabled */
+.sliderValueOff {
+  @apply text-sm text-muted-foreground tabular-nums;
+}
+
+/* unit text next to value */
+.sliderUnit {
+  @apply text-xs text-muted-foreground;
+}
+
+/* dimmed slider when not yet enabled */
+.sliderDisabled {
+  @apply opacity-40;
+}
+
+/* gradient-colored slider track */
+.gradientSlider [data-slot="slider-track"] {
+  background: var(--slider-gradient);
+  height: 0.5rem;
+}
+
+/* hide the default filled range on gradient sliders */
+.gradientSlider [data-slot="slider-range"] {
+  background: transparent;
+}
+
+/* tick marks container below slider */
+.sliderTicks {
+  @apply flex justify-between px-0 mt-1.5;
+}
+
+/* individual tick label */
+.sliderTick {
+  @apply text-[10px] text-muted-foreground tabular-nums;
+}
+
+/* ─── Tabs ─── */
+
+/* section within a tab */
+.tabSection {
+  @apply space-y-4;
+}
+
+/* empty state message */
+.emptyState {
+  @apply text-sm text-muted-foreground text-center py-8;
+}
