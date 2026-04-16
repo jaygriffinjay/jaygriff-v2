@@ -26,6 +26,7 @@ export type MetricKey =
 export interface MetricDef {
   key: MetricKey;
   label: string;
+  shortLabel: string;
   description: string;
   unit: string;
   /** Scale points printed on the test strip */
@@ -39,12 +40,12 @@ export interface MetricDef {
 }
 
 export const METRICS: MetricDef[] = [
-  { key: "totalHardness", label: "Total Hardness", description: "Calcium Hardness", unit: "ppm", scale: [0, 100, 250, 500, 1000], good: [175, 225], ideal: [190, 210], danger: [50, 500] },
-  { key: "totalChlorine", label: "Total Chlorine", description: "Combined + Free Chlorine", unit: "ppm", scale: [0, 1, 3, 5, 10], good: [1, 4], ideal: [2, 3], danger: [0.5, 8] },
-  { key: "freeChlorine", label: "Free Chlorine", description: "Active sanitizer (hypochlorous acid)", unit: "ppm", scale: [0, 1, 3, 5, 10], good: [1, 4], ideal: [2, 3], danger: [0.5, 8] },
-  { key: "ph", label: "pH", description: "Acidity / basicity", unit: "", scale: [6.2, 6.8, 7.2, 7.8, 8.4], good: [7.2, 7.5], ideal: [7.3, 7.5], danger: [6.8, 7.8] },
-  { key: "alkalinity", label: "Total Alkalinity", description: "pH buffer capacity", unit: "ppm", scale: [0, 40, 120, 180, 240], good: [125, 150], ideal: [130, 140], danger: [40, 200] },
-  { key: "stabilizer", label: "Stabilizer", description: "Cyanuric Acid (CYA) — UV protection", unit: "ppm", scale: [0, 50, 100, 150, 300], good: [30, 150], ideal: [40, 80], danger: [15, 200] },
+  { key: "totalHardness", label: "Total Hardness", shortLabel: "TH", description: "Calcium Hardness", unit: "ppm", scale: [0, 200, 400, 600, 800, 1000], good: [175, 225], ideal: [190, 210], danger: [50, 500] },
+  { key: "totalChlorine", label: "Total Chlorine", shortLabel: "TC", description: "Combined + Free Chlorine", unit: "ppm", scale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], good: [1, 4], ideal: [2, 3], danger: [0.5, 8] },
+  { key: "freeChlorine", label: "Free Chlorine", shortLabel: "FC", description: "Active sanitizer (hypochlorous acid)", unit: "ppm", scale: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], good: [1, 4], ideal: [2, 3], danger: [0.5, 8] },
+  { key: "ph", label: "pH", shortLabel: "pH", description: "Acidity / basicity", unit: "", scale: [6.2, 6.6, 7.0, 7.4, 7.8, 8.2], good: [7.2, 7.5], ideal: [7.3, 7.5], danger: [6.8, 7.8] },
+  { key: "alkalinity", label: "Total Alkalinity", shortLabel: "TA", description: "pH buffer capacity", unit: "ppm", scale: [0, 40, 80, 120, 160, 200, 240], good: [125, 150], ideal: [130, 140], danger: [40, 200] },
+  { key: "stabilizer", label: "Stabilizer", shortLabel: "CYA", description: "Cyanuric Acid (CYA) — UV protection", unit: "ppm", scale: [0, 50, 100, 150, 200, 250, 300], good: [30, 150], ideal: [40, 80], danger: [15, 200] },
 ];
 
 // ─── Time-Since Tracker Thresholds ────────────────────────────────
@@ -57,11 +58,11 @@ export interface TrackerDef {
 }
 
 export const DEFAULT_TRACKERS: TrackerDef[] = [
-  { key: "saltTest", label: "Last salt test", yellowDays: 3, redDays: 7 },
-  { key: "chemicalTest", label: "Last chemical test", yellowDays: 3, redDays: 7 },
-  { key: "filterChange", label: "Last filter change", yellowDays: 30, redDays: 90 },
-  { key: "saltCellCleaning", label: "Last salt cell cleaning", yellowDays: 60, redDays: 90 },
-  { key: "backwash", label: "Last backwash", yellowDays: 7, redDays: 14 },
+  { key: "saltTest", label: "Salt test", yellowDays: 3, redDays: 7 },
+  { key: "chemicalTest", label: "Chemical test", yellowDays: 3, redDays: 7 },
+  { key: "filterChange", label: "Filter change", yellowDays: 30, redDays: 90 },
+  { key: "saltCellCleaning", label: "Salt cell cleaning", yellowDays: 60, redDays: 90 },
+  { key: "backwash", label: "Backwash", yellowDays: 7, redDays: 14 },
 ];
 
 // ─── Saltwater System Error Codes ─────────────────────────────────
@@ -105,71 +106,62 @@ export function getStatus(
 export type Recommendation = {
   metric: string;
   status: "low" | "high";
-  action: string;
-  amount: string;
+  description: string;
+  options: string[];
 };
 
 export function getRecommendations(
   readings: Partial<Record<MetricKey, number>>,
 ): Recommendation[] {
   const recs: Recommendation[] = [];
-  const gal = POOL.gallons;
 
   const ph = readings.ph;
   if (ph !== undefined) {
     if (ph < 7.2) {
-      const deficit = 7.4 - ph;
-      const ozPer10k = (deficit / 0.2) * 6;
-      const oz = (ozPer10k * gal) / 10000;
-      recs.push({ metric: "pH", status: "low", action: "Add soda ash (sodium carbonate)", amount: `${oz.toFixed(1)} oz` });
+      recs.push({ metric: "pH", status: "low", description: "pH is low — water is acidic", options: ["Soda ash (sodium carbonate)", "pH increaser", "Aeration to off-gas CO₂"] });
     }
     if (ph > 7.5) {
-      const excess = ph - 7.4;
-      const ozPer10k = (excess / 0.2) * 12;
-      const oz = (ozPer10k * gal) / 10000;
-      recs.push({ metric: "pH", status: "high", action: "Add muriatic acid or pH downer", amount: `${oz.toFixed(1)} fl oz` });
+      recs.push({ metric: "pH", status: "high", description: "pH is high — water is basic", options: ["Muriatic acid", "pH decreaser (sodium bisulfate)", "CO₂ injection"] });
     }
   }
 
   const alk = readings.alkalinity;
   if (alk !== undefined) {
     if (alk < 125) {
-      const deficit = 137 - alk;
-      const lbsPer10k = (deficit / 10) * 1.5;
-      const lbs = (lbsPer10k * gal) / 10000;
-      recs.push({ metric: "Total Alkalinity", status: "low", action: "Add baking soda (sodium bicarbonate)", amount: `${lbs.toFixed(1)} lbs` });
+      recs.push({ metric: "Total Alkalinity", status: "low", description: "Alkalinity is low — pH will be unstable", options: ["Baking soda (sodium bicarbonate)", "Alkalinity increaser"] });
     }
     if (alk > 150) {
-      const excess = alk - 137;
-      const ozPer10k = (excess / 10) * 12;
-      const oz = (ozPer10k * gal) / 10000;
-      recs.push({ metric: "Total Alkalinity", status: "high", action: "Add muriatic acid", amount: `${oz.toFixed(1)} fl oz` });
+      recs.push({ metric: "Total Alkalinity", status: "high", description: "Alkalinity is high — pH will drift up", options: ["Muriatic acid", "pH decreaser", "pH cycling with aeration"] });
     }
   }
 
   const stabilizer = readings.stabilizer;
   if (stabilizer !== undefined) {
     if (stabilizer < 30) {
-      const deficit = 50 - stabilizer;
-      const ozPer10k = (deficit / 10) * 13;
-      const oz = (ozPer10k * gal) / 10000;
-      recs.push({ metric: "Stabilizer (CYA)", status: "low", action: "Add stabilizer/conditioner", amount: `${oz.toFixed(1)} oz` });
+      recs.push({ metric: "Stabilizer (CYA)", status: "low", description: "CYA is low — chlorine will burn off quickly in sunlight", options: ["Cyanuric acid (stabilizer/conditioner)", "Stabilized chlorine tablets (dichlor/trichlor)"] });
     }
     if (stabilizer > 150) {
-      recs.push({ metric: "Stabilizer (CYA)", status: "high", action: "Partially drain & refill with fresh water", amount: "Dilute until below 150 ppm" });
+      recs.push({ metric: "Stabilizer (CYA)", status: "high", description: "CYA is high — chlorine effectiveness is reduced", options: ["Partial drain and refill with fresh water", "Reduce use of stabilized chlorine"] });
     }
   }
 
   const hardness = readings.totalHardness;
   if (hardness !== undefined) {
     if (hardness < 175) {
-      const deficit = 200 - hardness;
-      const lbsPer10k = (deficit / 10) * 1.25;
-      const lbs = (lbsPer10k * gal) / 10000;
-      recs.push({ metric: "Total Hardness", status: "low", action: "Add calcium chloride", amount: `${lbs.toFixed(1)} lbs` });
+      recs.push({ metric: "Total Hardness", status: "low", description: "Calcium is low — water may be corrosive", options: ["Calcium chloride", "Calcium hardness increaser"] });
     }
     if (hardness > 225) {
-      recs.push({ metric: "Total Hardness", status: "high", action: "Partially drain & refill with fresh water", amount: "Dilute until 175–225 ppm" });
+      recs.push({ metric: "Total Hardness", status: "high", description: "Calcium is high — risk of scale buildup", options: ["Partial drain and refill with fresh water", "Scale inhibitor/sequestrant"] });
+    }
+  }
+
+  const fc = readings.freeChlorine;
+  if (fc !== undefined) {
+    if (fc < 1) {
+      recs.push({ metric: "Free Chlorine", status: "low", description: "Free chlorine is low — sanitization is insufficient", options: ["Liquid chlorine (sodium hypochlorite)", "Increase salt generator output", "Shock treatment"] });
+    }
+    if (fc > 4) {
+      recs.push({ metric: "Free Chlorine", status: "high", description: "Free chlorine is high — may irritate skin/eyes", options: ["Reduce salt generator output", "Wait for UV and usage to lower it", "Sodium thiosulfate (chlorine neutralizer)"] });
     }
   }
 

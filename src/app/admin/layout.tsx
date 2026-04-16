@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import styles from "./admin.module.css";
 
@@ -9,7 +10,11 @@ export default function AdminLayout({
   return (
     <div className="flex min-h-svh flex-col">
       <header className={styles.header}>
-        <span className={styles.title}>Admin</span>
+        <nav className={styles.nav}>
+          <span className={styles.title}>Admin</span>
+          <Link href="/admin/content" className={styles.navLink}>Content</Link>
+          <Link href="/admin/pool" className={styles.navLink}>Pool</Link>
+        </nav>
         <form action="/api/auth/signout" method="POST">
           <Button variant="ghost" size="sm" type="submit">
             Sign out

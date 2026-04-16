@@ -1,0 +1,63 @@
+@reference "../../globals.css";
+
+/* ─── Admin Pool Page ─── */
+
+/* page wrapper */
+.page {
+  @apply space-y-6 p-6;
+}
+
+/* page title */
+.heading {
+  @apply text-lg font-semibold;
+}
+
+/* date cell */
+.date {
+  @apply text-sm text-muted-foreground;
+}
+
+/* readings cell — comma-separated metric values */
+.readings {
+  @apply text-sm;
+}
+
+/* individual metric label */
+.metricLabel {
+  @apply font-medium;
+}
+
+/* individual metric value */
+.metricValue {
+  @apply text-muted-foreground;
+}
+
+/* action buttons wrapper */
+.actions {
+  @apply flex gap-2;
+}
+
+/* delete button */
+.deleteBtn {
+  @apply cursor-pointer text-destructive hover:text-destructive/80;
+}
+
+/* save button */
+.saveBtn {
+  @apply cursor-pointer text-primary hover:text-primary/80;
+}
+
+/* inline edit input */
+.editInput {
+  @apply h-8 w-20 text-sm;
+}
+
+/* row pending state */
+.rowPending {
+  @apply opacity-50 pointer-events-none;
+}
+
+/* empty state */
+.empty {
+  @apply text-sm text-muted-foreground;
+}

@@ -1,13 +1,19 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 import { H2, H3, Paragraph, Bold, Small } from "@/components/typography";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -17,6 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Plus } from "lucide-react";
 import {
   METRICS,
   DEFAULT_TRACKERS,
@@ -26,42 +33,13 @@ import {
   type MetricKey,
   type Recommendation,
 } from "./pool-config";
+import {
+  addPoolTest,
+  resetTracker,
+  type TestEntry,
+  type TrackerTimestamps,
+} from "@/actions/pool";
 import styles from "./pool.module.css";
-
-// ─── Types ────────────────────────────────────────────────────────
-
-type TestEntry = {
-  id: string;
-  date: string;
-  readings: Partial<Record<MetricKey, number>>;
-};
-
-type TrackerTimestamps = Record<string, string>; // key → ISO timestamp
-
-// ─── localStorage helpers ─────────────────────────────────────────
-
-const LS_TESTS = "pool-test-log";
-const LS_TRACKERS = "pool-trackers";
-
-function loadTests(): TestEntry[] {
-  if (typeof window === "undefined") return [];
-  const raw = localStorage.getItem(LS_TESTS);
-  return raw ? JSON.parse(raw) : [];
-}
-
-function saveTests(entries: TestEntry[]) {
-  localStorage.setItem(LS_TESTS, JSON.stringify(entries));
-}
-
-function loadTrackers(): TrackerTimestamps {
-  if (typeof window === "undefined") return {};
-  const raw = localStorage.getItem(LS_TRACKERS);
-  return raw ? JSON.parse(raw) : {};
-}
-
-function saveTrackers(t: TrackerTimestamps) {
-  localStorage.setItem(LS_TRACKERS, JSON.stringify(t));
-}
 
 // ─── Helpers ──────────────────────────────────────────────────────
 
@@ -70,23 +48,23 @@ function formatValue(key: MetricKey, value: number): string {
 }
 
 const STATUS_COLORS = {
-  "very-low": "oklch(0.505 0.213 27.325)",
+  "very-low": "oklch(0.577 0.245 27.325)",
   low: "oklch(0.704 0.191 22.216)",
-  good: "oklch(0.792 0.209 151.711)",
-  ideal: "oklch(0.627 0.194 149.214)",
+  good: "oklch(0.765 0.177 163.223)",
+  ideal: "oklch(0.596 0.145 163.225)",
   high: "oklch(0.704 0.191 22.216)",
-  "very-high": "oklch(0.505 0.213 27.325)",
+  "very-high": "oklch(0.577 0.245 27.325)",
   none: "oklch(0.556 0 0)",
 } as const;
 
 function buildGradient(m: { scale: number[]; danger: [number, number]; good: [number, number]; ideal: [number, number] }): string {
   const min = m.scale[0];
   const max = m.scale[m.scale.length - 1];
-  const pct = (v: number) => (((Math.max(min, Math.min(max, v)) - min) / (max - min)) * 100).toFixed(1);
+  const pct = (v: number) => `${(((Math.max(min, Math.min(max, v)) - min) / (max - min)) * 100).toFixed(1)}%`;
+  const mid = (a: number, b: number) => (a + b) / 2;
 
   const c = STATUS_COLORS;
-  // Build symmetric stops: veryLow | low | good | ideal | good | low | veryLow (mirrored)
-  return `linear-gradient(to right, ${c["very-low"]} 0%, ${c["very-low"]} ${pct(m.danger[0])}%, ${c.low} ${pct(m.danger[0])}%, ${c.low} ${pct(m.good[0])}%, ${c.good} ${pct(m.good[0])}%, ${c.good} ${pct(m.ideal[0])}%, ${c.ideal} ${pct(m.ideal[0])}%, ${c.ideal} ${pct(m.ideal[1])}%, ${c.good} ${pct(m.ideal[1])}%, ${c.good} ${pct(m.good[1])}%, ${c.low} ${pct(m.good[1])}%, ${c.low} ${pct(m.danger[1])}%, ${c["very-high"]} ${pct(m.danger[1])}%, ${c["very-high"]} 100%)`;
+  return `linear-gradient(to right, ${c["very-low"]} 0%, ${c.low} ${pct(mid(m.danger[0], m.good[0]))}, ${c.good} ${pct(mid(m.good[0], m.ideal[0]))}, ${c.ideal} ${pct(mid(m.ideal[0], m.ideal[1]))}, ${c.good} ${pct(mid(m.ideal[1], m.good[1]))}, ${c.low} ${pct(mid(m.good[1], m.danger[1]))}, ${c["very-high"]} 100%)`;
 }
 
 function daysSince(iso: string | undefined): number | null {
@@ -105,16 +83,14 @@ function formatElapsed(iso: string | undefined): string {
 
 // ─── Component ────────────────────────────────────────────────────
 
-export function PoolDashboard() {
-  const [tests, setTests] = useState<TestEntry[]>([]);
-  const [trackers, setTrackers] = useState<TrackerTimestamps>({});
-  const [mounted, setMounted] = useState(false);
+interface PoolDashboardProps {
+  initialTests: TestEntry[];
+  initialTrackers: TrackerTimestamps;
+}
 
-  useEffect(() => {
-    setTests(loadTests());
-    setTrackers(loadTrackers());
-    setMounted(true);
-  }, []);
+export function PoolDashboard({ initialTests, initialTrackers }: PoolDashboardProps) {
+  const [tests, setTests] = useState<TestEntry[]>(initialTests);
+  const [trackers, setTrackers] = useState<TrackerTimestamps>(initialTrackers);
 
   const latestReadings = tests[0]?.readings ?? {};
   const recs = getRecommendations(latestReadings);
@@ -122,17 +98,10 @@ export function PoolDashboard() {
   // ─── Test Log handlers ────────────────────────────────────────
 
   const addTestEntry = useCallback(
-    (readings: Partial<Record<MetricKey, number>>) => {
-      const entry: TestEntry = {
-        id: crypto.randomUUID(),
-        date: new Date().toISOString(),
-        readings,
-      };
-      const updated = [entry, ...tests];
-      setTests(updated);
-      saveTests(updated);
-      // Auto-reset relevant trackers
-      const t = { ...trackers };
+    async (readings: Partial<Record<MetricKey, number>>) => {
+      const entry = await addPoolTest(readings);
+      setTests((prev) => [entry, ...prev]);
+      // If chemical keys were tested, update tracker optimistically
       const chemKeys: MetricKey[] = [
         "totalHardness",
         "totalChlorine",
@@ -141,27 +110,26 @@ export function PoolDashboard() {
         "alkalinity",
         "stabilizer",
       ];
-      if (chemKeys.some((k) => readings[k] !== undefined))
-        t.chemicalTest = entry.date;
-      setTrackers(t);
-      saveTrackers(t);
+      if (chemKeys.some((k) => readings[k] !== undefined)) {
+        setTrackers((prev) => ({ ...prev, chemicalTest: entry.date }));
+      }
     },
-    [tests, trackers],
+    [],
   );
 
   const markTrackerDone = useCallback(
-    (key: string) => {
-      const t = { ...trackers, [key]: new Date().toISOString() };
-      setTrackers(t);
-      saveTrackers(t);
+    async (key: string) => {
+      const now = new Date().toISOString();
+      setTrackers((prev) => ({ ...prev, [key]: now }));
+      await resetTracker(key);
     },
-    [trackers],
+    [],
   );
 
-  if (!mounted) return null;
+  const [activeTab, setActiveTab] = useState("dashboard");
 
   return (
-    <Tabs defaultValue="dashboard">
+    <Tabs value={activeTab} onValueChange={setActiveTab}>
       <TabsList className="mb-6">
         <TabsTrigger value="dashboard">Dashboard</TabsTrigger>
         <TabsTrigger value="log">Test Log</TabsTrigger>
@@ -171,79 +139,80 @@ export function PoolDashboard() {
       {/* ═══ Dashboard Tab ═══ */}
       <TabsContent value="dashboard" className={styles.tabSection}>
         {/* Current Readings */}
-        <H2>Current Readings</H2>
+        <div className="flex items-center gap-3">
+          <H2>Current Readings</H2>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setActiveTab("log")}
+          >
+            <Plus className="size-4" />
+          </Button>
+        </div>
         {tests.length === 0 ? (
           <Paragraph className={styles.emptyState}>
             No test entries yet. Add one in the Test Log tab.
           </Paragraph>
         ) : (
           <>
-            <Small>
-              Last tested{" "}
-              {new Date(tests[0].date).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                hour: "numeric",
-                minute: "2-digit",
-              })}
-            </Small>
-            <div className={styles.grid}>
-              {METRICS.map((m) => {
-                const val = latestReadings[m.key];
-                const status = getStatus(val, m.good, m.ideal, m.danger);
-                return (
-                  <Card key={m.key}>
-                    <CardHeader className="pb-2">
-                      <CardTitle className="flex items-center gap-2 text-sm font-medium">
+            <Card>
+              <CardContent className="divide-y py-0">
+                <Small className="block py-3 text-muted-foreground">
+                  Last tested{" "}
+                  {new Date(tests[0].date).toLocaleDateString("en-US", {
+                    month: "short",
+                    day: "numeric",
+                    hour: "numeric",
+                    minute: "2-digit",
+                  })}
+                </Small>
+                {METRICS.map((m) => {
+                  const val = latestReadings[m.key];
+                  const status = getStatus(val, m.good, m.ideal, m.danger);
+                  return (
+                    <div
+                      key={m.key}
+                      className={styles.readingRow}
+                    >
+                      <div className={styles.readingCardRow}>
+                        <span className={styles.metricLabel}>{m.label}</span>
                         <span
-                          className={cn(
-                            styles.statusDot,
-                            status === "very-low" && styles.statusVeryLow,
-                            status === "low" && styles.statusLow,
-                            status === "good" && styles.statusGood,
-                            status === "ideal" && styles.statusIdeal,
-                            status === "high" && styles.statusHigh,
-                            status === "very-high" && styles.statusVeryHigh,
-                            status === "none" && styles.statusNone,
-                          )}
-                        />
-                        {m.label}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <span className={styles.metricValue}>
-                        {val !== undefined ? formatValue(m.key, val) : "—"}
-                      </span>
-                      {m.unit && (
-                        <span className={styles.metricUnit}>{m.unit}</span>
-                      )}
-                      <div className={styles.metricRange}>
-                        Good: {m.good[0]}–{m.good[1]}{m.unit ? ` ${m.unit}` : ""} · Ideal: {m.ideal[0]}–{m.ideal[1]}
+                          className={styles.readingValue}
+                          style={{ color: STATUS_COLORS[status as keyof typeof STATUS_COLORS] }}
+                        >
+                          {val !== undefined ? formatValue(m.key, val) : "—"}
+                        </span>
                       </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
-            </div>
-          </>
-        )}
-
-        {/* Recommendations */}
-        {recs.length > 0 && (
-          <>
-            <Separator className="my-4" />
-            <H2>Recommendations</H2>
-            <div className="space-y-3">
-              {recs.map((r, i) => (
-                <RecommendationCard key={i} rec={r} />
-              ))}
-            </div>
+                    </div>
+                  );
+                })}
+              </CardContent>
+            </Card>
           </>
         )}
 
         {/* Maintenance Trackers */}
         <Separator className="my-4" />
-        <H2>Maintenance</H2>
+        <div className="flex items-center gap-3">
+          <H2>Maintenance</H2>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" size="icon">
+                <Plus className="size-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {DEFAULT_TRACKERS.map((t) => (
+                <DropdownMenuItem
+                  key={t.key}
+                  onClick={() => markTrackerDone(t.key)}
+                >
+                  {t.label}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
         <Card>
           <CardContent className="divide-y">
             {DEFAULT_TRACKERS.map((t) => {
@@ -258,18 +227,9 @@ export function PoolDashboard() {
               return (
                 <div key={t.key} className={styles.trackerRow}>
                   <span className={styles.trackerLabel}>{t.label}</span>
-                  <div className="flex items-center gap-3">
-                    <span className={cn(styles.trackerElapsed, color)}>
-                      {formatElapsed(ts)}
-                    </span>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => markTrackerDone(t.key)}
-                    >
-                      Done
-                    </Button>
-                  </div>
+                  <span className={cn(styles.trackerElapsed, color)}>
+                    {formatElapsed(ts)}
+                  </span>
                 </div>
               );
             })}
@@ -282,24 +242,25 @@ export function PoolDashboard() {
         <H2>Log Test Results</H2>
         <TestEntryForm onSubmit={addTestEntry} />
         <Separator className="my-6" />
-        <H3>History</H3>
         {tests.length === 0 ? (
           <Paragraph className={styles.emptyState}>No entries yet.</Paragraph>
         ) : (
-          <div className={styles.tableWrap}>
-            <Table>
+          <div className={styles.historyTableWrap}>
+            <Table className={styles.historyTable}>
               <TableHeader>
                 <TableRow>
-                  <TableHead>Date</TableHead>
+                  <TableHead className={styles.historyDateCol}>Date</TableHead>
                   {METRICS.map((m) => (
-                    <TableHead key={m.key}>{m.label}</TableHead>
+                    <TableHead key={m.key} className={styles.historyMetricCol}>
+                      {m.shortLabel}
+                    </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {tests.map((entry) => (
-                  <TableRow key={entry.id}>
-                    <TableCell>
+                  <TableRow key={entry.date}>
+                    <TableCell className={styles.historyDateCol}>
                       {new Date(entry.date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
@@ -309,20 +270,16 @@ export function PoolDashboard() {
                       const val = entry.readings[m.key];
                       const status = getStatus(val, m.good, m.ideal, m.danger);
                       return (
-                        <TableCell key={m.key}>
-                          {val !== undefined ? (
-                            <Badge
-                              className={styles.historyBadge}
-                              style={{
-                                backgroundColor: STATUS_COLORS[status as keyof typeof STATUS_COLORS],
-                                color: status === "good" ? "oklch(0.27 0.07 152)" : "white",
-                              }}
-                            >
-                              {formatValue(m.key, val)}
-                            </Badge>
-                          ) : (
-                            "—"
-                          )}
+                        <TableCell
+                          key={m.key}
+                          className={styles.historyMetricCol}
+                          style={{
+                            color: val !== undefined
+                              ? STATUS_COLORS[status as keyof typeof STATUS_COLORS]
+                              : undefined,
+                          }}
+                        >
+                          {val !== undefined ? formatValue(m.key, val) : "—"}
                         </TableCell>
                       );
                     })}
@@ -336,31 +293,54 @@ export function PoolDashboard() {
 
       {/* ═══ Reference Tab ═══ */}
       <TabsContent value="reference" className={styles.tabSection}>
+        <Paragraph className="text-muted-foreground">
+          <a href="https://intexcorp.com/above-ground-pools/prism-frame-14-x-42-above-ground-pool-set/" target="_blank" rel="noopener noreferrer" className="underline">
+            Intex Prism Frame 14&apos; &times; 42&quot;
+          </a>
+          {" "}&mdash; 3,357 gal saltwater
+        </Paragraph>
+
+        {recs.length > 0 && (
+          <>
+            <H2>Recommendations</H2>
+            <Card>
+              <CardContent className="divide-y py-0">
+                {recs.map((r, i) => (
+                  <div key={i} className={styles.recRow}>
+                    <div className={styles.recHeader}>
+                      <span>
+                        <Bold>{r.metric}:</Bold> {r.description}
+                      </span>
+                    </div>
+                    <Small className={styles.recAmount}>
+                      Possible solutions:
+                    </Small>
+                    <ul className={styles.recOptions}>
+                      {r.options.map((opt) => (
+                        <li key={opt}>{opt}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
+          </>
+        )}
+
         <H2>Ideal Ranges</H2>
-        <div className={styles.tableWrap}>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Metric</TableHead>
-                <TableHead>Ideal Range</TableHead>
-                <TableHead>Unit</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {METRICS.map((m) => (
-                <TableRow key={m.key}>
-                  <TableCell>
-                    <Bold>{m.label}</Bold>
-                  </TableCell>
-                  <TableCell>
-                    {m.good[0]}–{m.good[1]} (ideal: {m.ideal[0]}–{m.ideal[1]})
-                  </TableCell>
-                  <TableCell>{m.unit || "—"}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Card>
+          <CardContent className="divide-y py-0">
+            {METRICS.map((m) => (
+              <div key={m.key} className={styles.readingRow}>
+                <span className={styles.metricLabel}>{m.label}</span>
+                <div className="text-sm text-muted-foreground">
+                  <div>Ideal: {m.ideal[0]}–{m.ideal[1]}{m.unit ? ` ${m.unit}` : ""}</div>
+                  <div>Good: {m.good[0]}–{m.good[1]}{m.unit ? ` ${m.unit}` : ""}</div>
+                </div>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
 
         <Separator className="my-6" />
 
@@ -368,52 +348,25 @@ export function PoolDashboard() {
         <Paragraph className="text-muted-foreground">
           Intex Krystal Clear CG-26667
         </Paragraph>
-        <div className={styles.tableWrap}>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Code</TableHead>
-                <TableHead>Meaning</TableHead>
-                <TableHead>What to Do</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {ERROR_CODES.map((e) => (
-                <TableRow key={e.code} className={styles.errorRow}>
-                  <TableCell>
-                    <Badge variant="outline">{e.code}</Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Bold>{e.meaning}</Bold>
-                  </TableCell>
-                  <TableCell>{e.fix}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+        <Card>
+          <CardContent className="divide-y py-0">
+            {ERROR_CODES.map((e) => (
+              <div key={e.code} className="space-y-1 py-3">
+                <div className="flex items-center gap-2">
+                  <Badge variant="outline">{e.code}</Badge>
+                  <Bold>{e.meaning}</Bold>
+                </div>
+                <Small className="text-muted-foreground">{e.fix}</Small>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </TabsContent>
     </Tabs>
   );
 }
 
 // ─── Sub-components ───────────────────────────────────────────────
-
-function RecommendationCard({ rec }: { rec: Recommendation }) {
-  return (
-    <div className={styles.recCard}>
-      <Badge variant={rec.status === "low" ? "secondary" : "destructive"}>
-        {rec.status}
-      </Badge>
-      <div>
-        <Paragraph>
-          <Bold>{rec.metric}:</Bold> {rec.action}
-        </Paragraph>
-        <Small className={styles.recAmount}>{rec.amount}</Small>
-      </div>
-    </div>
-  );
-}
 
 function TestEntryForm({
   onSubmit,
@@ -516,11 +469,24 @@ function TestEntryForm({
                   }}
                 />
                 <div className={styles.sliderTicks}>
-                  {m.scale.map((tick) => (
-                    <span key={tick} className={styles.sliderTick}>
-                      {tick}
-                    </span>
-                  ))}
+                  {m.scale.map((tick, i) => {
+                    const pct = ((tick - scaleMin) / (scaleMax - scaleMin)) * 100;
+                    const isFirst = i === 0;
+                    const isLast = i === m.scale.length - 1;
+                    return (
+                      <span
+                        key={tick}
+                        className={cn(
+                          styles.sliderTick,
+                          isFirst && styles.sliderTickFirst,
+                          isLast && styles.sliderTickLast,
+                        )}
+                        style={{ left: `${pct}%` }}
+                      >
+                        {tick}
+                      </span>
+                    );
+                  })}
                 </div>
               </div>
             </div>

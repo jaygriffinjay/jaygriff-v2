@@ -7,11 +7,6 @@
   @apply space-y-2;
 }
 
-/* description text under page title */
-.description {
-  @apply text-lg text-muted-foreground;
-}
-
 /* ─── Dashboard Grid ─── */
 
 /* main dashboard grid layout */
@@ -36,43 +31,24 @@
   @apply text-sm text-muted-foreground ml-1;
 }
 
-/* metric range label under value */
-.metricRange {
-  @apply text-xs text-muted-foreground;
+/* reading row inside single card */
+.readingRow {
+  @apply py-3;
 }
 
-/* status indicator dot */
-.statusDot {
-  @apply size-2.5 rounded-full shrink-0;
+/* row with label left, value right */
+.readingCardRow {
+  @apply flex items-center justify-between;
 }
 
-/* status colors — dark red → light red → light green → dark green */
-.statusVeryLow {
-  background-color: oklch(0.505 0.213 27.325);
+/* metric label in reading card */
+.metricLabel {
+  @apply text-base font-medium;
 }
 
-.statusLow {
-  background-color: oklch(0.704 0.191 22.216);
-}
-
-.statusGood {
-  background-color: oklch(0.792 0.209 151.711);
-}
-
-.statusIdeal {
-  background-color: oklch(0.627 0.194 149.214);
-}
-
-.statusHigh {
-  background-color: oklch(0.704 0.191 22.216);
-}
-
-.statusVeryHigh {
-  background-color: oklch(0.505 0.213 27.325);
-}
-
-.statusNone {
-  @apply bg-muted-foreground/30;
+/* colored reading value */
+.readingValue {
+  @apply text-xl font-semibold tabular-nums text-center w-16;
 }
 
 /* ─── Time-Since Trackers ─── */
@@ -84,12 +60,12 @@
 
 /* tracker label */
 .trackerLabel {
-  @apply text-sm;
+  @apply text-base font-medium;
 }
 
 /* tracker elapsed time */
 .trackerElapsed {
-  @apply text-sm font-medium tabular-nums;
+  @apply text-lg font-medium;
 }
 
 /* tracker status colors */
@@ -107,14 +83,24 @@
 
 /* ─── Recommendations ─── */
 
-/* recommendation card */
-.recCard {
-  @apply flex items-start gap-3 p-3 rounded-md bg-muted/50;
+/* recommendation row */
+.recRow {
+  @apply space-y-1 py-3;
 }
 
-/* recommendation amount highlight */
+/* recommendation header with badge and text */
+.recHeader {
+  @apply flex items-start gap-2;
+}
+
+/* recommendation solutions text */
 .recAmount {
-  @apply font-semibold;
+  @apply text-xs text-muted-foreground;
+}
+
+/* recommendation options list */
+.recOptions {
+  @apply list-disc pl-5 text-sm space-y-0.5;
 }
 
 /* ─── Test Log ─── */
@@ -129,21 +115,22 @@
   @apply space-y-1.5;
 }
 
-/* ─── Reference Tables ─── */
+/* ─── History Table ─── */
 
-/* reference table wrapper */
-.tableWrap {
+.historyTableWrap {
   @apply overflow-x-auto;
 }
 
-/* error code row */
-.errorRow {
+.historyTable {
   @apply text-sm;
 }
 
-/* history table badge */
-.historyBadge {
-  @apply border-0;
+.historyDateCol {
+  @apply text-xs whitespace-nowrap;
+}
+
+.historyMetricCol {
+  @apply text-center font-semibold tabular-nums;
 }
 
 /* ─── Slider Form ─── */
@@ -216,12 +203,20 @@
 
 /* tick marks container below slider */
 .sliderTicks {
-  @apply flex justify-between px-0 mt-1.5;
+  @apply relative mt-1.5 h-4 mx-2;
 }
 
 /* individual tick label */
 .sliderTick {
-  @apply text-[10px] text-muted-foreground tabular-nums;
+  @apply absolute text-[10px] text-muted-foreground tabular-nums -translate-x-1/2;
+}
+
+.sliderTickFirst {
+  @apply translate-x-0;
+}
+
+.sliderTickLast {
+  @apply -translate-x-full;
 }
 
 /* ─── Tabs ─── */
