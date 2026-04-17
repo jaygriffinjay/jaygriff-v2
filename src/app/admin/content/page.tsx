@@ -1,4 +1,4 @@
-import { getAllContent } from "@/lib/content";
+import { getAllContent } from "@/modules/content/queries";
 import { Badge } from "@/components/ui/badge";
 import {
   Table,

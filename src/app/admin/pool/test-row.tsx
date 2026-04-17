@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { deletePoolTest, updatePoolTest, type TestEntry } from "@/actions/pool";
+import { deletePoolTest, updatePoolTest, type TestEntry } from "@/app/pool/actions";
 import { type MetricKey } from "@/app/pool/pool-config";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

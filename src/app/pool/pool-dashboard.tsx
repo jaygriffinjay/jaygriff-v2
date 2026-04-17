@@ -38,7 +38,7 @@ import {
   resetTracker,
   type TestEntry,
   type TrackerTimestamps,
-} from "@/actions/pool";
+} from "@/app/pool/actions";
 import styles from "./pool.module.css";
 
 // ─── Helpers ──────────────────────────────────────────────────────

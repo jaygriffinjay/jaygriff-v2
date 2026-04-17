@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getContentBySlug, readMarkdownFile } from "@/lib/content";
+import { getContentBySlug, readMarkdownFile } from "@/modules/content/queries";
 import MarkdownRenderer from "@/components/markdown-renderer/MarkdownRenderer";
 import { Container } from "@/components/layout/Container";
 import { H1, Paragraph, Small } from "@/components/typography";
@@ -35,7 +35,7 @@ export default async function DocPage({ params }: Props) {
 
 export async function generateStaticParams() {
   // only pre-render published docs at build time; drafts are still accessible via SSR
-  const { getAllPublished } = await import("@/lib/content");
+  const { getAllPublished } = await import("@/modules/content/queries");
   const docs = await getAllPublished("doc");
   return docs.map((d) => ({ slug: d.slug }));
 }

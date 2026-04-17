@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { deleteTracker, updateTracker } from "@/actions/pool";
+import { deleteTracker, updateTracker } from "@/app/pool/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { TableCell, TableRow } from "@/components/ui/table";

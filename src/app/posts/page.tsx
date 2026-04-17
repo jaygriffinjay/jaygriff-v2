@@ -1,4 +1,4 @@
-import { getAllPublished } from "@/lib/content";
+import { getAllPublished } from "@/modules/content/queries";
 import { H1, Paragraph, Small, Link } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";

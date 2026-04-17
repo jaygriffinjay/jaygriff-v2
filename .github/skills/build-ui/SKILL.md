@@ -8,7 +8,7 @@ You are assembling UI from an existing component toolkit. **Never invent — ass
 
 ## Workflow
 
-1. **Read the registry.** Open `src/lib/registry.ts` — the single source of truth for every available component, its import path, exports, and when to use it.
+1. **Read the registry.** Open `.github/skills/build-ui/registry.ts` — the single source of truth for every available component, its import path, exports, and when to use it.
 2. **Pick components from the registry.** Find what you need by scanning descriptions. If a component exists for the job, use it.
 3. **Import from the right paths.** Typography from `@/components/typography` (barrel export). Shadcn from individual paths like `@/components/ui/button`. The registry has the exact `from` path for each.
 4. **Compose.** Typography components nest freely inside each other. Shadcn components provide structure. Combine them.
@@ -243,6 +243,6 @@ The ModeToggle component provides the light/dark/system switcher.
 ## Reference
 
 - Typography test page: `src/app/typography/page.tsx` — comprehensive examples of every component
-- Component registry: `src/lib/registry.ts` — TypeScript source of truth
+- Component registry: `.github/skills/build-ui/registry.ts` — TypeScript source of truth
 - Global styles: `src/app/globals.css` — theme variables, color definitions
 - Root layout: `src/app/layout.tsx` — font setup, providers

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getContentBySlug, readMarkdownFile } from "@/lib/content";
+import { getContentBySlug, readMarkdownFile } from "@/modules/content/queries";
 import MarkdownRenderer from "@/components/markdown-renderer/MarkdownRenderer";
 import { Container } from "@/components/layout/Container";
 import { H1, Paragraph, Small } from "@/components/typography";
@@ -34,7 +34,7 @@ export default async function PostPage({ params }: Props) {
 }
 
 export async function generateStaticParams() {
-  const { getAllPublished } = await import("@/lib/content");
+  const { getAllPublished } = await import("@/modules/content/queries");
   const posts = await getAllPublished("post");
   return posts.map((p) => ({ slug: p.slug }));
 }

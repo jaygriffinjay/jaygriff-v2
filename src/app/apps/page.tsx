@@ -9,7 +9,7 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { DropletIcon } from "lucide-react";
+import { DropletIcon, ShieldIcon } from "lucide-react";
 import styles from "./apps.module.css";
 
 const apps = [
@@ -19,10 +19,16 @@ const apps = [
     description: "Saltwater pool maintenance dashboard — test logging, dosing calculator, and reference.",
     icon: DropletIcon,
   },
+  {
+    label: "Deep Dive",
+    href: "/deep-dive",
+    description: "AI-powered security audit — point an LLM at any public GitHub repo and get a vulnerability report.",
+    icon: ShieldIcon,
+  },
 ];
 
 export const metadata: Metadata = {
-  title: "Apps — Jay Griffin",
+  title: "Apps",
   description: "Personal tools and apps built by Jay Griffin.",
 };
 
@@ -32,7 +38,7 @@ export default function AppsPage() {
       <div className={styles.header}>
         <H1>Apps</H1>
         <Paragraph className={styles.description}>
-          Personal tools I built for myself.
+          Stuff I made
         </Paragraph>
       </div>
       <Separator className="my-6" />

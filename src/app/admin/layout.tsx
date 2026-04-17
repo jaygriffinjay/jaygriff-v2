@@ -15,7 +15,7 @@ export default function AdminLayout({
           <Link href="/admin/content" className={styles.navLink}>Content</Link>
           <Link href="/admin/pool" className={styles.navLink}>Pool</Link>
         </nav>
-        <form action="/api/auth/signout" method="POST">
+        <form action="/admin/signout" method="POST">
           <Button variant="ghost" size="sm" type="submit">
             Sign out
           </Button>

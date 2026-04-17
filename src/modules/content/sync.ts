@@ -1,7 +1,7 @@
 import { createHash } from "crypto";
 import { readdirSync, readFileSync } from "fs";
 import { join, relative } from "path";
-import { db } from "../src/lib/turso";
+import { db } from "../db/turso";
 import { generateMetadata } from "./generate-metadata";
 
 const CONTENT_DIR = join(process.cwd(), "content/md");

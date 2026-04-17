@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { toggleStatus } from "@/actions/content";
+import { toggleStatus } from "@/app/admin/actions/content";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import styles from "./content.module.css";

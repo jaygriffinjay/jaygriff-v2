@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { H1 } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
-import { getPoolTests, getPoolTrackers } from "@/actions/pool";
+import { getPoolTests, getPoolTrackers } from "@/app/pool/actions";
 import { PoolDashboard } from "./pool-dashboard";
 import styles from "./pool.module.css";
 

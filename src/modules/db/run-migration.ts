@@ -1,4 +1,4 @@
-import { db } from "../src/lib/turso";
+import { db } from "./turso";
 import { readFileSync } from "fs";
 
 const file = process.argv[2];

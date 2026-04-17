@@ -1,7 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
-import { deletePoolTest } from "@/actions/pool";
+import { deletePoolTest } from "@/app/pool/actions";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import styles from "./pool.module.css";

@@ -10,7 +10,7 @@ Run the content sync script that syncs markdown files from `content/md/` into th
 ## Command
 
 ```sh
-npx tsx --env-file=.env.local scripts/sync-content.ts 2>&1
+npx tsx --env-file=.env.local src/modules/content/sync.ts 2>&1
 ```
 
 Run from the project root (`/Users/jay/Dev/jaygriff-v2`).
@@ -22,4 +22,4 @@ Run from the project root (`/Users/jay/Dev/jaygriff-v2`).
 3. **Unchanged** files are skipped
 4. **Modified** files get their hash and `updated_at` updated, with the timestamp prepended to `updated_dates`
 5. **Renamed** files (same hash, different path) get their `file_path` updated
-6. **New** files are sent through AI metadata generation (`scripts/generate-metadata.ts`) and inserted as `draft` status
+6. **New** files are sent through AI metadata generation (`src/modules/content/generate-metadata.ts`) and inserted as `draft` status

@@ -11,7 +11,7 @@ You are an AI assistant helping build a modern full-stack web application. Follo
 
 ## Golden Rules
 
-1. **Never invent — assemble.** Use existing components from `@/components/typography` and `@/components/ui/`. Check the registry at `src/lib/registry.ts` before creating anything new.
+1. **Never invent — assemble.** Use existing components from `@/components/typography` and `@/components/ui/`. Check the registry at `.github/skills/build-ui/registry.ts` before creating anything new.
 2. **Never use inline CSS-in-JS or Emotion.** This project uses Tailwind classes only.
 3. **Use `cn()` for all dynamic class logic.** Never concatenate class strings manually.
 4. **All components accept `className`.** Override defaults by passing Tailwind classes.

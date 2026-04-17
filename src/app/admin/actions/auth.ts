@@ -2,9 +2,16 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { SignJWT} from "jose";
+import { SignJWT, jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(process.env.ADMIN_JWT_SECRET);
+
+export async function requireAuth() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("admin_session")?.value;
+  if (!token) throw new Error("Unauthorized");
+  await jwtVerify(token, secret);
+}
 
 export async function login(_prev: { error?: string } | null, formData: FormData) {
   const password = formData.get("password") as string;

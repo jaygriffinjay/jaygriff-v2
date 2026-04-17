@@ -1,4 +1,4 @@
-import { getPoolTests, getPoolTrackers } from "@/actions/pool";
+import { getPoolTests, getPoolTrackers } from "@/app/pool/actions";
 import { METRICS } from "@/app/pool/pool-config";
 import {
   Table,
