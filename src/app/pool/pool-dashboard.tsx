@@ -23,7 +23,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Plus } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import {
   METRICS,
   DEFAULT_TRACKERS,
@@ -192,7 +192,6 @@ export function PoolDashboard({ initialTests, initialTrackers }: PoolDashboardPr
         )}
 
         {/* Maintenance Trackers */}
-        <Separator className="my-4" />
         <div className="flex items-center gap-3">
           <H2>Maintenance</H2>
           <DropdownMenu>
@@ -293,6 +292,7 @@ export function PoolDashboard({ initialTests, initialTrackers }: PoolDashboardPr
 
       {/* ═══ Reference Tab ═══ */}
       <TabsContent value="reference" className={styles.tabSection}>
+        <H2>Recommendations</H2>
         <Paragraph className="text-muted-foreground">
           <a href="https://intexcorp.com/above-ground-pools/prism-frame-14-x-42-above-ground-pool-set/" target="_blank" rel="noopener noreferrer" className="underline">
             Intex Prism Frame 14&apos; &times; 42&quot;
@@ -302,7 +302,6 @@ export function PoolDashboard({ initialTests, initialTrackers }: PoolDashboardPr
 
         {recs.length > 0 && (
           <>
-            <H2>Recommendations</H2>
             <Card>
               <CardContent className="divide-y py-0">
                 {recs.map((r, i) => (
@@ -342,21 +341,48 @@ export function PoolDashboard({ initialTests, initialTrackers }: PoolDashboardPr
           </CardContent>
         </Card>
 
-        <Separator className="my-6" />
-
-        <H2>Saltwater System Error Codes</H2>
+        <H2>Saltwater System LED Readings</H2>
         <Paragraph className="text-muted-foreground">
-          Intex Krystal Clear CG-26667
+          Intex Krystal Clear saltwater system QS1200
         </Paragraph>
+
+        <H3>Alarm Codes</H3>
         <Card>
           <CardContent className="divide-y py-0">
-            {ERROR_CODES.map((e) => (
+            {ERROR_CODES.filter((e) => e.category === "alarm").map((e) => (
+              <div key={e.code} className="space-y-1 py-3">
+                <div className="flex items-center gap-2">
+                  <Badge variant="destructive">{e.code}</Badge>
+                  <Bold>{e.meaning}</Bold>
+                </div>
+                {e.fix && <Small className="text-muted-foreground">{e.fix}</Small>}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <H3>Modes</H3>
+        <Card>
+          <CardContent className="divide-y py-0">
+            {ERROR_CODES.filter((e) => e.category === "mode").map((e) => (
               <div key={e.code} className="space-y-1 py-3">
                 <div className="flex items-center gap-2">
                   <Badge variant="outline">{e.code}</Badge>
                   <Bold>{e.meaning}</Bold>
                 </div>
-                <Small className="text-muted-foreground">{e.fix}</Small>
+                {e.fix && <Small className="text-muted-foreground">{e.fix}</Small>}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+
+        <H3>Timer (Hours Remaining)</H3>
+        <Card>
+          <CardContent className="divide-y py-0">
+            {ERROR_CODES.filter((e) => e.category === "timer").map((e) => (
+              <div key={e.code} className="flex items-center gap-2 py-2">
+                <Badge variant="secondary">{e.code}</Badge>
+                <span className="text-sm">{e.meaning}</span>
               </div>
             ))}
           </CardContent>
@@ -447,9 +473,46 @@ function TestEntryForm({
                                 : "High"
                       : ""}
                   </span>
-                  <span className={on ? styles.sliderValue : styles.sliderValueOff}>
-                    {on ? formatValue(m.key, val) : "—"}
-                  </span>
+                  <div className={styles.valueInputGroup}>
+                    <button
+                      type="button"
+                      className={styles.valueStepper}
+                      disabled={!on || val <= scaleMin}
+                      onClick={() => {
+                        const next = Math.max(scaleMin, Math.round((val - step) * 10) / 10);
+                        setValues((prev) => ({ ...prev, [m.key]: next }));
+                      }}
+                    >
+                      <Minus size={12} />
+                    </button>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      className={cn(styles.valueInput, !on && styles.sliderValueOff)}
+                      value={on ? formatValue(m.key, val) : "—"}
+                      disabled={!on}
+                      onChange={(e) => {
+                        const parsed = parseFloat(e.target.value);
+                        if (!Number.isNaN(parsed)) {
+                          const clamped = Math.min(scaleMax, Math.max(scaleMin, parsed));
+                          if (!on) setEnabled((prev) => ({ ...prev, [m.key]: true }));
+                          setValues((prev) => ({ ...prev, [m.key]: clamped }));
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className={styles.valueStepper}
+                      disabled={!on || val >= scaleMax}
+                      onClick={() => {
+                        const next = Math.min(scaleMax, Math.round((val + step) * 10) / 10);
+                        if (!on) setEnabled((prev) => ({ ...prev, [m.key]: true }));
+                        setValues((prev) => ({ ...prev, [m.key]: next }));
+                      }}
+                    >
+                      <Plus size={12} />
+                    </button>
+                  </div>
                   {m.unit && (
                     <span className={styles.sliderUnit}>{m.unit}</span>
                   )}

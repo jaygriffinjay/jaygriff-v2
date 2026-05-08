@@ -1,0 +1,55 @@
+@reference "./globals.css";
+
+/* ─── Home Page ─── */
+
+/* full-height hero section */
+.hero {
+  @apply flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-6 text-center px-4;
+}
+
+/* main heading */
+.heading {
+  @apply text-6xl font-bold tracking-tight leading-none;
+}
+
+/* subtitle text below heading */
+.subtitle {
+  @apply text-xl text-muted-foreground max-w-lg;
+}
+
+/* row of CTA buttons */
+.actions {
+  @apply flex flex-wrap justify-center gap-3 mt-4;
+}
+
+/* ─── App Grid ─── */
+
+/* section wrapper for apps showcase */
+.section {
+  @apply py-16 w-full max-w-3xl mx-auto px-4;
+}
+
+/* section title */
+.sectionTitle {
+  @apply text-2xl font-bold text-center mb-8;
+}
+
+/* card grid layout */
+.grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+/* individual app card */
+.appCard {
+  @apply flex flex-col gap-1;
+}
+
+/* app card title */
+.appCardTitle {
+  @apply font-semibold;
+}
+
+/* app card description */
+.appCardDesc {
+  @apply text-sm text-muted-foreground;
+}

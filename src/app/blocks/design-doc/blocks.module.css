@@ -1,0 +1,264 @@
+@reference "../../globals.css";
+
+/* page header area */
+.header {
+  @apply space-y-3;
+}
+
+/* subtitle under the page title */
+.subtitle {
+  @apply text-lg text-muted-foreground;
+}
+
+/* full-width separator between major sections */
+.divider {
+  @apply my-10;
+}
+
+/* smaller separator within a section */
+.sectionDivider {
+  @apply my-6;
+}
+
+/* ─── Tree Visualization ─── */
+
+/* the visual page tree container */
+.tree {
+  @apply rounded-lg border bg-muted/30 p-5 font-mono text-sm;
+}
+
+/* a single node in the tree */
+.treeNode {
+  @apply flex items-center gap-2 py-1;
+}
+
+/* indent levels for tree depth */
+.indent1 {
+  @apply pl-6;
+}
+
+.indent2 {
+  @apply pl-12;
+}
+
+.indent3 {
+  @apply pl-18;
+}
+
+/* tree branch character styling */
+.treeBranch {
+  @apply text-muted-foreground select-none;
+}
+
+/* the path label in the tree */
+.treePath {
+  @apply text-foreground font-medium;
+}
+
+/* the type badge next to tree nodes */
+.treeType {
+  @apply text-muted-foreground text-xs;
+}
+
+/* ─── Schema ─── */
+
+/* the SQL schema code block */
+.schemaBlock {
+  @apply overflow-x-auto rounded-lg border bg-muted/40 p-5;
+}
+
+/* pre inside the schema block */
+.schemaPre {
+  @apply text-sm leading-relaxed;
+}
+
+/* SQL keywords */
+.sqlKeyword {
+  @apply font-semibold text-primary;
+}
+
+/* SQL column names */
+.sqlCol {
+  @apply text-foreground;
+}
+
+/* SQL types */
+.sqlType {
+  @apply text-muted-foreground;
+}
+
+/* SQL comments */
+.sqlComment {
+  @apply text-muted-foreground/60 italic;
+}
+
+/* ─── Phase Cards ─── */
+
+/* grid of phase cards */
+.phaseGrid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* phase number circle */
+.phaseNumber {
+  @apply flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground;
+}
+
+/* phase card header row */
+.phaseHeader {
+  @apply flex items-center gap-3;
+}
+
+/* ─── Breadcrumb Demo ─── */
+
+/* breadcrumb demo wrapper */
+.breadcrumbDemo {
+  @apply space-y-3 rounded-lg border p-5;
+}
+
+/* label above each breadcrumb example */
+.breadcrumbLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+}
+
+/* the mock breadcrumb trail */
+.breadcrumbTrail {
+  @apply flex items-center gap-1.5 text-sm;
+}
+
+/* breadcrumb separator character */
+.breadcrumbSep {
+  @apply text-muted-foreground select-none;
+}
+
+/* breadcrumb ancestor link */
+.breadcrumbAncestor {
+  @apply text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40;
+}
+
+/* breadcrumb current page */
+.breadcrumbCurrent {
+  @apply text-foreground font-medium;
+}
+
+/* ─── Query API ─── */
+
+/* function signature block */
+.fnSignature {
+  @apply rounded-md border bg-muted/40 px-4 py-3 font-mono text-sm;
+}
+
+/* function name */
+.fnName {
+  @apply font-semibold text-primary;
+}
+
+/* function params */
+.fnParams {
+  @apply text-muted-foreground;
+}
+
+/* function return type */
+.fnReturn {
+  @apply text-muted-foreground;
+}
+
+/* ─── Decisions ─── */
+
+/* decision grid */
+.decisionGrid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* ─── File Map ─── */
+
+/* file entry row */
+.fileRow {
+  @apply flex items-start gap-3 py-2;
+}
+
+/* file path text */
+.filePath {
+  @apply font-mono text-sm text-foreground;
+}
+
+/* file action badge area */
+.fileAction {
+  @apply shrink-0;
+}
+
+/* file description */
+.fileDesc {
+  @apply text-sm text-muted-foreground;
+}
+
+/* ─── Notion Comparison ─── */
+
+/* side-by-side comparison grid */
+.compareGrid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* comparison card label */
+.compareLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-muted-foreground mb-2;
+}
+
+/* ─── Status List ─── */
+
+/* status row with icon */
+.statusRow {
+  @apply flex items-start gap-2 py-1;
+}
+
+/* status icon */
+.statusIcon {
+  @apply mt-0.5 shrink-0 text-base leading-none;
+}
+
+/* ─── Verification ─── */
+
+/* command block */
+.cmdBlock {
+  @apply rounded-md border bg-muted/40 px-4 py-2.5 font-mono text-xs overflow-x-auto;
+}
+
+/* ─── Page ─── */
+
+/* max-width override for this page — wider than default Container */
+.page {
+  @apply max-w-3xl;
+}
+
+/* note below the notion comparison */
+.notionNote {
+  @apply mt-4;
+}
+
+/* ─── API List ─── */
+
+/* stacked card list for functions */
+.apiList {
+  @apply space-y-4;
+}
+
+/* ─── Verification ─── */
+
+/* verification steps list */
+.verificationList {
+  @apply space-y-4;
+}
+
+/* ─── Deferred Card ─── */
+
+/* phase 5 deferred card */
+.deferredCard {
+  @apply mt-4 border-dashed;
+}
+
+/* ─── Footer ─── */
+
+/* bottom-of-page timestamp */
+.footer {
+  @apply block text-center text-muted-foreground;
+}

@@ -9,10 +9,16 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { DropletIcon, ShieldIcon } from "lucide-react";
+import { DropletIcon, ShieldIcon, CpuIcon, UtensilsCrossedIcon } from "lucide-react";
 import styles from "./apps.module.css";
 
 const apps = [
+  {
+    label: "FoodMath",
+    href: "/food-math",
+    description: "The fastest food portion logger — type what you ate, AI parses it, you approve.",
+    icon: UtensilsCrossedIcon,
+  },
   {
     label: "Pool",
     href: "/pool",
@@ -24,6 +30,12 @@ const apps = [
     href: "/deep-dive",
     description: "AI-powered security audit — point an LLM at any public GitHub repo and get a vulnerability report.",
     icon: ShieldIcon,
+  },
+  {
+    label: "CPU Ladder",
+    href: "/cpu-ladder",
+    description: "Visual Intel vs AMD desktop CPU comparison — see equivalents at a glance, no benchmarks needed.",
+    icon: CpuIcon,
   },
 ];
 

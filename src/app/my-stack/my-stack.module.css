@@ -1,0 +1,114 @@
+@reference "../../app/globals.css";
+
+/* ─── Page Layout ─── */
+
+/* page wrapper with centered pill grid and sections */
+.page {
+  @apply flex flex-col items-center gap-6;
+}
+
+/* ─── Pill Grid ─── */
+
+/* flex-wrapped grid of section pill buttons */
+.pillGrid {
+  @apply flex flex-wrap justify-center gap-3 w-full;
+}
+
+/* individual section pill trigger */
+.sectionPill {
+  @apply inline-flex items-center rounded-full px-5 py-2 text-sm font-semibold;
+  @apply cursor-pointer transition-all duration-200;
+  @apply border border-border bg-muted/50 text-muted-foreground;
+  @apply hover:bg-muted hover:text-foreground;
+}
+
+/* active/open state for pill */
+.sectionPillActive {
+  @apply bg-primary text-primary-foreground border-primary;
+  @apply hover:bg-primary/90 hover:text-primary-foreground;
+}
+
+/* ─── Section Body ─── */
+
+/* expanded section content area */
+.sectionBody {
+  @apply w-full rounded-2xl px-4 py-5;
+}
+
+/* section heading inside expanded body */
+.sectionHeading,
+.usageHeading {
+  @apply font-bold mt-4 mb-6 leading-tight;
+  color: oklch(0.65 0.2 255);
+  text-shadow: 2px 2px 0 oklch(0.45 0.25 260), 5px 5px 10px oklch(0 0 0 / 0.5);
+}
+
+.sectionHeading {
+  @apply text-3xl;
+}
+
+.usageHeading {
+  @apply text-xl;
+}
+
+/* paragraph wrapper inside section body */
+.sectionText {
+  @apply my-6 text-left;
+}
+
+/* flex grid for tool cards */
+.toolGrid {
+  @apply flex flex-wrap justify-start gap-8 my-8 w-full;
+}
+
+/* usage group wrapper within a section */
+.usageGroup {
+  @apply w-full mb-4;
+}
+
+/* compact grid used inside usage groups */
+.usageToolGrid {
+  @apply flex flex-wrap justify-start gap-8 my-2 w-full;
+}
+
+/* ─── ToolCard ─── */
+
+/* single tool card container */
+.toolCard {
+  @apply text-center w-[110px] flex flex-col items-center gap-2;
+  @apply px-2 py-3;
+  @apply transition-all duration-200;
+}
+.toolCard:hover {
+  @apply -translate-y-0.5;
+}
+
+/* logo wrapper — sized dynamically via style prop */
+.toolLogo {
+  @apply flex items-center justify-center relative;
+}
+
+/* logo image — constrained to wrapper size */
+.toolLogoImg {
+  @apply object-contain max-w-full max-h-full;
+}
+
+/* invert filter for dark logos on dark backgrounds */
+.toolLogoInvert {
+  filter: brightness(0) invert(1);
+}
+
+/* tool name label */
+.toolTitle {
+  @apply block mb-1;
+}
+
+/* tool description text */
+.toolDescription {
+  @apply text-sm text-muted-foreground m-0;
+}
+
+/* status badge below description */
+.statusBadge {
+  @apply text-[10px] text-muted-foreground/70 uppercase tracking-wider mt-0.5;
+}

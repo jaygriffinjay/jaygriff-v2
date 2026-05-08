@@ -65,21 +65,41 @@ export const DEFAULT_TRACKERS: TrackerDef[] = [
   { key: "backwash", label: "Backwash", yellowDays: 7, redDays: 14 },
 ];
 
-// ─── Saltwater System Error Codes ─────────────────────────────────
+// ─── Saltwater System LED Readings ────────────────────────────────
 // From Intex Krystal Clear CG-26667 manual
+
+export type LedCategory = "mode" | "timer" | "alarm";
 
 export interface ErrorCode {
   code: string;
+  category: LedCategory;
   meaning: string;
-  fix: string;
+  fix?: string;
 }
 
 export const ERROR_CODES: ErrorCode[] = [
-  { code: "90", meaning: "Low salt level", fix: "Add pool-grade salt to reach 2700–3400 ppm. Run pump for 24 hrs to dissolve, then retest." },
-  { code: "91", meaning: "High salt level", fix: "Partially drain pool and refill with fresh water. Retest after circulation." },
-  { code: "92", meaning: "Check salt system / clean cell", fix: "Inspect and clean the electrolytic cell with a mild acid solution. Rinse thoroughly before reinstalling." },
-  { code: "93", meaning: "Water too cold (below 60°F)", fix: "Salt chlorination is ineffective below 60°F. Use manual chlorine dosing until water warms up." },
-  { code: "94", meaning: "GFCI trip / electrical fault", fix: "Unplug the unit and check for water in electrical connections. Allow to dry before restarting. If repeated, contact Intex support." },
+  // Modes
+  { code: "80", category: "mode", meaning: "Boost Mode", fix: "Temporarily increases chlorine output. Runs until manually stopped or timer expires." },
+  { code: "00", category: "mode", meaning: "Stand-By Mode (Start-up)", fix: "System is powered on and waiting. Press the timer button to begin a cycle." },
+  { code: "93", category: "mode", meaning: "Stand-By Mode (Cycle finished)", fix: "Operating process finished. System is idle until the next scheduled cycle." },
+  { code: "BLANK", category: "mode", meaning: "No Power / Power Saving Mode", fix: "No power to the unit, or the system is in power-saving mode waiting to start the next cycle." },
+  // Timer (operating hours remaining)
+  { code: "01", category: "timer", meaning: "1 hour remaining" },
+  { code: "02", category: "timer", meaning: "2 hours remaining" },
+  { code: "03", category: "timer", meaning: "3 hours remaining" },
+  { code: "04", category: "timer", meaning: "4 hours remaining" },
+  { code: "05", category: "timer", meaning: "5 hours remaining" },
+  { code: "06", category: "timer", meaning: "6 hours remaining" },
+  { code: "07", category: "timer", meaning: "7 hours remaining" },
+  { code: "08", category: "timer", meaning: "8 hours remaining" },
+  { code: "09", category: "timer", meaning: "9 hours remaining" },
+  { code: "10", category: "timer", meaning: "10 hours remaining" },
+  { code: "11", category: "timer", meaning: "11 hours remaining" },
+  { code: "12", category: "timer", meaning: "12 hours remaining (maximum)" },
+  // Alarms
+  { code: "90", category: "alarm", meaning: "Low Pump Flow / No Flow", fix: "Check that the pump is running and all valves are open. Clean the filter cartridge. Ensure hoses are not kinked or blocked." },
+  { code: "91", category: "alarm", meaning: "Low Salt Level", fix: "Add pool-grade salt to reach 2700–3400 ppm. Run pump for 24 hrs to dissolve, then retest." },
+  { code: "92", category: "alarm", meaning: "High Salt Level", fix: "Partially drain pool and refill with fresh water. Retest after circulation." },
 ];
 
 // ─── Helpers ──────────────────────────────────────────────────────

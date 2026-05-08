@@ -1,0 +1,285 @@
+@reference "../../app/globals.css";
+
+/* ─── Wrapper ─── */
+
+/* outermost wrapper — the 3-col grid with gradient gutters */
+.wrapper {
+  @apply relative;
+}
+
+/* ─── Brand banners ─── */
+
+/* top row: two big brand banners */
+.banners {
+  @apply grid grid-cols-[1fr_3.5rem_1fr] gap-0 mb-2;
+}
+
+/* Intel banner — blue */
+.bannerIntel {
+  @apply rounded-l-xl py-3 text-center text-sm font-black uppercase tracking-[0.25em];
+  @apply bg-gradient-to-r from-blue-600/15 to-blue-500/5 text-blue-600 dark:from-blue-500/20 dark:to-blue-400/5 dark:text-blue-400;
+}
+
+/* AMD banner — red */
+.bannerAmd {
+  @apply rounded-r-xl py-3 text-center text-sm font-black uppercase tracking-[0.25em];
+  @apply bg-gradient-to-l from-red-600/15 to-red-500/5 text-red-600 dark:from-red-500/20 dark:to-red-400/5 dark:text-red-400;
+}
+
+/* empty center cell in banner row */
+.bannerCenter {
+  @apply flex items-center justify-center text-xs font-semibold text-muted-foreground;
+}
+
+/* ─── Compare Panel ─── */
+
+/* comparison area sits inside the same 3-col grid */
+.comparePanel {
+  @apply grid grid-cols-[1fr_3.5rem_1fr] items-start gap-0 mb-4;
+}
+
+/* single compare card */
+.compareCard {
+  @apply rounded-xl border p-4 space-y-3;
+}
+
+/* Intel card accent */
+.compareIntel {
+  @apply border-blue-500/30 bg-blue-500/5;
+}
+
+/* AMD card accent */
+.compareAmd {
+  @apply border-red-500/30 bg-red-500/5;
+}
+
+/* card header: up arrow, name, down arrow */
+.compareCardHeader {
+  @apply flex items-center gap-2;
+}
+
+/* title block in card header — wraps CpuName */
+.compareCardTitle {
+  @apply flex-1 min-w-0 text-center;
+}
+
+/* up/down nav button */
+.navBtn {
+  @apply flex h-8 w-8 shrink-0 items-center justify-center rounded-md border text-xs text-muted-foreground transition-colors hover:bg-muted disabled:opacity-30 disabled:cursor-not-allowed;
+}
+
+/* large score badge in compare card */
+.compareScore {
+  @apply mx-auto flex h-10 w-14 items-center justify-center rounded-lg text-lg font-extrabold tabular-nums;
+}
+
+/* spec list inside compare card */
+.specList {
+  @apply space-y-1;
+}
+
+/* single spec row: label + value */
+.specRow {
+  @apply flex items-center justify-between text-xs;
+}
+
+/* spec label (left) */
+.specLabel {
+  @apply text-muted-foreground;
+}
+
+/* spec value (right) */
+.specValue {
+  @apply font-semibold tabular-nums;
+}
+
+/* VS divider between the two cards */
+.compareVs {
+  @apply flex items-center justify-center self-center text-lg font-black tracking-wider text-muted-foreground/50;
+}
+
+/* ─── Ladder ─── */
+
+/* the ladder body with gradient side rails */
+.ladder {
+  @apply relative;
+}
+
+/* blue rail on left side */
+.ladder::before {
+  content: "";
+  @apply absolute inset-y-0 left-0 w-1 rounded-full bg-blue-500/25;
+}
+
+/* red rail on right side */
+.ladder::after {
+  content: "";
+  @apply absolute inset-y-0 right-0 w-1 rounded-full bg-red-500/25;
+}
+
+/* one score-tier wrapper (uses contents for flat grid) */
+.ladderRow {
+  @apply contents;
+}
+
+/* 3-col grid for one score level: intel | score | amd */
+.rowGrid {
+  @apply grid grid-cols-[1fr_3.5rem_1fr] items-start gap-0;
+}
+
+/* ─── Columns ─── */
+
+/* intel column — stretch so every row fills the same width */
+.colIntel {
+  @apply flex flex-col items-stretch gap-0.5 py-1 pl-3;
+}
+
+/* amd column — stretch so every row fills the same width */
+.colAmd {
+  @apply flex flex-col items-stretch gap-0.5 py-1 pr-3;
+}
+
+/* ─── CPU Row Button ─── */
+
+/* single CPU clickable row */
+.row {
+  @apply flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors cursor-pointer border border-transparent;
+}
+
+/* Intel rows align text right */
+.rowIntel {
+  @apply justify-end text-right;
+}
+
+/* AMD rows align text left */
+.rowAmd {
+  @apply justify-start text-left;
+}
+
+/* row hover state */
+.row:hover {
+  @apply bg-muted/60;
+}
+
+/* selected/highlighted row (currently in compare panel) */
+.rowActive {
+  @apply bg-primary/10 border-primary/30 font-semibold;
+}
+
+/* CPU name — full-width grid with brand-specific column widths */
+.cpuName {
+  @apply grid items-baseline text-sm leading-tight w-full;
+  gap: 0 0.25rem;
+}
+
+/*
+ * Intel: productBrand(Core) | modifier(Ultra) | tier(i9) | qualifier(—) | prefix(—) | model | suffix(KS) | variant(Plus)
+ * ALL fixed widths — each row is an independent grid, so auto would misalign.
+ * 1fr first col absorbs leftover; justify-items:end right-aligns content.
+ */
+.cpuNameIntel {
+  grid-template-columns: 1fr 2.5rem 1.25rem 0rem 0rem 3.25rem 1.25rem 1.75rem;
+  justify-items: end;
+}
+
+/*
+ * AMD: productBrand(Ryzen) | modifier(Threadripper) | tier(9) | qualifier(Pro) | prefix(—) | model | suffix(X3D) | variant(—)
+ */
+.cpuNameAmd {
+  grid-template-columns: 2.5rem 0rem 0.625rem 1.5rem 0rem 2.5rem auto 0rem;
+}
+
+/* productBrand: "Core" / "Ryzen" / "Processor" */
+.segProductBrand {
+  @apply text-xs text-muted-foreground/50;
+}
+
+/* modifier: "Ultra" / "Threadripper" */
+.segModifier {
+  @apply text-xs text-muted-foreground/70;
+}
+
+/* tier: "i9" / "9" */
+.segTier {
+  @apply font-semibold;
+}
+
+/* qualifier: "Pro" */
+.segQualifier {
+  @apply text-xs italic text-muted-foreground/70;
+}
+
+/* prefix: "N" (N-series) */
+.segPrefix {
+  @apply font-semibold text-muted-foreground/60;
+}
+
+/* model number: "14900" / "9950" — the star */
+.segModel {
+  @apply font-bold tabular-nums;
+}
+
+/* suffix: "K" / "KF" / "X3D" / "G" */
+.segSuffix {
+  @apply font-semibold text-muted-foreground/80;
+}
+
+/* variant: "Plus" */
+.segVariant {
+  @apply text-xs text-muted-foreground/60;
+}
+
+/* ─── Score Badge ─── */
+
+/* score pill in divider column */
+.score {
+  @apply inline-flex h-7 min-w-[2.5rem] items-center justify-center rounded-md px-1.5 text-xs font-bold tabular-nums;
+}
+
+/* score color by grade */
+.gradeAPlus {
+  @apply bg-emerald-500/15 text-emerald-600 dark:text-emerald-400;
+}
+
+.gradeA {
+  @apply bg-blue-500/15 text-blue-600 dark:text-blue-400;
+}
+
+.gradeB {
+  @apply bg-yellow-500/15 text-yellow-700 dark:text-yellow-400;
+}
+
+.gradeC {
+  @apply bg-orange-500/15 text-orange-600 dark:text-orange-400;
+}
+
+.gradeD {
+  @apply bg-red-500/15 text-red-600 dark:text-red-400;
+}
+
+/* ─── Divider ─── */
+
+/* center score divider column */
+.divider {
+  @apply flex items-center justify-center py-1;
+}
+
+/* ─── Empty row placeholder ─── */
+
+.emptyRow {
+  @apply min-h-[2rem];
+}
+
+/* ─── Tier separator ─── */
+
+.tierSep {
+  @apply flex items-center gap-4 py-3 px-3;
+}
+
+.tierLine {
+  @apply flex-1 border-t border-border;
+}
+
+.tierLabel {
+  @apply text-xs font-semibold uppercase tracking-widest text-muted-foreground;
+}

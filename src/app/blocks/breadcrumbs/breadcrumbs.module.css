@@ -1,0 +1,239 @@
+@reference "../../globals.css";
+
+/* ─── Page ─── */
+
+/* max-width override — wider than default Container */
+.page {
+  @apply max-w-3xl;
+}
+
+/* page header area */
+.header {
+  @apply space-y-3;
+}
+
+/* subtitle under the page title */
+.subtitle {
+  @apply text-lg text-muted-foreground;
+}
+
+/* full-width separator between major sections */
+.divider {
+  @apply my-10;
+}
+
+/* smaller separator within a section */
+.sectionDivider {
+  @apply my-6;
+}
+
+/* ─── Schema ─── */
+
+/* the SQL schema code block */
+.schemaBlock {
+  @apply overflow-x-auto rounded-lg border bg-muted/40 p-5;
+}
+
+/* pre inside the schema block */
+.schemaPre {
+  @apply text-sm leading-relaxed;
+}
+
+/* SQL keywords */
+.sqlKeyword {
+  @apply font-semibold text-primary;
+}
+
+/* SQL column names */
+.sqlCol {
+  @apply text-foreground;
+}
+
+/* SQL types */
+.sqlType {
+  @apply text-muted-foreground;
+}
+
+/* SQL comments */
+.sqlComment {
+  @apply text-muted-foreground/60 italic;
+}
+
+/* ─── Tree Visualization ─── */
+
+/* the visual page tree container */
+.tree {
+  @apply rounded-lg border bg-muted/30 p-5 font-mono text-sm;
+}
+
+/* a single node in the tree */
+.treeNode {
+  @apply flex items-center gap-2 py-1;
+}
+
+/* indent levels for tree depth */
+.indent1 {
+  @apply pl-6;
+}
+
+.indent2 {
+  @apply pl-12;
+}
+
+/* tree branch character styling */
+.treeBranch {
+  @apply text-muted-foreground select-none;
+}
+
+/* the path label in the tree */
+.treePath {
+  @apply text-foreground font-medium;
+}
+
+/* the type / label text next to tree nodes */
+.treeLabel {
+  @apply text-muted-foreground text-xs;
+}
+
+/* ─── Breadcrumb Demo ─── */
+
+/* breadcrumb demo wrapper */
+.breadcrumbDemo {
+  @apply space-y-3 rounded-lg border p-5;
+}
+
+/* label above each breadcrumb example */
+.breadcrumbLabel {
+  @apply text-xs font-medium uppercase tracking-wider text-muted-foreground;
+}
+
+/* the mock breadcrumb trail */
+.breadcrumbTrail {
+  @apply flex items-center gap-1.5 text-sm;
+}
+
+/* breadcrumb separator character */
+.breadcrumbSep {
+  @apply text-muted-foreground select-none;
+}
+
+/* breadcrumb ancestor link */
+.breadcrumbAncestor {
+  @apply text-muted-foreground underline underline-offset-4 decoration-muted-foreground/40;
+}
+
+/* breadcrumb current page */
+.breadcrumbCurrent {
+  @apply text-foreground font-medium;
+}
+
+/* ─── Query API ─── */
+
+/* stacked card list for functions */
+.apiList {
+  @apply space-y-4;
+}
+
+/* function signature block */
+.fnSignature {
+  @apply rounded-md border bg-muted/40 px-4 py-3 font-mono text-sm;
+}
+
+/* function name */
+.fnName {
+  @apply font-semibold text-primary;
+}
+
+/* function params */
+.fnParams {
+  @apply text-muted-foreground;
+}
+
+/* function return type */
+.fnReturn {
+  @apply text-muted-foreground;
+}
+
+/* ─── Props Table ─── */
+
+/* note below a table */
+.tableNote {
+  @apply mt-3;
+}
+
+/* ─── Phase Cards ─── */
+
+/* grid of phase cards */
+.phaseGrid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* phase number circle */
+.phaseNumber {
+  @apply flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground;
+}
+
+/* phase card header row */
+.phaseHeader {
+  @apply flex items-center gap-3;
+}
+
+/* ─── JSON Block ─── */
+
+/* JSON / code example block */
+.codeBlock {
+  @apply overflow-x-auto rounded-lg border bg-muted/40 p-5 font-mono text-sm leading-relaxed;
+}
+
+/* JSON key */
+.jsonKey {
+  @apply text-primary;
+}
+
+/* JSON string value */
+.jsonString {
+  @apply text-muted-foreground;
+}
+
+/* JSON comment */
+.jsonComment {
+  @apply text-muted-foreground/60 italic;
+}
+
+/* ─── File Map ─── */
+
+/* side-by-side comparison grid */
+.compareGrid {
+  @apply grid gap-4 sm:grid-cols-2;
+}
+
+/* ─── Tradeoff List ─── */
+
+/* pros/cons list in the rationale section */
+.tradeoffList {
+  @apply space-y-1.5;
+}
+
+/* schema label above a schema block */
+.schemaLabel {
+  @apply mb-2 text-xs font-medium uppercase tracking-wider text-muted-foreground;
+}
+
+/* ─── Verification ─── */
+
+/* verification steps list */
+.verificationList {
+  @apply space-y-4;
+}
+
+/* command block */
+.cmdBlock {
+  @apply rounded-md border bg-muted/40 px-4 py-2.5 font-mono text-xs overflow-x-auto;
+}
+
+/* ─── Footer ─── */
+
+/* bottom-of-page timestamp */
+.footer {
+  @apply block text-center text-muted-foreground;
+}

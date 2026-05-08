@@ -1,0 +1,54 @@
+Here is the simple answer in plain text.
+
+Your original example had two kinds of information mixed together:
+
+1. The actual request/response content
+2. Extra rendering metadata like filename="example-request"
+
+GSC would separate those.
+
+The exact curl command should stay as a code example.
+The exact JSON response should stay as a code example.
+But the metadata and meaning should move into normal English sentences and section labels.
+
+So instead of relying on:
+- filename attributes
+- custom code fence extensions
+- UI-specific rendering behavior
+
+You would write normal text like:
+
+Example Request
+This request creates a deployment by sending a POST request to the Vercel integrations deploy endpoint.
+
+Then show the curl command.
+
+Then write:
+
+Example Response
+If the request succeeds, the API returns a job object with an id, state, and creation timestamp.
+
+Then show the JSON.
+
+The important idea is:
+
+- code blocks keep exact machine syntax
+- prose explains what the code means
+- headings provide structure
+- renderer-specific metadata should become visible English, not hidden syntax
+
+If you really want to preserve the filename concept, GSC would turn it into visible text, like:
+
+Request file: example-request
+Response file: example-response
+
+instead of attaching filename metadata to the fenced code block.
+
+So the rule is:
+
+Put meaning in English.
+Put exact syntax in code blocks.
+Put structure in headings.
+Do not hide semantic meaning in renderer-specific markdown extensions.
+
+That is how GSC would convert it into md-only while still preserving both understanding and rendering.

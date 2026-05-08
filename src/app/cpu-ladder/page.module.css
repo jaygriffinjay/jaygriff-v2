@@ -1,0 +1,13 @@
+@reference "../../app/globals.css";
+
+/* ─── Page ─── */
+
+/* page wrapper with vertical spacing */
+.page {
+  @apply space-y-8 py-8;
+}
+
+/* page header area */
+.header {
+  @apply space-y-2;
+}

@@ -1,0 +1,220 @@
+@reference "../../app/globals.css";
+
+/* ─── Page Layout ─── */
+
+/* page header area */
+.header {
+  @apply space-y-2;
+}
+
+/* subtitle text under page title */
+.subtitle {
+  @apply text-lg text-muted-foreground;
+}
+
+/* ─── App Shell ─── */
+
+/* main two-column layout: editor left, totals right */
+.layout {
+  @apply grid gap-6 lg:grid-cols-[1fr_320px];
+}
+
+/* left panel — editor/approval area */
+.editorPanel {
+  @apply space-y-4;
+}
+
+/* right panel — final foods + totals */
+.totalsPanel {
+  @apply space-y-4;
+}
+
+/* sticky totals sidebar on desktop */
+.totalsPanelInner {
+  @apply lg:sticky lg:top-20 space-y-4;
+}
+
+/* ─── API Key Bar ─── */
+
+/* api key input row */
+.apiKeyBar {
+  @apply flex items-center gap-2;
+}
+
+/* key icon */
+.apiKeyIcon {
+  @apply text-muted-foreground shrink-0;
+}
+
+/* ─── Input Bar ─── */
+
+/* message input bar pinned to bottom of editor panel */
+.inputBar {
+  @apply flex gap-2 items-end;
+}
+
+/* the text input */
+.inputField {
+  @apply flex-1;
+}
+
+/* ─── Food Items (Editor) ─── */
+
+/* single food item card in editor */
+.foodCard {
+  @apply border border-border rounded-lg p-4 space-y-3;
+}
+
+/* food item header row: name + confidence badge */
+.foodCardHeader {
+  @apply flex items-center justify-between gap-2;
+}
+
+/* food item name */
+.foodCardName {
+  @apply text-base font-medium;
+}
+
+/* editable portion row */
+.portionRow {
+  @apply flex items-center gap-2 text-sm;
+}
+
+/* macro nutrient grid */
+.macroGrid {
+  @apply grid grid-cols-5 gap-2 text-center;
+}
+
+/* single macro stat */
+.macroStat {
+  @apply space-y-0.5;
+}
+
+/* macro label (Protein, Carbs, etc.) */
+.macroLabel {
+  @apply text-xs text-muted-foreground uppercase tracking-wider;
+}
+
+/* macro value */
+.macroValue {
+  @apply text-sm font-semibold tabular-nums;
+}
+
+/* notes text below the card */
+.foodCardNotes {
+  @apply text-xs text-muted-foreground italic;
+}
+
+/* ─── Per-Card Inline Chat ─── */
+
+/* inline chat bar on each food card */
+.itemChatBar {
+  @apply flex items-center gap-1.5 rounded-md border border-border/60 bg-muted/30 px-2 py-1;
+}
+
+/* sparkle icon in item chat */
+.itemChatIcon {
+  @apply text-muted-foreground/60 shrink-0;
+}
+
+/* inline chat text input — borderless, blends with bar */
+.itemChatInput {
+  @apply flex-1 bg-transparent text-xs placeholder:text-muted-foreground/50 focus:outline-none;
+}
+
+/* send button in item chat */
+.itemChatSend {
+  @apply h-6 w-6 shrink-0;
+}
+
+/* action buttons row */
+.foodCardActions {
+  @apply flex items-center gap-2 pt-1;
+}
+
+/* confidence badge colors */
+.confidenceHigh {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.confidenceMedium {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.confidenceLow {
+  @apply text-red-600 dark:text-red-400;
+}
+
+/* ─── Totals Panel ─── */
+
+/* totals summary card */
+.totalsCard {
+  @apply border border-border rounded-lg p-4 space-y-3;
+}
+
+/* total calories display */
+.totalCalories {
+  @apply text-3xl font-bold tabular-nums;
+}
+
+/* label for calories */
+.totalCaloriesLabel {
+  @apply text-sm text-muted-foreground;
+}
+
+/* macro totals grid in sidebar */
+.totalsMacroGrid {
+  @apply grid grid-cols-4 gap-3 text-center;
+}
+
+/* individual macro total */
+.totalsMacroStat {
+  @apply space-y-0.5;
+}
+
+/* macro total value */
+.totalsMacroValue {
+  @apply text-lg font-semibold tabular-nums;
+}
+
+/* macro total label */
+.totalsMacroLabel {
+  @apply text-xs text-muted-foreground uppercase tracking-wider;
+}
+
+/* approved food list item in sidebar */
+.approvedItem {
+  @apply flex items-center justify-between py-1.5 text-sm border-b border-border last:border-b-0;
+}
+
+/* approved item name */
+.approvedItemName {
+  @apply truncate;
+}
+
+/* approved item calories */
+.approvedItemCals {
+  @apply tabular-nums text-muted-foreground shrink-0 ml-2;
+}
+
+/* ─── States ─── */
+
+/* empty state text */
+.emptyState {
+  @apply text-center text-muted-foreground py-12;
+}
+
+/* loading spinner area */
+.loadingState {
+  @apply flex items-center justify-center py-8 gap-2 text-muted-foreground;
+}
+
+/* editing mode highlight on a food card */
+.foodCardEditing {
+  @apply border-primary ring-1 ring-primary;
+}
+
+/* inline editable field */
+.editableField {
+  @apply bg-transparent border-b border-dashed border-muted-foreground/50 focus:border-primary focus:outline-none tabular-nums text-sm w-16 text-center;
+}

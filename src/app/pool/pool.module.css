@@ -175,6 +175,21 @@
   @apply text-sm font-semibold tabular-nums;
 }
 
+/* inline number input + stepper buttons group */
+.valueInputGroup {
+  @apply flex items-center gap-0 rounded-md border border-border;
+}
+
+/* direct numeric input for slider value */
+.valueInput {
+  @apply w-12 bg-transparent text-center text-sm font-semibold tabular-nums focus:outline-none;
+}
+
+/* increment/decrement stepper button */
+.valueStepper {
+  @apply flex items-center justify-center h-7 w-7 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-30 disabled:pointer-events-none;
+}
+
 /* value text when slider is disabled */
 .sliderValueOff {
   @apply text-sm text-muted-foreground tabular-nums;

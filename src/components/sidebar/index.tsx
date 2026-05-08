@@ -8,6 +8,7 @@ import {
   NewspaperIcon,
   BookOpenIcon,
   LayoutGridIcon,
+  BlocksIcon,
   ShieldIcon,
   SunIcon,
   MoonIcon,
@@ -34,6 +35,7 @@ const navItems = [
   { label: "Apps", href: "/apps", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Docs", href: "/docs", icon: BookOpenIcon },
+  { label: "Blocks", href: "/blocks", icon: BlocksIcon },
   ...(process.env.NODE_ENV === "development"
     ? [{ label: "Admin", href: "/admin", icon: ShieldIcon }]
     : []),
