@@ -10,7 +10,8 @@ export type ContentRow = {
   title: string;
   description: string | null;
   type: "post" | "doc" | "cool";
-  status: "draft" | "published" | "archived";
+  status: "draft" | "published" | "archived" | "deleted";
+  format: "md" | "tsx";
   authors: string[] | null;
   authorship_note: string | null;
   tags: string[] | null;
@@ -35,6 +36,7 @@ function parseRow(row: Record<string, unknown>): ContentRow {
     description: (row.description as string) ?? null,
     type: row.type as ContentRow["type"],
     status: row.status as ContentRow["status"],
+    format: ((row.format as string) ?? "md") as ContentRow["format"],
     authors: row.authors ? JSON.parse(row.authors as string) : null,
     authorship_note: (row.authorship_note as string) ?? null,
     tags: row.tags ? JSON.parse(row.tags as string) : null,
@@ -52,7 +54,7 @@ function parseRow(row: Record<string, unknown>): ContentRow {
 
 export async function getContentBySlug(slug: string): Promise<ContentRow | null> {
   const result = await db.execute({
-    sql: "SELECT * FROM content WHERE slug = ?",
+    sql: "SELECT * FROM content WHERE slug = ? AND status != 'deleted'",
     args: [slug],
   });
   if (result.rows.length === 0) return null;
@@ -71,7 +73,7 @@ export async function getAllPublished(type?: ContentRow["type"]): Promise<Conten
 
 export async function getAllContent(): Promise<ContentRow[]> {
   const result = await db.execute(
-    "SELECT * FROM content ORDER BY created_at DESC"
+    "SELECT * FROM content WHERE status != 'deleted' ORDER BY created_at DESC"
   );
   return result.rows.map((r) => parseRow(r as Record<string, unknown>));
 }

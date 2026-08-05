@@ -2,6 +2,9 @@ import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 
+// Route handles a per-request API key — never let Next.js/Vercel cache it
+export const dynamic = "force-dynamic";
+
 const FoodItemSchema = z.object({
   name: z.string(),
   quantity: z.number(),

@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS content (
   feature          TEXT,
   source_url       TEXT,
   commit_hash      TEXT,
+  format           TEXT NOT NULL DEFAULT 'md',
   created_at       TEXT NOT NULL,
   updated_at       TEXT NOT NULL
 );

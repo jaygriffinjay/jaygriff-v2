@@ -14,7 +14,16 @@ export default async function PostPage({ params }: Props) {
 
   if (!post || post.type !== "post" || !post.file_path) notFound();
 
-  const content = readMarkdownFile(post.file_path);
+  let body: React.ReactNode;
+  if (post.format === "tsx") {
+    const rel = post.file_path.replace(/^content\/tsx\//, "").replace(/\.tsx$/, "");
+    const mod = await import(`../../../../content/tsx/${rel}.tsx`);
+    const Component = mod.default as React.ComponentType;
+    body = <Component />;
+  } else {
+    const content = readMarkdownFile(post.file_path);
+    body = <MarkdownRenderer content={content} />;
+  }
 
   return (
     <Container>
@@ -27,7 +36,7 @@ export default async function PostPage({ params }: Props) {
           <Small>{new Date(post.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</Small>
         </header>
         <Separator className={styles.divider} />
-        <MarkdownRenderer content={content} />
+        {body}
       </article>
     </Container>
   );

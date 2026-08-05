@@ -14,7 +14,20 @@ export default async function DocPage({ params }: Props) {
 
   if (!doc || doc.type !== "doc" || !doc.file_path) notFound();
 
-  const content = readMarkdownFile(doc.file_path);
+  // TSX content: dynamic import the module and render its default export.
+  // Path is relative to this file (src/app/docs/[slug]/page.tsx) reaching
+  // up to repo root then into content/tsx/.
+  let body: React.ReactNode;
+  if (doc.format === "tsx") {
+    // file_path looks like "content/tsx/foo.tsx" — strip prefix + extension
+    const rel = doc.file_path.replace(/^content\/tsx\//, "").replace(/\.tsx$/, "");
+    const mod = await import(`../../../../content/tsx/${rel}.tsx`);
+    const Component = mod.default as React.ComponentType;
+    body = <Component />;
+  } else {
+    const content = readMarkdownFile(doc.file_path);
+    body = <MarkdownRenderer content={content} />;
+  }
 
   return (
     <Container>
@@ -27,7 +40,7 @@ export default async function DocPage({ params }: Props) {
           <Small>{new Date(doc.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</Small>
         </header>
         <Separator className={styles.divider} />
-        <MarkdownRenderer content={content} />
+        {body}
       </article>
     </Container>
   );

@@ -30,9 +30,11 @@ const TOOL: Anthropic.Tool = {
 };
 
 export async function generateMetadata(
-  content: string
+  content: string,
+  format: "md" | "tsx" = "md"
 ): Promise<GeneratedMetadata> {
   const preview = content.slice(0, 2000);
+  const formatLabel = format === "tsx" ? "TSX (React component)" : "markdown";
 
   const message = await client.messages.create({
     model: "claude-sonnet-4-5",
@@ -42,7 +44,7 @@ export async function generateMetadata(
     messages: [
       {
         role: "user",
-        content: `You are a metadata generator for a personal website. Analyze this markdown content and call generate_metadata with the appropriate values.\n\nContent:\n${preview}`,
+        content: `You are a metadata generator for a personal website. Analyze this ${formatLabel} content and call generate_metadata with the appropriate values. For TSX content, focus on the prose inside JSX text nodes (e.g. inside <Paragraph>, <H1>, etc.) — ignore imports and structural boilerplate.\n\nContent:\n${preview}`,
       },
     ],
   });
