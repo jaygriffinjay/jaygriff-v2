@@ -67,7 +67,7 @@ const SECTIONS: Section[] = [
     tools: [
       { logo: "/tool-logos/typescript.svg", title: "TypeScript", description: "All in, full steam ahead" },
       { logo: "/tool-logos/javascript.svg", title: "JavaScript", description: "The foundation" },
-      { logo: "/tool-logos/python.svg", title: "Python", description: "Love it", status: "occasional" },
+      { logo: "/tool-logos/python.svg", title: "Python", description: "Love it", },
       { logo: "/tool-logos/html.svg", title: "HTML", description: "Tim Berners is a real one" },
       { logo: "/tool-logos/css.svg", title: "CSS", description: "Cascading good times" },
       { logo: "/tool-logos/shell.svg", title: "Shell", description: "Programming vegetables" },
@@ -100,7 +100,7 @@ const SECTIONS: Section[] = [
       { logo: "/tool-logos/githubcopilot.svg", title: "GitHub Copilot", description: "How the sausage is made" },
       { logo: "/tool-logos/vscode.svg", title: "VS Code", description: "My IDE" },
       { logo: "/tool-logos/chromedevtools.svg", title: "Chrome DevTools", description: "My CSS broke again" },
-      { logo: "/tool-logos/favicon.svg", title: "jaygriff.com", description: "Pretty good imo" },
+      { logo: "/tool-logos/logo.svg", title: "jaygriff.com", description: "Pretty good imo" },
       { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", status: "benched" },
       { logo: "/tool-logos/openai.svg", title: "ChatGPT", description: "Openai changes it every day", invert: true },
       { logo: "/tool-logos/claude.svg", title: "Claude", description: "Thanks Anthropic very cool" },
