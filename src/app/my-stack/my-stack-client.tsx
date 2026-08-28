@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Paragraph } from "@/components/typography";
-import { ToolCard, type ToolStatus } from "./ToolCard";
+import { H2, Paragraph } from "@/components/typography";
+import { ToolCard, TOOL_STATUS_META, type ToolStatus } from "./ToolCard";
 import styles from "./my-stack.module.css";
 
 interface Tool {
@@ -25,28 +25,13 @@ const STATUS_ORDER: Record<ToolStatus, number> = {
   occasional: 1,
   benched: 2,
   shelved: 3,
+  wishlist: 4,
 };
 
 function sortByStatus(tools: Tool[]): Tool[] {
   return [...tools].sort(
     (a, b) => STATUS_ORDER[a.status ?? "active"] - STATUS_ORDER[b.status ?? "active"]
   );
-}
-
-function usageLabel(status: ToolStatus): string {
-  switch (status) {
-    case "occasional": return "Occasional";
-    case "benched": return "Benched";
-    case "shelved": return "Shelved";
-    default: return "Active";
-  }
-}
-
-function toolsForUsage(tools: Tool[], status: ToolStatus): Tool[] {
-  if (status === "active") {
-    return tools.filter((tool) => (tool.status ?? "active") === "active");
-  }
-  return tools.filter((tool) => (tool.status ?? "active") === status);
 }
 
 const SECTIONS: Section[] = [
@@ -101,12 +86,12 @@ const SECTIONS: Section[] = [
       { logo: "/tool-logos/vscode.svg", title: "VS Code", description: "My IDE" },
       { logo: "/tool-logos/chromedevtools.svg", title: "Chrome DevTools", description: "My CSS broke again" },
       { logo: "/tool-logos/logo.svg", title: "jaygriff.com", description: "Pretty good imo" },
-      { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", status: "benched" },
+      { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", status: "occasional" },
       { logo: "/tool-logos/openai.svg", title: "ChatGPT", description: "Openai changes it every day", invert: true },
       { logo: "/tool-logos/claude.svg", title: "Claude", description: "Thanks Anthropic very cool" },
       { logo: "/tool-logos/gemini.svg", title: "Gemini", description: "Pretty good all rounder" },
-      { logo: "/tool-logos/lovable.svg", title: "Lovable.dev", description: "Rapid prototyping" },
-      { logo: "/tool-logos/bolt.svg", title: "Bolt.new", description: "UI generation" },
+      { logo: "/tool-logos/lovable.svg", title: "Lovable.dev", description: "Rapid prototyping", status: "occasional" },
+      { logo: "/tool-logos/bolt.svg", title: "Bolt.new", description: "UI generation", status: "occasional" },
       { logo: "/tool-logos/netlify.svg", title: "Netlify", description: "Replaced by Vercel", status: "shelved" },
       { logo: "/tool-logos/django.svg", title: "Django", description: "Python web framework", status: "shelved" },
       { logo: "/tool-logos/flask.svg", title: "Flask", description: "Earlier projects", status: "benched" },
@@ -177,7 +162,7 @@ const SECTIONS: Section[] = [
     ),
     tools: [
       { logo: "/tool-logos/notion.svg", title: "Notion", description: "Main hub for writing" },
-      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar" },
+      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar", status: "occasional" },
       { logo: "/tool-logos/excel.svg", title: "Excel", description: "Do not cite the deep magic to me, witch" },
       { logo: "/tool-logos/sheets.svg", title: "Google Sheets", description: "Apps Script pretty cool" },
       { logo: "/tool-logos/office365.svg", title: "Office Suite", description: "For work if need be" },
@@ -198,7 +183,7 @@ const SECTIONS: Section[] = [
     ),
     tools: [
       { logo: "/tool-logos/affinity.svg", title: "Affinity", description: "A dream come true" },
-      { logo: "/tool-logos/canva.svg", title: "Canva", description: "Use less often now", status: "occasional" },
+      { logo: "/tool-logos/canva.svg", title: "Canva", description: "Use less often now" },
       { logo: "/tool-logos/photoshop.svg", title: "Photoshop", description: "Expensive", status: "shelved" },
       { logo: "/tool-logos/photopea.svg", title: "Photopea", description: "Affinity wins", status: "shelved" },
       { logo: "/tool-logos/inkscape.svg", title: "Inkscape", description: "Replaced by Affinity", status: "shelved" },
@@ -236,7 +221,7 @@ const SECTIONS: Section[] = [
       </Paragraph>
     ),
     tools: [
-      { logo: "/tool-logos/figma.svg", title: "Figma", description: "I am not an artist" },
+      { logo: "/tool-logos/figma.svg", title: "Figma", description: "I am not an artist", status: "shelved" },
       { logo: "/tool-logos/coolors.svg", title: "Coolors", description: "Color palettes" },
     ],
   },
@@ -254,7 +239,7 @@ const SECTIONS: Section[] = [
     ),
     tools: [
       { logo: "/tool-logos/hammerspoon.svg", title: "Hammerspoon", description: "MacOS automation" },
-      { logo: "/tool-logos/autohotkey.svg", title: "AutoHotKey", description: "Windows automation" },
+      { logo: "/tool-logos/autohotkey.svg", title: "AutoHotKey", description: "Windows automation", status: "occasional" },
     ],
   },
   {
@@ -273,8 +258,8 @@ const SECTIONS: Section[] = [
       { logo: "/tool-logos/claudecode.svg", title: "Claude Code", description: "Absolutely epic" },
       { logo: "/tool-logos/githubcopilotsdk.svg", title: "GitHub Copilot SDK", description: "Sounds great" },
       { logo: "/tool-logos/claude.svg", title: "Claude Cowork", description: "For normies" },
-      { logo: "/tool-logos/codex.svg?v=2", title: "Codex", description: "OpenAI scrambling" },
-      { logo: "/tool-logos/exo.svg", title: "Exo", description: "Cluster devices for distributed AI" },
+      { logo: "/tool-logos/codex.svg?v=2", title: "Codex", description: "OpenAI scrambling", status: "wishlist" },
+      { logo: "/tool-logos/exo.svg", title: "Exo", description: "Cluster devices for distributed AI", status: "wishlist" },
     ],
   },
   {
@@ -288,9 +273,9 @@ const SECTIONS: Section[] = [
       </Paragraph>
     ),
     tools: [
-      { logo: "/tool-logos/langchain.svg", title: "LangChain", description: "AI chains", invert: true },
-      { logo: "/tool-logos/langsmith.svg", title: "LangSmith", description: "Monitoring and debugging chains", invert: true },
-      { logo: "/tool-logos/terraform.svg", title: "Terraform", description: "Infrastructure as code" },
+      { logo: "/tool-logos/langchain.svg", title: "LangChain", description: "AI chains", invert: true, status: "wishlist" },
+      { logo: "/tool-logos/langsmith.svg", title: "LangSmith", description: "Monitoring and debugging chains", invert: true, status: "wishlist" },
+      { logo: "/tool-logos/terraform.svg", title: "Terraform", description: "Infrastructure as code", status: "wishlist" },
     ],
   },
   {
@@ -319,16 +304,16 @@ const SECTIONS: Section[] = [
       </>
     ),
     tools: [
-      { logo: "/tool-logos/ollama.svg", title: "Ollama", description: "Run LLMs locally", invert: true },
-      { logo: "/tool-logos/openwebui.svg", title: "Open WebUI", description: "Self hosted ChatGPT UI", invert: true },
-      { logo: "/tool-logos/proxmox.svg", title: "Proxmox", description: "Homelab virtualization" },
-      { logo: "/tool-logos/grafana.svg", title: "Grafana", description: "Monitoring dashboards" },
-      { logo: "/tool-logos/hetzner.svg", title: "Hetzner", description: "Cheap VPS" },
-      { logo: "/tool-logos/truenas.svg", title: "TrueNAS", description: "ZFS-based NAS solution" },
-      { logo: "/tool-logos/homeassistant.svg", title: "Home Assistant", description: "Home automation platform" },
-      { logo: "/tool-logos/prometheus.svg", title: "Prometheus", description: "Time-series metrics and alerting" },
-      { logo: "/tool-logos/unraid.svg", title: "Unraid", description: "NAS and virtualization OS" },
-      { logo: "/tool-logos/openmediavault.svg", title: "OpenMediaVault", description: "Free and open-source NAS OS" },
+      { logo: "/tool-logos/ollama.svg", title: "Ollama", description: "Run LLMs locally", invert: true, status: "wishlist" },
+      { logo: "/tool-logos/openwebui.svg", title: "Open WebUI", description: "Self hosted ChatGPT UI", invert: true, status: "wishlist" },
+      { logo: "/tool-logos/proxmox.svg", title: "Proxmox", description: "Homelab virtualization", status: "wishlist" },
+      { logo: "/tool-logos/grafana.svg", title: "Grafana", description: "Monitoring dashboards", status: "wishlist" },
+      { logo: "/tool-logos/hetzner.svg", title: "Hetzner", description: "Cheap VPS", status: "wishlist" },
+      { logo: "/tool-logos/truenas.svg", title: "TrueNAS", description: "ZFS-based NAS solution", status: "wishlist" },
+      { logo: "/tool-logos/homeassistant.svg", title: "Home Assistant", description: "Home automation platform", status: "wishlist" },
+      { logo: "/tool-logos/prometheus.svg", title: "Prometheus", description: "Time-series metrics and alerting", status: "wishlist" },
+      { logo: "/tool-logos/unraid.svg", title: "Unraid", description: "NAS and virtualization OS", status: "wishlist" },
+      { logo: "/tool-logos/openmediavault.svg", title: "OpenMediaVault", description: "Free and open-source NAS OS", status: "wishlist" },
     ],
   },
 
@@ -337,49 +322,52 @@ const SECTIONS: Section[] = [
 export function MyStackClient() {
   return (
     <div className={styles.page}>
-      <nav className={styles.pillGrid}>
-        {SECTIONS.map((s) => (
-          <a
-            key={s.id}
-            href={`#${s.id}`}
-            className={styles.sectionPill}
-          >
-            {s.label}
-          </a>
-        ))}
-      </nav>
+      <div className={styles.pillGroup}>
+        <span className={styles.groupTitle}>Categories</span>
+        <nav className={styles.pillGrid}>
+          {SECTIONS.map((s) => (
+            <a key={s.id} href={`#${s.id}`} className={styles.sectionPill}>
+              {s.label}
+            </a>
+          ))}
+        </nav>
+      </div>
 
-      {SECTIONS.map((s) => {
-        const sorted = sortByStatus(s.tools);
-        const activeTools = toolsForUsage(sorted, "active");
-        const otherGroups = (["occasional", "benched", "shelved"] as ToolStatus[])
-          .map((status) => ({ status, tools: toolsForUsage(sorted, status) }))
-          .filter((group) => group.tools.length > 0);
+      <div
+        id="usage-legend"
+        className={cn(styles.pillGroup, styles.legendGroup)}
+      >
+        <span className={styles.groupTitle}>Usage</span>
+        <ul className={styles.legend}>
+          {(Object.keys(TOOL_STATUS_META) as ToolStatus[]).map((status) => {
+            const { label, hint, markClass, pillClass } =
+              TOOL_STATUS_META[status];
+            return (
+              <li key={status} className={cn(styles.legendItem, pillClass)}>
+                <span className={styles.legendLabel}>
+                  {label}
+                  {markClass && (
+                    <span className={cn(styles.statusMark, markClass)}>*</span>
+                  )}
+                </span>
+                <span className={styles.legendHint}>{hint}</span>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-        return (
-          <div key={s.id} id={s.id} className={styles.sectionBody}>
-            <h2 className={styles.sectionHeading}>{s.label}</h2>
-            <div className={styles.sectionText}>{s.description}</div>
-            {activeTools.length > 0 && (
-              <div className={styles.toolGrid}>
-                {activeTools.map((tool) => (
-                  <ToolCard key={`active-${tool.title}`} {...tool} />
-                ))}
-              </div>
-            )}
-            {otherGroups.map((group) => (
-              <div key={group.status} className={styles.usageGroup}>
-                <h3 className={styles.usageHeading}>{usageLabel(group.status)}</h3>
-                <div className={styles.usageToolGrid}>
-                  {group.tools.map((tool) => (
-                    <ToolCard key={`${group.status}-${tool.title}`} {...tool} />
-                  ))}
-                </div>
-              </div>
+      {SECTIONS.map((s) => (
+        <div key={s.id} id={s.id} className={styles.sectionBody}>
+          <H2 className={styles.sectionHeading}>{s.label}</H2>
+          <div className={styles.sectionText}>{s.description}</div>
+          <div className={styles.toolGrid}>
+            {sortByStatus(s.tools).map((tool) => (
+              <ToolCard key={tool.title} {...tool} />
             ))}
           </div>
-        );
-      })}
+        </div>
+      ))}
     </div>
   );
 }

@@ -135,3 +135,31 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Shared interactive surface: a bare border that brightens to the accent colour
+   on hover. Shape, padding, and layout stay with the consumer. */
+@utility surface-outline {
+  @apply border-border text-foreground focus-visible:ring-ring border no-underline transition-colors;
+
+  &:hover {
+    @apply border-primary text-foreground no-underline;
+  }
+
+  &:focus-visible {
+    @apply ring-2 outline-none;
+  }
+}
+
+/* Filled counterpart to surface-outline. A border inside a fill reads as noise,
+   so the hover outline sits outside the pill, gapped by the page background. */
+@utility surface-solid {
+  @apply bg-primary text-primary-foreground ring-offset-background focus-visible:ring-ring no-underline ring-1 ring-transparent ring-offset-2 transition-[box-shadow,color];
+
+  &:hover {
+    @apply ring-primary text-primary-foreground no-underline;
+  }
+
+  &:focus-visible {
+    @apply ring-ring outline-none;
+  }
+}

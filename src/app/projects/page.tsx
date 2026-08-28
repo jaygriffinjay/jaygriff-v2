@@ -9,8 +9,14 @@ import {
   CardTitle,
   CardDescription,
 } from "@/components/ui/card";
-import { DropletIcon, ShieldIcon, CpuIcon, UtensilsCrossedIcon } from "lucide-react";
-import styles from "./apps.module.css";
+import {
+  DropletIcon,
+  ShieldIcon,
+  CpuIcon,
+  UtensilsCrossedIcon,
+  BlocksIcon,
+} from "lucide-react";
+import styles from "./projects.module.css";
 
 const apps = [
   {
@@ -37,18 +43,24 @@ const apps = [
     description: "Visual Intel vs AMD desktop CPU comparison — see equivalents at a glance, no benchmarks needed.",
     icon: CpuIcon,
   },
+  {
+    label: "Blocks",
+    href: "/blocks",
+    description: "Reusable UI blocks and design docs — the component patterns this site is assembled from.",
+    icon: BlocksIcon,
+  },
 ];
 
 export const metadata: Metadata = {
-  title: "Apps",
+  title: "Projects",
   description: "Personal tools and apps built by Jay Griffin.",
 };
 
-export default function AppsPage() {
+export default function ProjectsPage() {
   return (
     <Container className="max-w-4xl">
       <div className={styles.header}>
-        <H1>Apps</H1>
+        <H1>Projects</H1>
         <Paragraph className={styles.description}>
           Stuff I made
         </Paragraph>

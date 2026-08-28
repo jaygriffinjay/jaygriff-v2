@@ -1,55 +1,122 @@
 @reference "./globals.css";
 
-/* ─── Home Page ─── */
+/* ─── Hero ─── */
 
-/* full-height hero section */
+/* portrait, name, and one-line summary */
 .hero {
-  @apply flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center gap-6 text-center px-4;
+  @apply flex flex-col items-center justify-center gap-5 px-4 py-20 text-center sm:py-24;
+}
+
+/* circular profile photo */
+.portrait {
+  @apply border-border mb-2 size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
+}
+
+/* quiet availability note under the summary */
+.availability {
+  @apply text-muted-foreground;
 }
 
 /* main heading */
 .heading {
-  @apply text-6xl font-bold tracking-tight leading-none;
+  @apply text-5xl leading-none font-bold tracking-tight sm:text-6xl;
 }
 
 /* subtitle text below heading */
 .subtitle {
-  @apply text-xl text-muted-foreground max-w-lg;
+  @apply text-muted-foreground max-w-xl text-lg sm:text-xl;
 }
 
 /* row of CTA buttons */
 .actions {
-  @apply flex flex-wrap justify-center gap-3 mt-4;
+  @apply mt-2 flex flex-wrap justify-center gap-3;
 }
 
-/* ─── App Grid ─── */
+/* emphasized call to action */
+.primaryAction {
+  @apply surface-solid rounded-full px-5 py-2.5 text-sm font-semibold;
+}
 
-/* section wrapper for apps showcase */
+/* supporting call to action */
+.secondaryAction {
+  @apply surface-outline rounded-full px-5 py-2.5 text-sm font-semibold;
+}
+
+/* ─── Sections ─── */
+
+/* shared section wrapper */
 .section {
-  @apply py-16 w-full max-w-3xl mx-auto px-4;
+  @apply mx-auto w-full max-w-3xl px-4 py-16;
+}
+
+/* section heading block */
+.sectionHead {
+  @apply mb-8 space-y-2;
 }
 
 /* section title */
 .sectionTitle {
-  @apply text-2xl font-bold text-center mb-8;
+  @apply text-2xl font-bold;
 }
+
+/* supporting copy under a section title */
+.sectionIntro {
+  @apply text-muted-foreground max-w-xl;
+}
+
+/* closing line pointing to related pages */
+.sectionFooter {
+  @apply text-muted-foreground mt-6 text-sm;
+}
+
+/* ─── Project Grid ─── */
 
 /* card grid layout */
 .grid {
   @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
 }
 
-/* individual app card */
-.appCard {
-  @apply flex flex-col gap-1;
+/* bordered project tile, matching the pill treatment used elsewhere */
+.cardLink {
+  @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5;
+}
+
+/* project icon above the card title */
+.cardIcon {
+  @apply border-border text-muted-foreground mb-1 flex size-9 items-center justify-center rounded-full border transition-colors;
+}
+
+/* icon tracks the tile's hover state */
+.cardLink:hover .cardIcon {
+  @apply border-primary text-primary;
+}
+
+/* project icon dimensions */
+.cardIcon svg {
+  @apply size-4.5;
 }
 
 /* app card title */
 .appCardTitle {
-  @apply font-semibold;
+  @apply text-base font-semibold;
 }
 
 /* app card description */
 .appCardDesc {
-  @apply text-sm text-muted-foreground;
+  @apply text-muted-foreground text-sm leading-relaxed;
 }
+
+/* ─── Background ─── */
+
+/* narrative text column */
+.prose {
+  @apply max-w-2xl space-y-4 leading-relaxed;
+}
+
+/* ─── Closing ─── */
+
+/* plain closing line */
+.closing {
+  @apply text-muted-foreground;
+}
+

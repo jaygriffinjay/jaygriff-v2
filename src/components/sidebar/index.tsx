@@ -8,8 +8,9 @@ import {
   NewspaperIcon,
   BookOpenIcon,
   LayoutGridIcon,
-  BlocksIcon,
   ShieldIcon,
+  MailIcon,
+  HelpCircleIcon,
   SunIcon,
   MoonIcon,
   PanelLeftIcon,
@@ -32,10 +33,11 @@ import { Logo } from "./logo";
 
 const navItems = [
   { label: "Home", href: "/", icon: HomeIcon },
-  { label: "Apps", href: "/apps", icon: LayoutGridIcon },
+  { label: "Projects", href: "/projects", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Docs", href: "/docs", icon: BookOpenIcon },
-  { label: "Blocks", href: "/blocks", icon: BlocksIcon },
+  { label: "FAQ", href: "/faq", icon: HelpCircleIcon },
+  { label: "Contact", href: "/contact", icon: MailIcon },
   ...(process.env.NODE_ENV === "development"
     ? [{ label: "Admin", href: "/admin", icon: ShieldIcon }]
     : []),

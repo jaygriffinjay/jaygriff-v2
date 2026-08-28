@@ -1,0 +1,56 @@
+@reference "../globals.css";
+
+/* page width shared with the docs and posts index pages */
+.container {
+  @apply max-w-4xl;
+}
+
+/* page title block */
+.header {
+  @apply space-y-2;
+}
+
+/* rule under the page header */
+.divider {
+  @apply my-6;
+}
+
+/* supporting line under the title */
+.intro {
+  @apply text-muted-foreground text-lg;
+}
+
+/* one grouping of questions */
+.section {
+  @apply mb-10 space-y-4;
+}
+
+/* group label, aligned to the card column below it */
+.sectionTitle {
+  @apply mx-auto max-w-2xl text-3xl font-bold;
+}
+
+/* stack of question cards; narrower than the page so answers stay readable */
+.accordion {
+  @apply mx-auto max-w-2xl space-y-2;
+}
+
+/* each question is its own card; last:border-b overrides the default row divider */
+.item {
+  @apply surface-outline rounded-2xl last:border-b;
+}
+
+/* padding lives here, not on the card, so the whole row is a hit target */
+.question {
+  @apply w-full px-4 text-left text-base font-semibold hover:no-underline;
+}
+
+/* answer body */
+.answer {
+  @apply text-muted-foreground px-4 leading-relaxed;
+}
+
+/* closing line pointing to the contact page */
+.closing {
+  @apply text-muted-foreground mx-auto max-w-2xl;
+}

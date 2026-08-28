@@ -1,0 +1,78 @@
+@reference "../globals.css";
+
+/* narrow contact-page content column */
+.container {
+  @apply max-w-xl;
+}
+
+/* introductory page copy */
+.header {
+  @apply mb-10 space-y-3;
+}
+
+/* portrait above the contact-page heading */
+.portrait {
+  @apply mx-auto mb-6 aspect-square size-44 rounded-md object-cover sm:size-48;
+}
+
+/* centered contact-page title */
+.title {
+  @apply text-center;
+}
+
+/* compact section label above the title */
+.eyebrow {
+  @apply text-primary block font-semibold uppercase tracking-widest;
+}
+
+/* primary contact-page heading */
+.heading {
+  @apply text-5xl sm:text-6xl;
+}
+
+/* supporting introduction */
+.intro {
+  @apply text-muted-foreground max-w-lg text-lg leading-relaxed;
+}
+
+/* vertical list of contact destinations */
+.links {
+  @apply flex flex-col gap-4;
+}
+
+/* individual contact destination */
+.contactLink {
+  @apply surface-outline grid min-h-20 grid-cols-[3.25rem_1fr_3.25rem] items-center rounded-full px-3;
+}
+
+/* icon at the start of each destination */
+.iconSlot {
+  @apply bg-primary text-primary-foreground flex size-13 items-center justify-center rounded-full;
+}
+
+/* contact destination icon dimensions */
+.iconSlot svg {
+  @apply size-7;
+}
+
+/* primary destination label */
+.label {
+  @apply truncate text-center text-lg font-semibold;
+}
+
+/* directional affordance at the end of each row */
+.arrow {
+  @apply text-muted-foreground justify-self-center text-xl transition-transform;
+}
+
+/* directional movement on row hover */
+.contactLink:hover .arrow {
+  @apply translate-x-0.5 -translate-y-0.5;
+}
+
+@media (max-width: 479px) {
+  /* keep long email addresses clear on narrow screens */
+  .contactLink {
+    @apply grid-cols-[3rem_1fr_3rem] px-2;
+  }
+}

@@ -78,6 +78,17 @@ export async function getAllContent(): Promise<ContentRow[]> {
   return result.rows.map((r) => parseRow(r as Record<string, unknown>));
 }
 
+function stripFrontmatter(content: string): string {
+  if (!/^---(?:json|ya?ml)?\r?\n/.test(content)) return content;
+
+  const closingDelimiter = content.search(/\r?\n---\r?\n/);
+  if (closingDelimiter === -1) return content;
+
+  return content.slice(closingDelimiter).replace(/^\r?\n---\r?\n/, "");
+}
+
 export function readMarkdownFile(filePath: string): string {
-  return readFileSync(join(process.cwd(), filePath), "utf-8");
+  return stripFrontmatter(
+    readFileSync(join(process.cwd(), filePath), "utf-8")
+  );
 }

@@ -16,16 +16,12 @@
 
 /* individual section pill trigger */
 .sectionPill {
-  @apply inline-flex items-center rounded-full px-5 py-2 text-sm font-semibold;
-  @apply cursor-pointer transition-all duration-200;
-  @apply border border-border bg-muted/50 text-muted-foreground;
-  @apply hover:bg-muted hover:text-foreground;
+  @apply surface-outline inline-flex cursor-pointer items-center rounded-full px-5 py-2 text-sm font-semibold;
 }
 
-/* active/open state for pill */
+/* active/open state for pill; declared last so it wins over .sectionPill */
 .sectionPillActive {
-  @apply bg-primary text-primary-foreground border-primary;
-  @apply hover:bg-primary/90 hover:text-primary-foreground;
+  @apply surface-solid border-transparent;
 }
 
 /* ─── Section Body ─── */
@@ -36,19 +32,8 @@
 }
 
 /* section heading inside expanded body */
-.sectionHeading,
-.usageHeading {
-  @apply font-bold mt-4 mb-6 leading-tight;
-  color: oklch(0.65 0.2 255);
-  text-shadow: 2px 2px 0 oklch(0.45 0.25 260), 5px 5px 10px oklch(0 0 0 / 0.5);
-}
-
 .sectionHeading {
-  @apply text-3xl;
-}
-
-.usageHeading {
-  @apply text-xl;
+  @apply mt-4 mb-6 text-2xl font-bold;
 }
 
 /* paragraph wrapper inside section body */
@@ -59,16 +44,6 @@
 /* flex grid for tool cards */
 .toolGrid {
   @apply flex flex-wrap justify-start gap-8 my-8 w-full;
-}
-
-/* usage group wrapper within a section */
-.usageGroup {
-  @apply w-full mb-4;
-}
-
-/* compact grid used inside usage groups */
-.usageToolGrid {
-  @apply flex flex-wrap justify-start gap-8 my-2 w-full;
 }
 
 /* ─── ToolCard ─── */
@@ -108,7 +83,88 @@
   @apply text-sm text-muted-foreground m-0;
 }
 
-/* status badge below description */
-.statusBadge {
-  @apply text-[10px] text-muted-foreground/70 uppercase tracking-wider mt-0.5;
+/* ─── Usage Status ─── */
+
+/* asterisk appended to a tool name; links down to the legend like a footnote */
+.statusMark {
+  @apply focus-visible:ring-ring cursor-pointer text-lg leading-none font-bold no-underline focus-visible:rounded-xs focus-visible:ring-2 focus-visible:outline-none;
+}
+
+.statusMark:hover {
+  @apply no-underline;
+}
+
+.markOccasional {
+  @apply text-lime-600 dark:text-lime-400;
+}
+
+.markBenched {
+  @apply text-amber-600 dark:text-amber-400;
+}
+
+.markShelved {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.markWishlist {
+  @apply text-blue-600 dark:text-blue-300;
+}
+
+/* labelled group wrapper shared by the nav pills and the legend */
+.pillGroup {
+  @apply flex w-full flex-col items-center gap-3;
+}
+
+/* caption above a pill row */
+.groupTitle {
+  @apply text-muted-foreground text-xs font-semibold tracking-widest uppercase;
+}
+
+/* legend sits below the section nav; the rule keeps the two pill rows from reading as one cloud */
+.legendGroup {
+  @apply scroll-mt-24 border-t pt-6;
+}
+
+/* key explaining what each marker color means */
+.legend {
+  @apply flex w-full flex-wrap justify-center gap-x-3 gap-y-2 text-sm;
+}
+
+/* matches .sectionPill sizing; border colour comes from the .pill* classes */
+.legendItem {
+  @apply inline-flex items-center gap-2 rounded-full border px-5 py-2 text-sm;
+}
+
+/* pill outline matching each status colour */
+.pillActive {
+  @apply border-border;
+}
+
+.pillOccasional {
+  @apply border-lime-600 dark:border-lime-400;
+}
+
+.pillBenched {
+  @apply border-amber-600 dark:border-amber-400;
+}
+
+.pillShelved {
+  @apply border-red-600 dark:border-red-400;
+}
+
+.pillWishlist {
+  @apply border-blue-600 dark:border-blue-300;
+}
+
+.legendLabel {
+  @apply font-semibold;
+}
+
+.legendHint {
+  @apply text-muted-foreground;
+}
+
+/* visually hidden text that keeps the dot meaningful to screen readers */
+.srOnly {
+  @apply sr-only;
 }
