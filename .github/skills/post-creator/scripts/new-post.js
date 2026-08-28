@@ -4,24 +4,20 @@
  * new-post.js
  *
  * Deterministic file-creation step for the post-creator skill.
- * Given a title, writes a new .tsx post file into content/inbox/ with a
+ * Given a title, writes a new .tsx post file into content/tsx/ with a
  * pre-filled template. Does nothing fuzzy — same input always produces
  * the same path and the same shape of file.
- *
- * content/inbox/ is gitignored: drafts stay local and render only on the
- * dev-only /staging route. Promote a draft by moving it to content/tsx/
- * and running the content sync.
  *
  * Usage:
  *   node .github/skills/post-creator/scripts/new-post.js "My New Post Title"
  *
- * Run from the repo root — content/inbox/ is resolved from process.cwd().
+ * Run from the repo root — content/tsx/ is resolved from process.cwd().
  */
 
 const fs = require("fs");
 const path = require("path");
 
-const POSTS_DIR = path.join(process.cwd(), "content", "inbox");
+const POSTS_DIR = path.join(process.cwd(), "content", "tsx");
 
 function slugify(title) {
   return title
