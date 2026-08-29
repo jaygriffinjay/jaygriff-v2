@@ -1,0 +1,56 @@
+@reference "../../app/globals.css";
+
+/* mt-auto pins the footer to the bottom of short pages — SidebarInset is a flex column */
+.footer {
+  @apply border-border mt-auto w-full border-t;
+}
+
+/* a centered column: mark, then link groups */
+.inner {
+  @apply mx-auto flex w-full max-w-3xl flex-col items-center gap-10 px-6 pt-12 pb-14;
+}
+
+/* the mark on its own, linking home */
+.brand {
+  @apply block h-fit w-fit no-underline opacity-85 transition-opacity hover:opacity-100;
+}
+
+/* height-driven since the cropped viewBox is taller than it is wide */
+.logo {
+  @apply h-10 w-auto shrink-0;
+}
+
+/* ─── Link columns ───────────────────────────────────────────── */
+
+/* md is the same breakpoint that sends the sidebar off-canvas, so the whole layout changes once, at one width */
+.columns {
+  @apply grid w-fit grid-cols-2 gap-x-12 gap-y-10 md:flex md:w-auto md:justify-center md:gap-8;
+}
+
+/* shrink-0 keeps the row from squeezing columns narrower than their content */
+/* each column is only as wide as its widest item, so links stay left-aligned under the heading */
+.column {
+  @apply flex shrink-0 flex-col gap-3;
+}
+
+/* column heading */
+.columnTitle {
+  @apply text-foreground text-xs font-semibold tracking-widest whitespace-nowrap uppercase;
+}
+
+/* the links themselves — underlined on hover rather than shifting color */
+.link {
+  @apply text-muted-foreground hover:decoration-muted-foreground text-sm no-underline underline-offset-4 hover:underline;
+}
+
+/* ─── Theme control ──────────────────────────────────────────── */
+
+/* matches .link so the button sits naturally among the text links */
+.themeToggle {
+  @apply text-muted-foreground hover:decoration-muted-foreground flex cursor-pointer items-center gap-1.5 text-sm underline-offset-4 hover:underline [&>svg]:size-3.5;
+}
+
+/* reserves the icon's box so the row does not shift when it appears after hydration */
+.themeIcon {
+  @apply flex size-3.5 shrink-0 items-center justify-center;
+}

@@ -19,8 +19,9 @@
 }
 
 /* status dot signalling active availability */
+/* nudged up 1px: items-center aligns to the line box, which sits low against the text's optical centre */
 .dot {
-  @apply relative inline-flex size-2 shrink-0 rounded-full bg-green-500;
+  @apply relative inline-flex size-2 shrink-0 -translate-y-px rounded-full bg-green-500;
 }
 
 /* pulse ring around the status dot */

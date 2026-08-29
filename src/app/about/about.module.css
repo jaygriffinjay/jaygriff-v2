@@ -1,8 +1,8 @@
 @reference "../globals.css";
 
-/* page width shared with the docs and posts index pages */
+/* prose reading width, shared with the post and doc pages */
 .container {
-  @apply max-w-4xl;
+  @apply max-w-3xl;
 }
 
 /* page title block */

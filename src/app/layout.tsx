@@ -5,6 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar";
 import { MobileHeader } from "@/components/mobile-header";
+import { Footer } from "@/components/footer";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -64,6 +65,7 @@ export default async function RootLayout({
               <SidebarInset>
                 <MobileHeader />
                 {children}
+                <Footer />
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>

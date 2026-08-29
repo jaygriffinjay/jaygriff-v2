@@ -1,0 +1,130 @@
+@reference "../globals.css";
+
+/* narrower than the docs pages so line lengths stay resume-like */
+.container {
+  @apply max-w-3xl;
+}
+
+/* ─── Header ─────────────────────────────────────────────────── */
+
+/* name, contact row, and the PDF button */
+.header {
+  @apply border-border mb-8 flex flex-col items-center gap-3 border-b pb-6 text-center;
+}
+
+/* wordmark treatment, matching the sidebar */
+.name {
+  @apply text-4xl sm:text-5xl;
+  font-family: var(--font-sekuya);
+}
+
+/* contact links wrap on narrow screens instead of overflowing */
+.contact {
+  @apply text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm;
+}
+
+/* separator between contact links; the first one doesn't get a bullet */
+.contactLink {
+  @apply text-foreground font-medium no-underline hover:underline;
+}
+
+.contactLink + .contactLink::before {
+  @apply text-muted-foreground mr-3 font-normal content-['•'];
+}
+
+/* nudged down from the contact row */
+.download {
+  @apply mt-2;
+}
+
+/* ─── Sections ───────────────────────────────────────────────── */
+
+/* one resume section */
+.section {
+  @apply mb-8;
+}
+
+/* title on the left, cross-reference link on the right */
+.sectionHeader {
+  @apply border-border mb-4 flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b pb-1;
+}
+
+/* section heading */
+.sectionTitle {
+  @apply border-none pb-0 text-xl font-bold tracking-tight;
+}
+
+/* pointer to the fuller version of this section on the site */
+.sectionLink {
+  @apply text-muted-foreground hover:text-foreground text-xs no-underline transition-colors;
+}
+
+/* ─── Entries ────────────────────────────────────────────────── */
+
+/* a project, job, or degree */
+.entry {
+  @apply mb-4 last:mb-0;
+}
+
+/* title and dates on one line, stacking when there isn't room */
+.entryHeader {
+  @apply flex flex-wrap items-baseline justify-between gap-x-4;
+}
+
+/* entry heading */
+.entryTitle {
+  @apply text-base font-bold;
+}
+
+/* the "— Personal Platform" half of a project title */
+.tagline {
+  @apply text-muted-foreground font-normal;
+}
+
+/* employment dates */
+.dates {
+  @apply text-muted-foreground shrink-0 text-sm italic;
+}
+
+/* achievement list under an entry */
+.bullets {
+  @apply text-muted-foreground mt-1 list-disc space-y-0.5 pl-5 text-sm leading-relaxed;
+}
+
+/* ─── Skills ─────────────────────────────────────────────────── */
+
+/* label/value pairs, stacked on mobile and two columns from sm up */
+.skills {
+  @apply space-y-1 text-sm;
+}
+
+/* one skill category */
+.skillRow {
+  @apply flex flex-col gap-x-2 sm:flex-row;
+}
+
+/* fixed column so the values line up across rows */
+.skillLabel {
+  @apply text-foreground font-semibold sm:w-32 sm:shrink-0;
+}
+
+/* the comma-separated list itself */
+.skillItems {
+  @apply text-muted-foreground;
+}
+
+/* ─── Closing ────────────────────────────────────────────────── */
+
+/* availability note under the last section */
+.closing {
+  @apply border-border border-t pt-6;
+}
+
+/* ─── Print ──────────────────────────────────────────────────── */
+
+/* the PDF is the canonical print artifact, so just drop the button */
+@media print {
+  .download {
+    @apply hidden;
+  }
+}

@@ -1,0 +1,36 @@
+@reference "../globals.css";
+
+/* prose reading width, shared with the post and doc pages */
+.container {
+  @apply max-w-3xl;
+}
+
+/* page title block */
+.header {
+  @apply space-y-2;
+}
+
+/* rule under the page header */
+.divider {
+  @apply my-6;
+}
+
+/* supporting line under the title */
+.intro {
+  @apply text-muted-foreground text-lg;
+}
+
+/* one licensing topic */
+.section {
+  @apply mb-10 max-w-2xl space-y-4;
+}
+
+/* section heading */
+.sectionTitle {
+  @apply text-3xl font-bold;
+}
+
+/* tightens the default list spacing so the bullets read as a group */
+.list {
+  @apply space-y-1;
+}

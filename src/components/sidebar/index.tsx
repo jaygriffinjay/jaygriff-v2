@@ -25,6 +25,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarRail,
   useSidebar,
 } from "@/components/ui/sidebar";
 import styles from "./sidebar.module.css";
@@ -94,6 +95,9 @@ export function AppSidebar() {
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
+
+      {/* the only way back once collapsed: offcanvas hides the sidebar and the trigger lives in the md:hidden header */}
+      <SidebarRail />
     </Sidebar>
   );
 }

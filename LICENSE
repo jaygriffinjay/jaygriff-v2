@@ -1,21 +1,66 @@
-MIT License
-
 Copyright (c) 2026 Jay Griffin
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This repository is dual-licensed: the software is under the MIT License, and
+the writing and other creative content is under Creative Commons
+Attribution-NonCommercial-ShareAlike 4.0 International.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+-----------------------------------------------------------------------
+CODE - MIT License (full text in LICENSE-CODE)
+-----------------------------------------------------------------------
+
+  src/                    application, components, and pipeline scripts
+  .github/                instructions, skills, and workflows
+  .vscode/                editor configuration
+
+  Root configuration files:
+    components.json, eslint.config.mjs, next.config.ts, package.json,
+    package-lock.json, postcss.config.mjs, tsconfig.json, .env.example,
+    .gitignore
+
+  Note that source files under src/ may contain short illustrative
+  snippets that also appear in posts. Those snippets are MIT where they
+  live in src/.
+
+
+-----------------------------------------------------------------------
+CONTENT - CC BY-NC-SA 4.0 (full text in LICENSE-CONTENT)
+-----------------------------------------------------------------------
+
+  https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+  content/                posts, docs, and project write-ups
+  raw/                    drafts and working notes
+  public/images/          photographs and illustrations
+  README.md
+
+  You may share and adapt this material for non-commercial purposes,
+  with attribution to Jay Griffin, and provided derivatives carry the
+  same license. Code samples embedded inside these documents are MIT,
+  so you are free to use them in your own projects without restriction.
+
+
+-----------------------------------------------------------------------
+THIRD-PARTY MATERIAL - not licensed by me
+-----------------------------------------------------------------------
+
+  public/tool-logos/          Logos and trademarks belonging to their
+                              respective owners, included for
+                              identification purposes only.
+
+  public/Sekuya-Regular.ttf   Sekuya typeface.
+                              Copyright 2024 The SEKUYA Project Authors
+                              https://github.com/kevinnseptian/SEKUYA
+                              Licensed under the SIL Open Font License 1.1,
+                              reproduced in public/Sekuya-OFL.txt.
+                              Redistributed here under that license.
+
+  Dependencies in package.json are governed by their own licenses.
+
+  Nothing in this repository grants rights to any of the above.
+
+
+-----------------------------------------------------------------------
+
+For commercial use of the content, or anything else not covered here,
+get in touch: https://jaygriff.com/contact

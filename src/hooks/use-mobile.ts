@@ -7,11 +7,13 @@ export function useIsMobile() {
 
   React.useEffect(() => {
     const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+    // read mql.matches, not window.innerWidth: innerWidth counts the scrollbar and
+    // would disagree with the md: rules that hide/show the sidebar and mobile header
     const onChange = () => {
-      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+      setIsMobile(mql.matches)
     }
     mql.addEventListener("change", onChange)
-    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT)
+    setIsMobile(mql.matches)
     return () => mql.removeEventListener("change", onChange)
   }, [])
 
