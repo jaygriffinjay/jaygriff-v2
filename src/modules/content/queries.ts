@@ -1,3 +1,5 @@
+import "server-only";
+
 import { db } from "@/modules/db/turso";
 import { readFileSync } from "fs";
 import { join } from "path";
@@ -54,7 +56,7 @@ function parseRow(row: Record<string, unknown>): ContentRow {
 
 export async function getContentBySlug(slug: string): Promise<ContentRow | null> {
   const result = await db.execute({
-    sql: "SELECT * FROM content WHERE slug = ? AND status != 'deleted'",
+    sql: "SELECT * FROM content WHERE slug = ? AND status = 'published'",
     args: [slug],
   });
   if (result.rows.length === 0) return null;

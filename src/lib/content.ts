@@ -1,3 +1,5 @@
+import "server-only";
+
 import { db } from "@/modules/db/turso";
 import { readFileSync } from "fs";
 import { join } from "path";
