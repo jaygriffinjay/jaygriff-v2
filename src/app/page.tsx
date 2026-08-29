@@ -6,7 +6,26 @@ import {
   UtensilsCrossedIcon,
 } from "lucide-react";
 import { H1, H2, Paragraph, Small, Link } from "@/components/typography";
+import { AvailabilityBanner } from "@/components/availability-banner";
+import { getAllPublished } from "@/modules/content/queries";
 import styles from "./home.module.css";
+
+// hand-picked slugs, rendered in this order; unmatched slugs are skipped
+const FEATURED_SLUGS = [
+  "how-i-learned-to-code",
+  "how-i-use-ai",
+  "content-pipeline-deep-dive",
+  "frontmatter-is-a-dead-end",
+  "programs-not-documents",
+];
+
+function formatDate(value: string) {
+  return new Date(value).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
 
 const PROJECTS = [
   {
@@ -43,9 +62,21 @@ const PROJECTS = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getAllPublished("post");
+
+  const featured = FEATURED_SLUGS.map((slug) =>
+    posts.find((post) => post.slug === slug),
+  ).filter((post) => post !== undefined);
+
+  const recent = posts
+    .filter((post) => !FEATURED_SLUGS.includes(post.slug))
+    .slice(0, 5);
+
   return (
     <>
+      <AvailabilityBanner />
+
       <section className={styles.hero}>
         <Image
           src="/images/me.jpg"
@@ -66,8 +97,8 @@ export default function Home() {
           <Link href="/posts" className={styles.secondaryAction}>
             Read my writing
           </Link>
-          <Link href="/contact" className={styles.secondaryAction}>
-            Get in touch
+          <Link href="/about" className={styles.secondaryAction}>
+            About me
           </Link>
         </div>
       </section>
@@ -97,52 +128,67 @@ export default function Home() {
         </Paragraph>
       </section>
 
-      <section className={styles.section}>
-        <div className={styles.sectionHead}>
-          <H2 className={styles.sectionTitle}>Background</H2>
-        </div>
+      {featured.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.sectionHead}>
+            <H2 className={styles.sectionTitle}>Featured writing</H2>
+            <Paragraph className={styles.sectionIntro}>
+              If you only read a few, read these.
+            </Paragraph>
+          </div>
 
-        <div className={styles.prose}>
-          <Paragraph>
-            I&apos;ve been living inside computers since I was five — Paint and
-            Pinball first, then PC gaming, modding, running game servers,
-            building machines from parts, and reinstalling Linux more times than
-            I can count. By the time I wrote a line of code I was already
-            comfortable with filesystems, config files, and the command line. I
-            just didn&apos;t know yet that being unafraid of the machine was
-            most of the battle.
-          </Paragraph>
-          <Paragraph>
-            The click came from AutoHotkey. I wanted one hotkey that opened the
-            five websites I checked every morning. It worked — and then I
-            realized the list could just as easily be a hundred. That&apos;s the
-            whole idea of a program: write the instructions once, and the
-            machine runs them instantly, perfectly, every time.
-          </Paragraph>
-          <Paragraph>
-            Everything since has been self-taught and problem-first. I learn by
-            building something I want to exist, getting it working end to end,
-            and writing down what I figured out along the way. These days that
-            means full-stack TypeScript, a database, an LLM somewhere in the
-            loop, and a deployed URL at the end of it — the whole setup is in{" "}
-            <Link href="/my-stack">my stack</Link>.
-          </Paragraph>
-          <Paragraph>
-            I work with AI agents daily and I&apos;m opinionated about how.
-            They&apos;re very good at execution and still need someone holding
-            the architecture. I write down decisions as I make them — why a
-            format was chosen, why an approach failed — which is partly how I
-            learn and partly so the reasoning survives past the moment.
-          </Paragraph>
-        </div>
-      </section>
+          <div className={styles.grid}>
+            {featured.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/posts/${post.slug}`}
+                className={styles.cardLink}
+              >
+                <span className={styles.appCardTitle}>{post.title}</span>
+                {post.description && (
+                  <span className={styles.appCardDesc}>{post.description}</span>
+                )}
+                <Small className={styles.postDate}>
+                  {formatDate(post.created_at)}
+                </Small>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
-      <section className={styles.section}>
-        <Paragraph className={styles.closing}>
-          I&apos;m looking for a software development role. If you want to talk,{" "}
-          <Link href="/contact">get in touch</Link>.
-        </Paragraph>
-      </section>
+      {recent.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.sectionHead}>
+            <H2 className={styles.sectionTitle}>Recent writing</H2>
+            <Paragraph className={styles.sectionIntro}>
+              What I&apos;ve been working through lately.
+            </Paragraph>
+          </div>
+
+          <div className={styles.recentList}>
+            {recent.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/posts/${post.slug}`}
+                className={styles.recentRow}
+              >
+                <span className={styles.recentTitle}>{post.title}</span>
+                {post.description && (
+                  <span className={styles.recentDesc}>{post.description}</span>
+                )}
+                <Small className={styles.recentDate}>
+                  {formatDate(post.created_at)}
+                </Small>
+              </Link>
+            ))}
+          </div>
+
+          <Paragraph className={styles.sectionFooter}>
+            Everything in <Link href="/posts">posts</Link>.
+          </Paragraph>
+        </section>
+      )}
     </>
   );
 }

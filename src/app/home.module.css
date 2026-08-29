@@ -12,11 +12,6 @@
   @apply border-border mb-2 size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
 }
 
-/* quiet availability note under the summary */
-.availability {
-  @apply text-muted-foreground;
-}
-
 /* main heading */
 .heading {
   @apply text-5xl leading-none font-bold tracking-tight sm:text-6xl;
@@ -106,17 +101,40 @@
   @apply text-muted-foreground text-sm leading-relaxed;
 }
 
-/* ─── Background ─── */
+/* ─── Writing ─── */
 
-/* narrative text column */
-.prose {
-  @apply max-w-2xl space-y-4 leading-relaxed;
+/* published date inside a featured post tile */
+.postDate {
+  @apply text-muted-foreground/60 mt-auto pt-2;
 }
 
-/* ─── Closing ─── */
+/* stacked rows, visually distinct from the featured tile grid */
+.recentList {
+  @apply divide-border/60 flex flex-col divide-y;
+}
 
-/* plain closing line */
-.closing {
-  @apply text-muted-foreground;
+/* single recent post row */
+.recentRow {
+  @apply flex flex-col gap-1 py-4 no-underline transition-colors first:pt-0 last:pb-0;
+}
+
+/* recent post title, highlights on row hover */
+.recentTitle {
+  @apply text-base font-semibold;
+}
+
+/* title tracks the row's hover state */
+.recentRow:hover .recentTitle {
+  @apply text-primary;
+}
+
+/* recent post description */
+.recentDesc {
+  @apply text-muted-foreground text-sm leading-relaxed;
+}
+
+/* recent post published date */
+.recentDate {
+  @apply text-muted-foreground/60;
 }
 

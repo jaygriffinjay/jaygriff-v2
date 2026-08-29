@@ -13,7 +13,6 @@ import {
   HelpCircleIcon,
   SunIcon,
   MoonIcon,
-  PanelLeftIcon,
 } from "lucide-react";
 
 import {
@@ -29,14 +28,13 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import styles from "./sidebar.module.css";
-import { Logo } from "./logo";
 
 const navItems = [
   { label: "Home", href: "/", icon: HomeIcon },
   { label: "Projects", href: "/projects", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Docs", href: "/docs", icon: BookOpenIcon },
-  { label: "FAQ", href: "/faq", icon: HelpCircleIcon },
+  { label: "About", href: "/about", icon: HelpCircleIcon },
   { label: "Contact", href: "/contact", icon: MailIcon },
   ...(process.env.NODE_ENV === "development"
     ? [{ label: "Admin", href: "/admin", icon: ShieldIcon }]
@@ -45,24 +43,22 @@ const navItems = [
 
 export function AppSidebar() {
   const { resolvedTheme, setTheme } = useTheme();
-  const { toggleSidebar, state } = useSidebar();
-  const collapsed = state === "collapsed";
+  const { isMobile, setOpenMobile } = useSidebar();
   const [mounted, setMounted] = React.useState(false);
   React.useEffect(() => setMounted(true), []);
   const isDark = resolvedTheme === "dark";
+
+  // the drawer overlays the page on mobile, so it has to get out of the way after navigating
+  const closeOnMobile = () => {
+    if (isMobile) setOpenMobile(false);
+  };
+
   return (
-    <Sidebar collapsible="icon">
-      {/* Header: logo + site name */}
+    <Sidebar collapsible="offcanvas">
       <SidebarHeader className={styles.header}>
-        {collapsed ? (
-          <NextLink href="/" className={styles.logoLink}>
-            <Logo className={styles.logoImg} />
-          </NextLink>
-        ) : (
-          <NextLink href="/" className={styles.siteTitle}>
-            Jay Griffin
-          </NextLink>
-        )}
+        <NextLink href="/" className={styles.siteTitle} onClick={closeOnMobile}>
+          Jay Griffin
+        </NextLink>
       </SidebarHeader>
 
       {/* Main nav */}
@@ -72,8 +68,8 @@ export function AppSidebar() {
             <SidebarMenu className={styles.navMenu}>
               {navItems.map(({ label, href, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
-                  <SidebarMenuButton asChild tooltip={label} className={styles.navButton}>
-                    <NextLink href={href}>
+                  <SidebarMenuButton asChild className={styles.navButton}>
+                    <NextLink href={href} onClick={closeOnMobile}>
                       <Icon />
                       <span>{label}</span>
                     </NextLink>
@@ -85,23 +81,15 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
 
-      {/* Footer: theme toggle + collapse */}
       <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              tooltip={isDark ? "Light mode" : "Dark mode"}
               onClick={() => setTheme(isDark ? "light" : "dark")}
               className={styles.navButton}
             >
               {mounted && (isDark ? <SunIcon /> : <MoonIcon />)}
               <span>Theme</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Toggle sidebar" onClick={toggleSidebar} className={styles.navButton}>
-              <PanelLeftIcon />
-              <span>Sidebar</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

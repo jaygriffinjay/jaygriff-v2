@@ -1,0 +1,36 @@
+@reference "./globals.css";
+
+/* centered column filling the viewport below the header */
+.wrapper {
+  @apply flex min-h-[70vh] flex-col items-center justify-center gap-5 py-20 text-center;
+}
+
+/* oversized status code watermark */
+.code {
+  @apply text-muted-foreground/30 text-8xl leading-none font-bold tracking-tight tabular-nums sm:text-9xl;
+}
+
+/* main heading */
+.heading {
+  @apply text-3xl font-bold tracking-tight sm:text-4xl;
+}
+
+/* supporting copy under the heading */
+.message {
+  @apply text-muted-foreground max-w-md text-lg;
+}
+
+/* row of recovery links */
+.actions {
+  @apply mt-2 flex flex-wrap justify-center gap-3;
+}
+
+/* emphasized link back to the homepage */
+.primaryAction {
+  @apply surface-solid rounded-full px-5 py-2.5 text-sm font-semibold no-underline;
+}
+
+/* supporting links to the main content sections */
+.secondaryAction {
+  @apply surface-outline rounded-full px-5 py-2.5 text-sm font-semibold no-underline;
+}

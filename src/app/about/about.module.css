@@ -50,6 +50,11 @@
   @apply text-muted-foreground px-4 leading-relaxed;
 }
 
+/* narrative bio column, aligned with the question cards below it */
+.bio {
+  @apply mx-auto max-w-2xl space-y-4 leading-relaxed;
+}
+
 /* closing line pointing to the contact page */
 .closing {
   @apply text-muted-foreground mx-auto max-w-2xl;

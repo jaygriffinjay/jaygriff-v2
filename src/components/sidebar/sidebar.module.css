@@ -1,29 +1,16 @@
 @reference "../../app/globals.css";
 
-/* ─── Logo / header area ─────────────────────────────────────── */
+/* ─── Header area ────────────────────────────────────────────── */
 
 /* header container */
 .header {
-  @apply items-start;
-}
-
-:global([data-state="collapsed"]) .header {
   @apply items-center;
 }
 
-/* collapsed: logo link centered */
-.logoLink {
-  @apply flex items-center justify-center;
-}
-
-/* logo image */
-.logoImg {
-  @apply size-9! ml-1;
-}
-
-/* expanded: site name — pl-2.5 aligns with nav icon start */
+/* home link — hover uses bg/opacity, not text-primary, because --primary
+   and --foreground resolve to the same oklch value in light mode */
 .siteTitle {
-  @apply font-semibold text-2xl truncate pl-3.5 mt-1 mb-3;
+  @apply text-foreground/85 hover:text-foreground hover:bg-sidebar-accent block w-full truncate rounded-md px-2.5 py-2 text-center text-2xl font-semibold no-underline transition-colors;
   font-family: var(--font-sekuya);
 }
 

@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./content/md/**/*", "./content/tsx/**/*"],
   },
+  async redirects() {
+    return [{ source: "/faq", destination: "/about", permanent: true }];
+  },
 };
 
 export default nextConfig;

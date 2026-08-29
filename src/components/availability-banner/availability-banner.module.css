@@ -1,0 +1,60 @@
+@reference "../../app/globals.css";
+
+/* the sidebar steals 16rem at md, so the banner has to measure itself, not the viewport */
+.wrap {
+  container-type: inline-size;
+  @apply w-full;
+}
+
+/* full-width bar, links to the contact page */
+/* stacks as three fixed chunks until they all fit on one line */
+.banner {
+  @apply border-primary/20 bg-primary/5 hover:bg-primary/10 flex w-full flex-col items-center justify-center gap-0.5 border-b px-3 py-3 text-center text-xs font-medium no-underline transition-colors;
+}
+
+/* chunk one — keeps the dot locked to the "Available now" text */
+/* stacked, the dot pushes the label right of centre; half its footprint pulls it back */
+.status {
+  @apply flex -translate-x-2 items-center gap-2 text-sm;
+}
+
+/* status dot signalling active availability */
+.dot {
+  @apply relative inline-flex size-2 shrink-0 rounded-full bg-green-500;
+}
+
+/* pulse ring around the status dot */
+.dot::after {
+  @apply absolute inset-0 animate-ping rounded-full bg-green-500 opacity-75 content-[''] motion-reduce:hidden;
+}
+
+/* em dash only belongs there when the chunks share a line */
+.role::before {
+  content: "— ";
+  @apply hidden;
+}
+
+/* emphasized call to action */
+.cta {
+  @apply text-primary flex items-center gap-1 text-sm font-semibold;
+}
+
+/* arrow scales with the label instead of a fixed px size */
+.ctaIcon {
+  @apply size-[1em] shrink-0;
+}
+
+/* 36rem is the measured width of the three chunks plus gaps at text-sm */
+@container (min-width: 36rem) {
+  .banner {
+    @apply flex-row gap-2 px-4 text-sm;
+  }
+
+  .status {
+    @apply translate-x-0;
+  }
+
+  .role::before {
+    @apply inline;
+  }
+}

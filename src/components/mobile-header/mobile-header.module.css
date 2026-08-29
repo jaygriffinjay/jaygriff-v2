@@ -1,0 +1,12 @@
+@reference "../../app/globals.css";
+
+/* mobile-only top bar; hidden once the sidebar becomes visible at md */
+.header {
+  @apply border-border/40 bg-background/80 sticky top-0 z-30 flex h-14 items-center justify-between gap-2 border-b px-4 backdrop-blur-md md:hidden;
+}
+
+/* home link — matches the sidebar wordmark, incl. hover treatment */
+.title {
+  @apply text-foreground/85 hover:text-foreground hover:bg-sidebar-accent -mx-1 truncate rounded-md px-2 py-1 text-2xl font-semibold no-underline transition-colors;
+  font-family: var(--font-sekuya);
+}

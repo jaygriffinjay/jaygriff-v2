@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { cookies } from "next/headers";
 import { fontVariables } from "./fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/sidebar";
+import { MobileHeader } from "@/components/mobile-header";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -49,8 +49,6 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cookieStore = await cookies();
-  const sidebarOpen = cookieStore.get("sidebar_state")?.value !== "false";
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${fontVariables} antialiased`}>
@@ -61,9 +59,10 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <SidebarProvider defaultOpen={sidebarOpen}>
+            <SidebarProvider>
               <AppSidebar />
               <SidebarInset>
+                <MobileHeader />
                 {children}
               </SidebarInset>
             </SidebarProvider>
