@@ -24,7 +24,7 @@
 
 /* md is the same breakpoint that sends the sidebar off-canvas, so the whole layout changes once, at one width */
 .columns {
-  @apply grid w-fit grid-cols-2 gap-x-12 gap-y-10 md:flex md:w-auto md:justify-center md:gap-8;
+  @apply grid w-fit grid-cols-2 gap-x-12 gap-y-10 md:flex md:w-auto md:justify-center md:gap-12;
 }
 
 /* shrink-0 keeps the row from squeezing columns narrower than their content */

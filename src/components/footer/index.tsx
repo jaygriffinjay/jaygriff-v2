@@ -77,9 +77,8 @@ export function Footer({ className }: { className?: string }) {
 
           <nav className={styles.column} aria-label="Other">
             <span className={styles.columnTitle}>Other Stuff</span>
-            {/* pages are statically rendered, so this year is baked at build time */}
             <NextLink href="/license" className={styles.link}>
-              &copy; {new Date().getFullYear()} Jay Griffin
+              License
             </NextLink>
             <a
               href="https://github.com/jaygriffinjay/jaygriff-v2"
@@ -87,7 +86,7 @@ export function Footer({ className }: { className?: string }) {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Source Code
+              Source
             </a>
             <ThemeToggle />
           </nav>
