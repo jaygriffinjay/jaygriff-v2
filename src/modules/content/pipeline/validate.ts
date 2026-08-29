@@ -3,7 +3,7 @@ import ts from "typescript";
 import {
   CONTENT_ALLOWED_MODULES,
   CONTENT_COMPONENT_NAMES,
-} from "./whitelist";
+} from "../whitelist";
 
 export type ValidationError = {
   line: number;

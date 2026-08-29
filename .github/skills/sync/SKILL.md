@@ -10,7 +10,7 @@ Run the content sync script that syncs markdown files from `content/md/` into th
 ## Command
 
 ```sh
-npx tsx --env-file=.env.local src/modules/content/sync.ts 2>&1
+npx tsx --env-file=.env.local src/modules/content/pipeline/sync.ts 2>&1
 ```
 
 Run from the project root (`/Users/jay/Dev/jaygriff-v2`).

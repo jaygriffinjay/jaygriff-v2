@@ -1,4 +1,4 @@
-import { db } from "./turso";
+import { db } from "../turso";
 
 async function migrate() {
   await db.execute(`
