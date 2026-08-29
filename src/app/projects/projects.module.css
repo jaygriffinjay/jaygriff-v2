@@ -17,7 +17,32 @@
   @apply grid gap-4 sm:grid-cols-2;
 }
 
+/* bordered project tile, matching the treatment used on the homepage */
+.cardLink {
+  @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5 no-underline;
+}
+
+/* project icon above the card title */
+.cardIcon {
+  @apply border-border text-muted-foreground mb-1 flex size-9 items-center justify-center rounded-full border transition-colors;
+}
+
+/* icon tracks the tile's hover state */
+.cardLink:hover .cardIcon {
+  @apply border-primary text-primary;
+}
+
+/* project icon dimensions */
+.cardIcon svg {
+  @apply size-4.5;
+}
+
+/* app card title */
+.cardTitle {
+  @apply text-base font-semibold;
+}
+
 /* app card description */
 .cardDescription {
-  @apply text-sm text-muted-foreground;
+  @apply text-muted-foreground text-sm leading-relaxed;
 }

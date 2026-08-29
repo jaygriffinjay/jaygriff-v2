@@ -1,0 +1,26 @@
+@reference "../globals.css";
+
+/* two-column tile grid for the post list */
+.grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+/* bordered post tile, matching the treatment used on the homepage */
+.cardLink {
+  @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5 no-underline;
+}
+
+/* post title */
+.cardTitle {
+  @apply text-base font-semibold;
+}
+
+/* post description */
+.cardDesc {
+  @apply text-muted-foreground text-sm leading-relaxed;
+}
+
+/* published date, de-emphasized below the description */
+.cardDate {
+  @apply text-muted-foreground/60 mt-1;
+}

@@ -4,12 +4,6 @@ import { Container } from "@/components/layout/Container";
 import { H1, Paragraph } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
-import {
   DropletIcon,
   ShieldIcon,
   CpuIcon,
@@ -68,16 +62,12 @@ export default function ProjectsPage() {
       <Separator className="my-6" />
       <div className={styles.grid}>
         {apps.map(({ label, href, description, icon: Icon }) => (
-          <NextLink key={href} href={href}>
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Icon className="size-5" />
-                  {label}
-                </CardTitle>
-                <CardDescription>{description}</CardDescription>
-              </CardHeader>
-            </Card>
+          <NextLink key={href} href={href} className={styles.cardLink}>
+            <span className={styles.cardIcon} aria-hidden="true">
+              <Icon />
+            </span>
+            <span className={styles.cardTitle}>{label}</span>
+            <span className={styles.cardDescription}>{description}</span>
           </NextLink>
         ))}
       </div>
