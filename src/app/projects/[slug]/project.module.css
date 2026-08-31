@@ -1,0 +1,120 @@
+@reference "../../../app/globals.css";
+
+/* ─── Project detail page ─── */
+
+/* quiet return path to the project listing, above the title block */
+.backLink {
+  @apply text-muted-foreground hover:text-foreground mb-6 inline-flex items-center gap-1.5 text-sm transition-colors;
+}
+
+/* back arrow glyph */
+.backLink svg {
+  @apply size-4;
+}
+
+/* title block: icon, name, tagline, tags, actions */
+.header {
+  @apply space-y-3;
+}
+
+/* project mark, matching the listing tiles */
+.icon {
+  @apply border-border text-muted-foreground flex size-11 items-center justify-center rounded-full border;
+}
+
+/* project icon dimensions */
+.icon svg {
+  @apply size-5;
+}
+
+/* one-line summary under the title */
+.tagline {
+  @apply text-muted-foreground text-lg;
+}
+
+/* horizontal, wrapping list of tag pills */
+.tags {
+  @apply flex list-none flex-wrap gap-2 p-0;
+}
+
+/* individual tag pill */
+.tag {
+  @apply border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs;
+}
+
+/* call-to-action row */
+.actions {
+  @apply flex flex-wrap items-center gap-3 pt-1;
+}
+
+/* leads to the live app */
+.primaryAction {
+  @apply bg-primary text-primary-foreground rounded-full px-4 py-2 text-sm font-medium no-underline transition-opacity hover:opacity-90;
+}
+
+/* outbound repo and demo links */
+.secondaryAction {
+  @apply border-border hover:border-primary hover:text-primary rounded-full border px-4 py-2 text-sm font-medium no-underline transition-colors;
+}
+
+/* long-form project blurb */
+.description {
+  @apply text-muted-foreground;
+}
+
+/* 16:9 box so the embed reserves its space before loading */
+.video {
+  @apply border-border mt-6 aspect-video w-full overflow-hidden rounded-2xl border;
+}
+
+/* fills the aspect-ratio box above */
+.videoFrame {
+  @apply size-full;
+}
+
+/* ─── Associated content ─── */
+
+/* docs / posts group */
+.section {
+  @apply mt-10 space-y-4;
+}
+
+/* group heading */
+.sectionTitle {
+  @apply border-none pb-0 text-xl;
+}
+
+/* stacked rows rather than a grid, since these are secondary to the project */
+.list {
+  @apply flex flex-col;
+}
+
+/* one content row */
+.row {
+  @apply border-border flex flex-col gap-1 border-b py-4 no-underline;
+}
+
+/* last row has no divider, so the section ends cleanly */
+.row:last-child {
+  @apply border-b-0;
+}
+
+/* content title, highlighted on row hover */
+.rowTitle {
+  @apply font-medium;
+}
+
+/* title tracks the row's hover state */
+.row:hover .rowTitle {
+  @apply text-primary;
+}
+
+/* content summary */
+.rowDescription {
+  @apply text-muted-foreground text-sm leading-relaxed;
+}
+
+/* publish date */
+.rowDate {
+  @apply text-muted-foreground text-xs;
+}

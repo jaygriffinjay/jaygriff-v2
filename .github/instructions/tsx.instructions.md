@@ -1,9 +1,11 @@
 ---
-description: "Use when writing or editing TSX components, pages, or layouts. Covers styling conventions for JSX files."
-applyTo: "**/*.tsx"
+description: "Use when writing or editing TSX components, pages, or layouts under src/. Covers styling conventions for JSX files."
+applyTo: "src/**/*.tsx"
 ---
 
 # TSX Styling Convention
+
+Applies to **components, pages, and layouts under `src/`** — anything that defines UI. Content files in `content/tsx/` are prose, not components, and follow `content-tsx.instructions.md` instead.
 
 **No inline Tailwind class strings in JSX.** All Tailwind classes live in a co-located `.module.css` file and are referenced via `styles.className`.
 

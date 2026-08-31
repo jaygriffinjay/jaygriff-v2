@@ -14,7 +14,8 @@ Trigger on requests like:
 - "Start a new doc page for Y"
 - "I want to write something about Z"
 
-If the user also wants help drafting the actual content, do that separately (in your own words, or with whatever the user asks for) after the file exists — this skill only handles file creation.
+If the user also wants help drafting the body, do that after the file exists. Authoring rules — voice, structure, available components — live in `.github/instructions/content-tsx.instructions.md`, which applies automatically to anything under `content/tsx/`.
+
 
 ## How to use it
 

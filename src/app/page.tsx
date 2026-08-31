@@ -1,13 +1,9 @@
 import Image from "next/image";
-import {
-  CpuIcon,
-  DropletIcon,
-  ShieldIcon,
-  UtensilsCrossedIcon,
-} from "lucide-react";
 import { H1, H2, Paragraph, Small, Link } from "@/components/typography";
 import { AvailabilityBanner } from "@/components/availability-banner";
 import { getAllPublished } from "@/modules/content/queries";
+import { getAllProjects } from "@/modules/projects/queries";
+import { getProjectIcon } from "@/modules/projects/icons";
 import styles from "./home.module.css";
 
 // hand-picked slugs, rendered in this order; unmatched slugs are skipped
@@ -27,43 +23,12 @@ function formatDate(value: string) {
   });
 }
 
-const PROJECTS = [
-  {
-    href: "/deep-dive",
-    title: "Deep Dive",
-    icon: ShieldIcon,
-    description:
-      "Point an LLM at any public GitHub repo and get a vulnerability report. It walks the source file by file and streams findings as the model reads.",
-    tags: ["AI", "Streaming", "Bring your own key"],
-  },
-  {
-    href: "/food-math",
-    title: "Food Math",
-    icon: UtensilsCrossedIcon,
-    description:
-      "The fastest food portion logger. Type what you ate in plain language, the model parses it into structured nutrition data, you approve or correct it.",
-    tags: ["AI", "Structured output", "Conversational editing"],
-  },
-  {
-    href: "/pool",
-    title: "Pool",
-    icon: DropletIcon,
-    description:
-      "A saltwater pool maintenance dashboard with test logging, a dosing calculator, and a reference section — built because test strips and guesswork weren't cutting it.",
-    tags: ["Dashboard", "Calculator", "Reference"],
-  },
-  {
-    href: "/cpu-ladder",
-    title: "CPU Ladder",
-    icon: CpuIcon,
-    description:
-      "A visual Intel vs AMD desktop CPU comparison. See equivalents at a glance without digging through benchmark tables.",
-    tags: ["Data viz", "Comparison"],
-  },
-];
+const PROJECT_SLUGS = ["deep-dive", "food-math", "pool", "cpu-ladder"];
 
 export default async function Home() {
   const posts = await getAllPublished("post");
+  const allProjects = await getAllProjects();
+  const projects = allProjects.filter((p) => PROJECT_SLUGS.includes(p.slug));
 
   const featured = FEATURED_SLUGS.map((slug) =>
     posts.find((post) => post.slug === slug),
@@ -112,15 +77,22 @@ export default async function Home() {
         </div>
 
         <div className={styles.grid}>
-          {PROJECTS.map(({ href, title, icon: Icon, description }) => (
-            <Link key={href} href={href} className={styles.cardLink}>
-              <span className={styles.cardIcon} aria-hidden="true">
-                <Icon />
-              </span>
-              <span className={styles.appCardTitle}>{title}</span>
-              <span className={styles.appCardDesc}>{description}</span>
-            </Link>
-          ))}
+          {projects.map((project) => {
+            const Icon = getProjectIcon(project.icon);
+            return (
+              <Link
+                key={project.id}
+                href={`/projects/${project.slug}`}
+                className={styles.cardLink}
+              >
+                <span className={styles.cardIcon} aria-hidden="true">
+                  <Icon />
+                </span>
+                <span className={styles.appCardTitle}>{project.title}</span>
+                <span className={styles.appCardDesc}>{project.description}</span>
+              </Link>
+            );
+          })}
         </div>
 
         <Paragraph className={styles.sectionFooter}>

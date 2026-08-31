@@ -73,6 +73,14 @@ export async function getAllPublished(type?: ContentRow["type"]): Promise<Conten
   return result.rows.map((r) => parseRow(r as Record<string, unknown>));
 }
 
+export async function getContentByProject(projectId: string): Promise<ContentRow[]> {
+  const result = await db.execute({
+    sql: "SELECT * FROM content WHERE project_id = ? AND status = 'published' ORDER BY created_at DESC",
+    args: [projectId],
+  });
+  return result.rows.map((r) => parseRow(r as Record<string, unknown>));
+}
+
 export async function getAllContent(): Promise<ContentRow[]> {
   const result = await db.execute(
     "SELECT * FROM content WHERE status != 'deleted' ORDER BY created_at DESC"

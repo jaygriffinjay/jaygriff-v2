@@ -1,0 +1,38 @@
+@reference "../../app/globals.css";
+
+/* wrapper around rendered tsx content — owns all vertical rhythm, since
+   authored posts and docs cannot set className on anything themselves.
+   gap is the tightest spacing in the doc; margins below add on top of it */
+.body {
+  @apply flex flex-col gap-2;
+}
+
+/* standard spacing between consecutive body blocks */
+.body > p,
+.body > ul,
+.body > ol,
+.body > pre,
+.body > blockquote {
+  @apply mt-2;
+}
+
+/* headings pull away from the section above them */
+.body > h2 {
+  @apply mt-4;
+}
+
+.body > h3 {
+  @apply mt-4;
+}
+
+/* whatever follows a heading hugs it, so the pair reads as one unit.
+   must stay after the block rules above — same specificity, last wins */
+.body > h2 + *,
+.body > h3 + * {
+  @apply mt-0;
+}
+
+/* first child never needs leading space — the route already renders a divider */
+.body > *:first-child {
+  @apply mt-0;
+}

@@ -3,6 +3,7 @@ import type { ComponentType, ReactNode } from "react";
 import MarkdownRenderer from "@/components/markdown-renderer/MarkdownRenderer";
 
 import { readMarkdownFile, type ContentRow } from "./queries";
+import styles from "./content-body.module.css";
 
 /**
  * Renders a content row's body in whichever format it was authored in.
@@ -24,7 +25,11 @@ export async function ContentBody({
       .replace(/\.tsx$/, "");
     const mod = await import(`../../../content/tsx/${rel}.tsx`);
     const Component = mod.default as ComponentType;
-    return <Component />;
+    return (
+      <div className={styles.body}>
+        <Component />
+      </div>
+    );
   }
 
   return <MarkdownRenderer content={readMarkdownFile(row.file_path)} />;
