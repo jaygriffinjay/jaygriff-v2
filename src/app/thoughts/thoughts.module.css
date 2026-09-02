@@ -1,0 +1,44 @@
+@reference "../globals.css";
+
+/* two-column tile grid for the thought list */
+.grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+}
+
+/* bordered thought tile, matching the treatment used on the homepage */
+.cardLink {
+  @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5 no-underline;
+}
+
+/* thought title */
+.cardTitle {
+  @apply text-base font-semibold;
+}
+
+/* thought description */
+.cardDesc {
+  @apply text-muted-foreground text-sm leading-relaxed;
+}
+
+/* published date, de-emphasized below the description */
+.cardDate {
+  @apply text-muted-foreground/60 mt-1;
+}
+
+/* curated collection block */
+.section {
+  @apply mt-16;
+}
+
+/* collection heading + blurb */
+.sectionHead {
+  @apply mb-6 space-y-2 text-center;
+}
+
+.sectionTitle {
+  @apply text-3xl font-bold sm:text-4xl;
+}
+
+.sectionIntro {
+  @apply text-muted-foreground mx-auto max-w-2xl text-sm leading-relaxed;
+}

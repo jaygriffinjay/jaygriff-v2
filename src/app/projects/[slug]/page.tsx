@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { H1, H2, Paragraph, Small } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
+import { getAssetsFor, isSvg, pickAsset } from "@/modules/assets/queries";
 import { getContentByProject } from "@/modules/content/queries";
 import { getAllProjects, getProjectBySlug } from "@/modules/projects/queries";
 import { getProjectIcon } from "@/modules/projects/icons";
@@ -37,6 +39,10 @@ export default async function ProjectPage({ params }: Props) {
   const posts = related.filter((row) => row.type === "post");
   const Icon = getProjectIcon(project.icon);
 
+  const assets = await getAssetsFor("project", project.id);
+  const logo = pickAsset(assets, "logo");
+  const hero = pickAsset(assets, "hero", "thumbnail");
+
   return (
     <Container className="max-w-3xl">
       <NextLink href="/projects" className={styles.backLink}>
@@ -45,7 +51,18 @@ export default async function ProjectPage({ params }: Props) {
       </NextLink>
       <header className={styles.header}>
         <span className={styles.icon} aria-hidden="true">
-          <Icon />
+          {logo ? (
+            <Image
+              src={logo.url}
+              alt=""
+              width={24}
+              height={24}
+              unoptimized={isSvg(logo.url)}
+              className={styles.logo}
+            />
+          ) : (
+            <Icon />
+          )}
         </span>
         <H1>{project.title}</H1>
         {project.tagline && (
@@ -90,6 +107,22 @@ export default async function ProjectPage({ params }: Props) {
       </header>
 
       <Separator className="my-6" />
+
+      {hero && (
+        <div className={styles.hero}>
+          <Image
+            src={hero.url}
+            alt={`${project.title} preview`}
+            // 0/0 + sizes lets the intrinsic ratio drive height instead of a fixed box
+            width={0}
+            height={0}
+            sizes="(max-width: 768px) 100vw, 768px"
+            priority
+            unoptimized={isSvg(hero.url)}
+            className={styles.heroImage}
+          />
+        </div>
+      )}
 
       {project.description && (
         <Paragraph className={styles.description}>{project.description}</Paragraph>

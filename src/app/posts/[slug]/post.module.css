@@ -2,7 +2,7 @@
 
 /* article max-width and vertical spacing */
 .article {
-  @apply max-w-3xl mx-auto pt-6 pb-2;
+  @apply max-w-3xl mx-auto py-6;
 }
 
 /* header block above the content */

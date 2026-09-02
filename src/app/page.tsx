@@ -2,6 +2,7 @@ import Image from "next/image";
 import { H1, H2, Paragraph, Small, Link } from "@/components/typography";
 import { AvailabilityBanner } from "@/components/availability-banner";
 import { getAllPublished } from "@/modules/content/queries";
+import { getAssetsForMany, isSvg, pickAsset } from "@/modules/assets/queries";
 import { getAllProjects } from "@/modules/projects/queries";
 import { getProjectIcon } from "@/modules/projects/icons";
 import styles from "./home.module.css";
@@ -23,12 +24,23 @@ function formatDate(value: string) {
   });
 }
 
-const PROJECT_SLUGS = ["deep-dive", "food-math", "pool", "cpu-ladder"];
+const PROJECT_SLUGS = [
+  "locus",
+  "jaygriff-com",
+  "engineering-ethics",
+  "deep-dive",
+];
 
 export default async function Home() {
   const posts = await getAllPublished("post");
   const allProjects = await getAllProjects();
-  const projects = allProjects.filter((p) => PROJECT_SLUGS.includes(p.slug));
+  const projects = PROJECT_SLUGS.map((slug) =>
+    allProjects.find((p) => p.slug === slug)
+  ).filter((p) => p !== undefined);
+  const projectAssets = await getAssetsForMany(
+    "project",
+    projects.map((p) => p.id)
+  );
 
   const featured = FEATURED_SLUGS.map((slug) =>
     posts.find((post) => post.slug === slug),
@@ -72,19 +84,36 @@ export default async function Home() {
         <div className={styles.sectionHead}>
           <H2 className={styles.sectionTitle}>Projects</H2>
           <Paragraph className={styles.sectionIntro}>
-            Each of these is live on this site — click into any of them.
+            A few things I&apos;ve built — click into any of them.
           </Paragraph>
         </div>
 
         <div className={styles.grid}>
           {projects.map((project) => {
             const Icon = getProjectIcon(project.icon);
+            const thumbnail = pickAsset(
+              projectAssets.get(project.id),
+              "thumbnail",
+              "hero"
+            );
             return (
               <Link
                 key={project.id}
                 href={`/projects/${project.slug}`}
                 className={styles.cardLink}
               >
+                {thumbnail && (
+                  <span className={styles.cardThumb}>
+                    <Image
+                      src={thumbnail.url}
+                      alt=""
+                      fill
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                      unoptimized={isSvg(thumbnail.url)}
+                      className={styles.cardThumbImage}
+                    />
+                  </span>
+                )}
                 <span className={styles.cardIcon} aria-hidden="true">
                   <Icon />
                 </span>

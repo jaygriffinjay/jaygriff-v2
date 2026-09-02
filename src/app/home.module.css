@@ -76,6 +76,16 @@
   @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5;
 }
 
+/* project thumbnail, only rendered when one is assigned */
+.cardThumb {
+  @apply border-border bg-muted relative mb-1 block aspect-4/3 w-full overflow-hidden rounded-xl border;
+}
+
+/* fills the box, cropping evenly from the center */
+.cardThumbImage {
+  @apply object-cover object-center;
+}
+
 /* project icon above the card title */
 .cardIcon {
   @apply border-border text-muted-foreground mb-1 flex size-9 items-center justify-center rounded-full border transition-colors;

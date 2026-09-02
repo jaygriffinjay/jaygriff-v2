@@ -11,10 +11,11 @@ export type ContentRow = {
   content_hash: string | null;
   title: string;
   description: string | null;
-  type: "post" | "doc" | "cool";
+  type: "post" | "doc" | "thought" | "link";
   status: "draft" | "published" | "archived" | "deleted";
   format: "md" | "tsx";
   authors: string[] | null;
+  authorship: "handwritten" | "ai-generated" | null;
   authorship_note: string | null;
   tags: string[] | null;
   updated_dates: string[] | null;
@@ -40,6 +41,7 @@ function parseRow(row: Record<string, unknown>): ContentRow {
     status: row.status as ContentRow["status"],
     format: ((row.format as string) ?? "md") as ContentRow["format"],
     authors: row.authors ? JSON.parse(row.authors as string) : null,
+    authorship: (row.authorship as ContentRow["authorship"]) ?? null,
     authorship_note: (row.authorship_note as string) ?? null,
     tags: row.tags ? JSON.parse(row.tags as string) : null,
     updated_dates: row.updated_dates ? JSON.parse(row.updated_dates as string) : null,

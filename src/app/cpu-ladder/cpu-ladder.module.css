@@ -17,13 +17,13 @@
 /* Intel banner — blue */
 .bannerIntel {
   @apply rounded-l-xl py-3 text-center text-sm font-black uppercase tracking-[0.25em];
-  @apply bg-gradient-to-r from-blue-600/15 to-blue-500/5 text-blue-600 dark:from-blue-500/20 dark:to-blue-400/5 dark:text-blue-400;
+  @apply bg-linear-to-r from-blue-600/15 to-blue-500/5 text-blue-600 dark:from-blue-500/20 dark:to-blue-400/5 dark:text-blue-400;
 }
 
 /* AMD banner — red */
 .bannerAmd {
   @apply rounded-r-xl py-3 text-center text-sm font-black uppercase tracking-[0.25em];
-  @apply bg-gradient-to-l from-red-600/15 to-red-500/5 text-red-600 dark:from-red-500/20 dark:to-red-400/5 dark:text-red-400;
+  @apply bg-linear-to-l from-red-600/15 to-red-500/5 text-red-600 dark:from-red-500/20 dark:to-red-400/5 dark:text-red-400;
 }
 
 /* empty center cell in banner row */

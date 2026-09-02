@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   outputFileTracingIncludes: {
     "/**": ["./content/md/**/*", "./content/tsx/**/*"],
   },
+  images: {
+    remotePatterns: [{ protocol: "https", hostname: "assets.jaygriff.com" }],
+  },
   async redirects() {
     return [{ source: "/faq", destination: "/about", permanent: true }];
   },

@@ -1,0 +1,123 @@
+@reference "../../globals.css";
+
+/* ─── Asset Manager ─── */
+
+/* page wrapper */
+.page {
+  @apply flex flex-col gap-6 p-6;
+}
+
+/* page heading */
+.heading {
+  @apply text-2xl font-semibold;
+}
+
+/* assigned/unassigned counts under the heading */
+.summary {
+  @apply text-muted-foreground text-sm;
+}
+
+/* responsive thumbnail grid */
+.grid {
+  @apply grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5;
+}
+
+/* one object: preview plus caption */
+.card {
+  @apply flex flex-col gap-2;
+}
+
+/* square preview box — images vary wildly in aspect ratio, so contain them */
+.preview {
+  @apply bg-muted border-border/60 relative aspect-square overflow-hidden rounded-md border;
+}
+
+/* the image itself, letterboxed inside the square */
+.image {
+  @apply object-contain p-2;
+}
+
+/* video fills the same square box as an image preview */
+.video {
+  @apply absolute inset-0 h-full w-full object-contain;
+}
+
+/* stand-in for formats with no visual preview */
+.file {
+  @apply text-muted-foreground absolute inset-0 flex flex-col items-center justify-center gap-1;
+}
+
+/* extension label under the generic file icon */
+.fileExt {
+  @apply text-xs font-medium;
+}
+
+/* status pill in the corner of the preview */
+.badge {
+  @apply absolute top-1.5 right-1.5;
+}
+
+/* object key, truncated to one line */
+.key {
+  @apply truncate text-xs font-medium;
+}
+
+/* file size line under the key */
+.meta {
+  @apply text-muted-foreground text-xs;
+}
+
+/* shown when the bucket returns nothing */
+.empty {
+  @apply text-muted-foreground text-sm;
+}
+
+/* full object key, wrapped so long names stay readable in the dialog */
+.dialogTitle {
+  @apply text-base break-all;
+}
+
+/* existing assignments for the open asset */
+.assignmentList {
+  @apply flex flex-col gap-1;
+}
+
+/* one assignment row with its remove button */
+.assignment {
+  @apply bg-muted flex items-center justify-between gap-2 rounded-md px-3 py-1.5;
+}
+
+/* role and entity label */
+.assignmentText {
+  @apply truncate text-sm;
+}
+
+/* entity search results, capped so the dialog cannot grow unbounded */
+.results {
+  @apply flex max-h-56 flex-col gap-1 overflow-y-auto;
+}
+
+/* one search result; data-selected marks the pending choice */
+.result {
+  @apply hover:bg-muted data-selected:bg-accent data-selected:text-accent-foreground flex w-full flex-col items-start rounded-md px-3 py-1.5 text-left transition-colors;
+}
+
+/* result title line */
+.resultTitle {
+  @apply text-sm font-medium;
+}
+
+/* kind and slug under the title */
+.resultMeta {
+  @apply text-muted-foreground text-xs;
+}
+
+/* role picker and submit button */
+.controls {
+  @apply flex items-center justify-between gap-2;
+}
+
+/* keeps the role dropdown from stretching across the dialog */
+.roleSelect {
+  @apply w-40;
+}

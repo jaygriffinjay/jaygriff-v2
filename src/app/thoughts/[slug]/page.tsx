@@ -5,31 +5,31 @@ import { Container } from "@/components/layout/Container";
 import { H1, Paragraph, Small } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { HandwrittenBadge } from "@/components/handwritten-badge";
-import styles from "./post.module.css";
+import styles from "./thought.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
-export default async function PostPage({ params }: Props) {
+export default async function ThoughtPage({ params }: Props) {
   const { slug } = await params;
-  const post = await getContentBySlug(slug);
+  const thought = await getContentBySlug(slug);
 
-  if (!post || post.type !== "post" || !post.file_path) notFound();
+  if (!thought || thought.type !== "thought" || !thought.file_path) notFound();
 
   return (
     <Container>
       <article className={styles.article}>
         <header className={styles.header}>
-          <H1>{post.title}</H1>
-          {post.description && (
-            <Paragraph className={styles.description}>{post.description}</Paragraph>
+          <H1>{thought.title}</H1>
+          {thought.description && (
+            <Paragraph className={styles.description}>{thought.description}</Paragraph>
           )}
           <Small>
-            {new Date(post.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-            <HandwrittenBadge authorship={post.authorship} className="ml-2" />
+            {new Date(thought.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+            <HandwrittenBadge authorship={thought.authorship} className="ml-2" />
           </Small>
         </header>
         <Separator className={styles.divider} />
-        <ContentBody row={post} />
+        <ContentBody row={thought} />
       </article>
     </Container>
   );
@@ -37,6 +37,6 @@ export default async function PostPage({ params }: Props) {
 
 export async function generateStaticParams() {
   const { getAllPublished } = await import("@/modules/content/queries");
-  const posts = await getAllPublished("post");
-  return posts.map((p) => ({ slug: p.slug }));
+  const thoughts = await getAllPublished("thought");
+  return thoughts.map((t) => ({ slug: t.slug }));
 }

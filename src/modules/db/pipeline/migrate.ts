@@ -12,6 +12,7 @@ async function migrate() {
       type             TEXT NOT NULL,
       status           TEXT NOT NULL DEFAULT 'draft',
       authors          TEXT,
+      authorship       TEXT,
       authorship_note  TEXT,
       tags             TEXT,
       updated_dates    TEXT,

@@ -27,6 +27,21 @@
   @apply size-5;
 }
 
+/* assigned logo, shown in place of the fallback icon */
+.logo {
+  @apply size-6 object-contain;
+}
+
+/* hero image, only rendered when one is assigned */
+.hero {
+  @apply border-border relative mb-6 w-full overflow-hidden rounded-2xl border;
+}
+
+/* height follows the image's own ratio — no fixed box, so nothing is cropped */
+.heroImage {
+  @apply h-auto w-full;
+}
+
 /* one-line summary under the title */
 .tagline {
   @apply text-muted-foreground text-lg;

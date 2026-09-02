@@ -2,6 +2,7 @@ import { getAllPublished } from "@/modules/content/queries";
 import { H1, Paragraph, Small, Link } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { Container } from "@/components/layout/Container";
+import { HandwrittenBadge } from "@/components/handwritten-badge";
 import styles from "./posts.module.css";
 
 export default async function PostsPage() {
@@ -34,6 +35,7 @@ export default async function PostsPage() {
                   month: "long",
                   day: "numeric",
                 })}
+                <HandwrittenBadge authorship={post.authorship} className="ml-2" />
               </Small>
             </Link>
           ))}

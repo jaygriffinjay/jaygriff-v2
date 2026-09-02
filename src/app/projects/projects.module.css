@@ -27,6 +27,21 @@
   @apply border-border text-muted-foreground mb-1 flex size-9 items-center justify-center rounded-full border transition-colors;
 }
 
+/* thumbnail banner, only rendered when one is assigned */
+.cardThumb {
+  @apply border-border relative mb-1 block w-full overflow-hidden rounded-xl border;
+}
+
+/* height follows the image's own ratio — no fixed box, so nothing is cropped */
+.cardThumbImage {
+  @apply h-auto w-full;
+}
+
+/* assigned logo, shown in place of the fallback icon */
+.cardLogo {
+  @apply size-4.5 object-contain;
+}
+
 /* icon tracks the tile's hover state */
 .cardLink:hover .cardIcon {
   @apply border-primary text-primary;
