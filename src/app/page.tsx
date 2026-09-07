@@ -24,7 +24,9 @@ function formatDate(value: string) {
   });
 }
 
-const PROJECT_SLUGS = [
+// keyed by id, not slug: slugs are editable from /admin and a rename would
+// silently drop the card from this page
+const PROJECT_IDS = [
   "locus",
   "jaygriff-com",
   "engineering-ethics",
@@ -34,8 +36,8 @@ const PROJECT_SLUGS = [
 export default async function Home() {
   const posts = await getAllPublished("post");
   const allProjects = await getAllProjects();
-  const projects = PROJECT_SLUGS.map((slug) =>
-    allProjects.find((p) => p.slug === slug)
+  const projects = PROJECT_IDS.map((id) =>
+    allProjects.find((p) => p.id === id)
   ).filter((p) => p !== undefined);
   const projectAssets = await getAssetsForMany(
     "project",

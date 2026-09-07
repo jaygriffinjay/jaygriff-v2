@@ -61,3 +61,102 @@
 .cardDescription {
   @apply text-muted-foreground text-sm leading-relaxed;
 }
+
+/* ─── Section headings ─── */
+
+/* label above each of the two sections */
+.sectionHeading {
+  @apply text-foreground text-2xl font-semibold tracking-tight md:text-3xl;
+}
+
+/* pushes the second section clear of the list above it */
+.sectionSpaced {
+  @apply mt-14;
+}
+
+/* one-line framing sentence under a section heading */
+.sectionIntro {
+  @apply text-muted-foreground mt-1 mb-4 text-sm;
+}
+
+/* ─── Project rows ─── */
+
+/* stacked rows; borders come from the rows themselves */
+.rowList {
+  @apply flex flex-col;
+}
+
+/* one project: thumbnail, text, destination. The destination wraps onto its own
+   line until lg: at md the sidebar is back but the content column is still too
+   narrow to fit a full-width pill beside the tagline without overflowing. */
+.row {
+  @apply border-border/40 flex flex-wrap items-center gap-x-3 gap-y-2 border-t py-3 lg:flex-nowrap;
+}
+
+/* holds the pill: a full-width line until there is room for it inline */
+.rowLink {
+  @apply basis-full pl-[3.75rem] lg:basis-auto lg:pl-0;
+}
+
+/* small square thumb, sized to the two lines of text beside it */
+.rowThumb {
+  @apply border-border bg-muted text-muted-foreground relative flex size-12 shrink-0 items-center justify-center overflow-hidden rounded-md border;
+}
+
+/* fallback icon dimensions inside the thumb */
+.rowThumb svg {
+  @apply size-5;
+}
+
+/* assigned thumbnail image fills the square */
+.rowThumbImage {
+  @apply object-cover;
+}
+
+/* logos are shapes, not scenes: fit the whole mark and inset it off the border */
+.rowThumbLogo {
+  @apply object-contain p-1.5;
+}
+
+/* text column grows so the pill can sit hard right */
+.rowBody {
+  @apply flex min-w-0 flex-1 flex-col gap-0.5;
+}
+
+/* project title, links through to the detail page */
+.rowTitle {
+  @apply hover:text-primary text-sm leading-tight font-medium no-underline transition-colors;
+}
+
+/* the one-sentence explanation. Clipped only once the pill shares the line. */
+.rowTagline {
+  @apply text-muted-foreground text-sm leading-snug lg:truncate;
+}
+
+/* ─── Destination pill ─── */
+
+/* one style for every destination — only the icon distinguishes them */
+.linkPill {
+  @apply border-border bg-muted text-foreground/80 hover:bg-muted/70 inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium whitespace-nowrap no-underline transition-colors;
+}
+
+/* label sits on one line; the tagline yields space instead */
+.linkLabel {
+  @apply whitespace-nowrap;
+}
+
+/* brand icon inside a pill */
+.linkIcon {
+  @apply size-3 shrink-0;
+}
+
+/* site mark on internal pills; narrow glyph, so taller than it is wide.
+   Keeps its own brand blue rather than inheriting the pill's text colour. */
+.linkLogo {
+  @apply h-3.5 w-2.5 shrink-0;
+}
+
+/* stated plainly when there is no destination at all */
+.noLink {
+  @apply text-muted-foreground/60 shrink-0 text-xs;
+}
