@@ -1,0 +1,85 @@
+@reference "../../globals.css";
+
+/* page wrapper */
+.page {
+  @apply flex flex-col gap-6;
+}
+
+/* page title */
+.heading {
+  @apply text-2xl font-semibold tracking-tight;
+}
+
+/* back link above the editor */
+.backLink {
+  @apply text-muted-foreground hover:text-foreground inline-flex w-fit items-center gap-1 text-sm no-underline;
+}
+
+/* ─── List ─── */
+
+/* slug shown under the title in the table */
+.slug {
+  @apply text-muted-foreground font-mono text-xs;
+}
+
+/* title cell, links to the editor */
+.titleLink {
+  @apply font-medium no-underline hover:underline;
+}
+
+/* muted cell text */
+.muted {
+  @apply text-muted-foreground text-sm;
+}
+
+/* marks a row that appears in the showcase section */
+.showcaseBadge {
+  @apply text-xs;
+}
+
+/* ─── Form ─── */
+
+/* stacked field groups */
+.form {
+  @apply flex max-w-2xl flex-col gap-5;
+}
+
+/* two fields sharing a line on wide screens */
+.formRow {
+  @apply grid grid-cols-1 gap-5 md:grid-cols-2;
+}
+
+/* label + control + hint */
+.field {
+  @apply flex flex-col gap-1.5;
+}
+
+/* field label */
+.label {
+  @apply text-sm font-medium;
+}
+
+/* helper text under a control */
+.hint {
+  @apply text-muted-foreground text-xs;
+}
+
+/* validation message */
+.error {
+  @apply text-destructive text-xs;
+}
+
+/* action bar at the bottom of the form */
+.actions {
+  @apply flex items-center gap-3 pt-2;
+}
+
+/* transient save confirmation */
+.saved {
+  @apply text-muted-foreground text-sm;
+}
+
+/* form-level failure message */
+.formError {
+  @apply text-destructive text-sm;
+}

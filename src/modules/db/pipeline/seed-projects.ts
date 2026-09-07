@@ -1,5 +1,11 @@
 import { db } from "../turso";
 
+/**
+ * Bootstrap only. The database is the source of truth now that projects are
+ * edited from /admin/projects, so this inserts missing rows and never updates
+ * existing ones. Editing the array below will not change a row that exists.
+ */
+
 // projects that were seeded before but are now just content
 const RETIRED = ["blocks"];
 
@@ -15,6 +21,7 @@ type SeedProject = {
   sort_order: number;
   status?: string;
   repo_url?: string | null;
+  demo_url?: string | null;
 };
 
 // id doubles as the human-readable key you put in content.project_id
@@ -92,7 +99,7 @@ const PROJECTS: SeedProject[] = [
       "A desktop app for drafting markdown posts before they enter the content pipeline — write, preview, and hand off without touching the live database. Built for my own use; not distributed.",
     icon: "mail",
     app_href: null,
-    tags: ["Markdown", "Editor", "Local-first", "personal"],
+    tags: ["Markdown", "Editor", "Local-first", "personal", "wip"],
     sort_order: 5,
   },
   {
@@ -103,7 +110,8 @@ const PROJECTS: SeedProject[] = [
     description:
       "A custom Chrome extension for bookmark launching, with multi-tab groups and local file support. Used daily.",
     icon: "bookmark",
-    app_href: null,
+    app_href:
+      "https://chromewebstore.google.com/detail/locus/mamfkhoggkjbacfkibdbcfmoonjbecmp",
     tags: ["Chrome extension", "Productivity", "personal"],
     sort_order: 6,
   },
@@ -139,7 +147,7 @@ const PROJECTS: SeedProject[] = [
     description:
       "A time-blocking scheduler — a usable demo rather than a production paid product. The prompt-injection security work came out of letting a model read the calendar.",
     icon: "calendar",
-    app_href: null,
+    app_href: "https://bythehour.lovable.app/",
     tags: ["Scheduling", "AI security"],
     sort_order: 7,
   },
@@ -151,7 +159,7 @@ const PROJECTS: SeedProject[] = [
     description:
       "A published tool for analyzing Strava activity data.",
     icon: "trendingUp",
-    app_href: null,
+    app_href: "https://strava-data-analyzer.vercel.app/",
     tags: ["Data viz", "logging"],
     sort_order: 9,
   },
@@ -164,6 +172,8 @@ const PROJECTS: SeedProject[] = [
       "A resume authored in React and CSS rather than a document editor — the page renders as a sheet of paper, versioned alongside the rest of the site.",
     icon: "fileText",
     app_href: "/resume",
+    // archived, not deleted: it reads better as an article than a project
+    status: "archived",
     tags: ["React", "CSS", "small-tool"],
     sort_order: 11,
   },
@@ -171,12 +181,14 @@ const PROJECTS: SeedProject[] = [
     id: "golf-ball-garage",
     slug: "golf-ball-garage",
     title: "Golf Ball Garage",
-    tagline: "A from-scratch storefront, and a real education in Stripe.",
+    tagline:
+      "Unfinished — a from-scratch storefront, and a real education in Stripe.",
     description:
-      "An ecommerce site built from scratch to learn the Stripe API end to end, including dynamic order construction. The domain golfballgarage.com is live; the site itself is still incomplete.",
+      "An ecommerce site built from scratch to learn the Stripe API end to end, including dynamic order construction. The domain golfballgarage.com is live and there's a partial build on it, but I stopped before production. I learned more here than on several things I did finish.",
     icon: "shoppingCart",
-    // deliberately unlinked: the domain resolves to a non-working site
+    // demo_url, not app_href: the site is reachable but not a working product
     app_href: null,
+    demo_url: "https://golfballgarage.com",
     tags: ["Stripe", "Ecommerce", "wip"],
     sort_order: 12,
   },
@@ -184,12 +196,12 @@ const PROJECTS: SeedProject[] = [
     id: "skim-milk-hybrid",
     slug: "skim-milk-hybrid",
     title: "Skim Milk Hybrid",
-    tagline: "Four design directions for a family business.",
+    tagline: "Four design directions for a family business — never launched.",
     description:
-      "Four complete website designs built for a family member's business. The work was finished but never launched.",
+      "Four complete website designs built for a family member's business. The designs were finished; the brief never was, so nothing shipped. Posting the work because the work happened.",
     icon: "palette",
     app_href: null,
-    tags: ["Web design", "client-work"],
+    tags: ["Web design", "client-work", "wip"],
     sort_order: 13,
   },
   {
@@ -212,7 +224,7 @@ const PROJECTS: SeedProject[] = [
     description:
       "GitHub sanitizes HTML and strips JavaScript from READMEs, which leaves animated SVG and SMIL as one of the only moving parts you can still get away with. This started as a question about what survives that sandbox and turned into a pile of hand-built SVG and motion work.",
     icon: "github",
-    app_href: "https://github.com/jaygriffinjay",
+    app_href: "https://github.com/jaygriffinjay/jaygriffinjay",
     tags: ["SVG", "SMIL", "experiment"],
     sort_order: 15,
   },
@@ -225,7 +237,7 @@ const PROJECTS: SeedProject[] = [
       "A personal Electron app for collecting and sorting credit card statements. My first time building on Electron, so a good part of the work was learning how a desktop shell differs from the web apps I'd been writing.",
     icon: "creditCard",
     app_href: null,
-    tags: ["personal", "electron", "desktop"],
+    tags: ["personal", "electron", "desktop", "wip"],
     sort_order: 16,
   },
 ];
@@ -236,20 +248,9 @@ async function main() {
   for (const p of PROJECTS) {
     await db.execute({
       sql: `INSERT INTO projects
-              (id, slug, title, tagline, description, status, icon, app_href, repo_url, tags, sort_order, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-            ON CONFLICT(id) DO UPDATE SET
-              slug = excluded.slug,
-              title = excluded.title,
-              tagline = excluded.tagline,
-              description = excluded.description,
-              status = excluded.status,
-              icon = excluded.icon,
-              app_href = excluded.app_href,
-              repo_url = excluded.repo_url,
-              tags = excluded.tags,
-              sort_order = excluded.sort_order,
-              updated_at = excluded.updated_at`,
+              (id, slug, title, tagline, description, status, icon, app_href, repo_url, demo_url, tags, sort_order, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(id) DO NOTHING`,
       args: [
         p.id,
         p.slug,
@@ -260,6 +261,7 @@ async function main() {
         p.icon,
         p.app_href,
         p.repo_url ?? null,
+        p.demo_url ?? null,
         JSON.stringify(p.tags),
         p.sort_order,
         now,

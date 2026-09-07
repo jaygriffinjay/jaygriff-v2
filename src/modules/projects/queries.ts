@@ -61,3 +61,20 @@ export async function getProjectBySlug(slug: string): Promise<ProjectRow | null>
   if (result.rows.length === 0) return null;
   return parseRow(result.rows[0] as Record<string, unknown>);
 }
+
+/** Admin views need drafts and archived rows too. */
+export async function getEveryProject(): Promise<ProjectRow[]> {
+  const result = await db.execute(
+    "SELECT * FROM projects ORDER BY sort_order ASC, title ASC"
+  );
+  return result.rows.map((r) => parseRow(r as Record<string, unknown>));
+}
+
+export async function getProjectById(id: string): Promise<ProjectRow | null> {
+  const result = await db.execute({
+    sql: "SELECT * FROM projects WHERE id = ?",
+    args: [id],
+  });
+  if (result.rows.length === 0) return null;
+  return parseRow(result.rows[0] as Record<string, unknown>);
+}
