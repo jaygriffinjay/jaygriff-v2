@@ -1,0 +1,246 @@
+@reference "../../globals.css";
+
+/* ─── Lab chrome ─── */
+
+/* sticky switcher bar so variants can be flipped while scrolled down */
+.switcher {
+  @apply bg-background/90 border-border/60 sticky top-0 z-30 mb-8 flex flex-wrap items-center gap-2 border-b py-3 backdrop-blur-md;
+}
+
+/* one variant button */
+.switchButton {
+  @apply border-border text-muted-foreground hover:bg-muted rounded-md border px-3 py-1.5 text-sm transition-colors;
+}
+
+/* currently selected variant */
+.switchButtonActive {
+  @apply bg-primary text-primary-foreground border-primary;
+}
+
+/* short description of the variant on screen */
+.variantNote {
+  @apply text-muted-foreground mb-6 text-sm italic;
+}
+
+/* placeholder image block, tinted per project via inline hue */
+.thumb {
+  @apply relative flex h-32 w-full items-center justify-center overflow-hidden rounded-lg text-xs font-medium text-white/70;
+}
+
+/* ─── A: plain grid (baseline) ─── */
+
+/* card grid used by variants A and B */
+.grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3;
+}
+
+/* single project card */
+.card {
+  @apply border-border/60 bg-card hover:border-border flex flex-col gap-2 rounded-xl border p-4 transition-colors;
+}
+
+/* card heading row holding title and optional pill */
+.cardHead {
+  @apply flex items-start justify-between gap-2;
+}
+
+/* project title inside a card */
+.cardTitle {
+  @apply font-semibold leading-tight;
+}
+
+/* one-sentence explanation under the title */
+.cardTagline {
+  @apply text-muted-foreground text-sm leading-snug;
+}
+
+/* tag row at the bottom of a card */
+.cardTags {
+  @apply text-muted-foreground/70 mt-auto flex flex-wrap gap-1.5 pt-1 text-xs;
+}
+
+/* ─── stage pills ─── */
+
+/* neutral base for a stage pill */
+.pill {
+  @apply shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium;
+}
+
+/* paused but still working */
+.pillBenched {
+  @apply bg-amber-500/15 text-amber-700 dark:text-amber-400;
+}
+
+/* abandoned */
+.pillShelved {
+  @apply bg-muted text-muted-foreground;
+}
+
+/* ─── B: grid + archive list ─── */
+
+/* archive section wrapper */
+.archive {
+  @apply mt-12;
+}
+
+/* archive heading */
+.archiveHeading {
+  @apply text-lg font-semibold;
+}
+
+/* framing sentence that sets expectations before the list */
+.archiveIntro {
+  @apply text-muted-foreground mt-1 mb-4 text-sm;
+}
+
+/* text-only archive rows */
+.archiveList {
+  @apply flex flex-col;
+}
+
+/* single archive row: title plus one sentence, no image, no button */
+.archiveRow {
+  @apply border-border/40 flex flex-col gap-0.5 border-t py-3 sm:flex-row sm:items-baseline sm:gap-3;
+}
+
+/* archive row title */
+.archiveTitle {
+  @apply shrink-0 text-sm font-medium;
+}
+
+/* archive row one-liner */
+.archiveNote {
+  @apply text-muted-foreground text-sm leading-snug;
+}
+
+/* ─── C: grouped by stage ─── */
+
+/* heading above each stage group */
+.groupHeading {
+  @apply text-muted-foreground mt-10 mb-3 text-xs font-semibold tracking-widest uppercase;
+}
+
+/* extra breathing room when a second group follows a list */
+.groupHeadingSpaced {
+  @apply mt-12;
+}
+
+/* ─── D: all text, no images ─── */
+
+/* dense list wrapper */
+.textList {
+  @apply flex flex-col;
+}
+
+/* one row in the dense list */
+.textRow {
+  @apply border-border/40 grid grid-cols-1 gap-x-4 gap-y-0.5 border-t py-3 sm:grid-cols-[14rem_1fr];
+}
+
+/* title cell in the dense list */
+.textTitle {
+  @apply text-sm font-medium;
+}
+
+/* sentence cell in the dense list */
+.textNote {
+  @apply text-muted-foreground text-sm leading-snug;
+}
+
+/* muted treatment for shelved rows in the dense list */
+.textRowMuted {
+  @apply opacity-55;
+}
+
+/* ─── E: learned-forward ─── */
+
+/* card that leads with the lesson instead of the product */
+.learnCard {
+  @apply border-border/60 flex flex-col gap-1 rounded-xl border border-dashed p-4;
+}
+
+/* the lesson, given top billing */
+.learnLesson {
+  @apply text-sm leading-snug font-medium;
+}
+
+/* project attribution under the lesson */
+.learnFrom {
+  @apply text-muted-foreground text-xs;
+}
+
+/* ─── F: compact rows with a mini thumbnail ─── */
+
+/* dense list of rows */
+.miniList {
+  @apply flex flex-col;
+}
+
+/* one row: small image, then title and sentence */
+.miniRow {
+  @apply border-border/40 flex items-center gap-3 border-t py-3;
+}
+
+/* small square thumb, sized to the two lines of text beside it */
+.miniThumb {
+  @apply relative size-12 shrink-0 overflow-hidden rounded-md;
+}
+
+/* text column next to the thumb */
+.miniBody {
+  @apply flex min-w-0 flex-col gap-0.5;
+}
+
+/* title line, with room for a stage pill */
+.miniTitle {
+  @apply flex items-center gap-2 text-sm leading-tight font-medium;
+}
+
+/* the one sentence, clipped rather than wrapped to keep rows even */
+.miniNote {
+  @apply text-muted-foreground truncate text-sm leading-snug;
+}
+
+/* shelved rows sit back without disappearing */
+.miniRowMuted {
+  @apply opacity-60;
+}
+
+/* ─── G: destination instead of a status badge ─── */
+
+/* title row: name first, destination trailing on the same line */
+.titleRow {
+  @apply flex min-w-0 items-baseline gap-2;
+}
+
+/* row body grows so the destination pill can sit hard right */
+.rowBody {
+  @apply flex min-w-0 flex-1 flex-col gap-0.5;
+}
+
+/* destination pill: concise, clickable, right-aligned. One style for every
+   destination — only the icon distinguishes them. */
+.linkPill {
+  @apply border-border bg-muted text-foreground/80 hover:bg-muted/70 inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-colors;
+}
+
+/* icon inside a pill */
+.linkIcon {
+  @apply size-3 shrink-0;
+}
+
+/* site mark on internal pills; taller than the lucide icons since the glyph is narrow.
+   Keeps its own brand blue rather than inheriting the pill's text colour. */
+.linkLogo {
+  @apply h-3.5 w-2.5 shrink-0;
+}
+
+/* stated plainly when there is no destination at all */
+.noHost {
+  @apply text-muted-foreground/60 shrink-0 text-xs;
+}
+
+/* caveat for something reachable that is not a working product */
+.hostCaveat {
+  @apply text-muted-foreground/70 shrink-0 text-xs;
+}
