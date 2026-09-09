@@ -10,6 +10,16 @@
   @apply text-2xl font-semibold tracking-tight;
 }
 
+/* title row with its action on the right */
+.pageHead {
+  @apply flex items-center justify-between gap-4;
+}
+
+/* create action */
+.newLink {
+  @apply border-border hover:border-primary hover:text-primary rounded-full border px-3 py-1.5 text-sm font-medium no-underline transition-colors;
+}
+
 /* back link above the editor */
 .backLink {
   @apply text-muted-foreground hover:text-foreground inline-flex w-fit items-center gap-1 text-sm no-underline;
@@ -17,14 +27,44 @@
 
 /* ─── List ─── */
 
-/* slug shown under the title in the table */
-.slug {
-  @apply text-muted-foreground font-mono text-xs;
+/* dense divided rows: these pages are for scanning, not browsing */
+.list {
+  @apply m-0 flex list-none flex-col p-0;
 }
 
-/* title cell, links to the editor */
+/* one project: title and meta on a single line wherever it fits */
+.item {
+  @apply border-border/40 flex flex-wrap items-center gap-x-3 gap-y-0.5 border-t py-1.5 text-sm;
+}
+
+/* title and slug share the flexible column */
+.itemMain {
+  @apply flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2;
+}
+
+/* badges and sort order */
+.itemMeta {
+  @apply flex shrink-0 items-center gap-2;
+}
+
+/* sort order */
+.order {
+  @apply text-muted-foreground text-xs;
+}
+
+/* resolved destination, hidden on narrow screens where the row is already full */
+.url {
+  @apply text-muted-foreground hidden truncate text-xs lg:block lg:w-56 lg:shrink-0 lg:text-right;
+}
+
+/* slug shown under the title */
+.slug {
+  @apply text-muted-foreground truncate font-mono text-xs;
+}
+
+/* title, links to the editor */
 .titleLink {
-  @apply font-medium no-underline hover:underline;
+  @apply truncate font-medium no-underline hover:underline;
 }
 
 /* muted cell text */

@@ -107,3 +107,65 @@ export async function updateProject(
 
   return { ok: true };
 }
+
+export async function createProject(
+  values: ProjectFormValues
+): Promise<ActionResult> {
+  await requireAuth();
+
+  const parsed = ProjectSchema.safeParse(values);
+  if (!parsed.success) {
+    return {
+      ok: false,
+      message: "Fix the highlighted fields.",
+      fieldErrors: z.flattenError(parsed.error).fieldErrors as Record<
+        string,
+        string[]
+      >,
+    };
+  }
+
+  const p = parsed.data;
+
+  const clash = await db.execute({
+    sql: "SELECT id FROM projects WHERE id = ? OR slug = ?",
+    args: [p.id, p.slug],
+  });
+  if (clash.rows.length > 0) {
+    return { ok: false, message: "That id or slug is already in use." };
+  }
+
+  const tags = p.tags
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
+
+  const now = new Date().toISOString();
+
+  await db.execute({
+    sql: `INSERT INTO projects
+            (id, slug, title, tagline, description, status, icon, app_href, repo_url, demo_url, tags, sort_order, created_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    args: [
+      p.id,
+      p.slug,
+      p.title,
+      p.tagline,
+      p.description,
+      p.status,
+      p.icon,
+      p.app_href,
+      p.repo_url,
+      p.demo_url,
+      JSON.stringify(tags),
+      p.sort_order,
+      now,
+      now,
+    ],
+  });
+
+  revalidatePath("/projects");
+  revalidatePath("/admin/projects");
+
+  return { ok: true };
+}

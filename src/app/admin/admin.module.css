@@ -4,12 +4,12 @@
 
 /* top bar for admin pages */
 .header {
-  @apply border-border/40 flex items-center justify-between border-b px-6 py-3;
+  @apply border-border/40 flex flex-wrap items-center justify-between gap-3 border-b px-4 py-3 sm:px-6;
 }
 
 /* left side nav group */
 .nav {
-  @apply flex items-center gap-4;
+  @apply flex flex-wrap items-center gap-x-4 gap-y-2;
 }
 
 /* admin title in header */
@@ -22,7 +22,7 @@
   @apply text-sm text-muted-foreground hover:text-foreground transition-colors;
 }
 
-/* main content area */
+/* main content area; padding lives here so every admin page inherits it */
 .main {
-  @apply flex-1;
+  @apply mx-auto w-full max-w-5xl flex-1 px-4 py-6 sm:px-6;
 }

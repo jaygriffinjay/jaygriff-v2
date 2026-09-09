@@ -14,6 +14,7 @@ export default function AdminLayout({
           <span className={styles.title}>Admin</span>
           <Link href="/admin/content" className={styles.navLink}>Content</Link>
           <Link href="/admin/projects" className={styles.navLink}>Projects</Link>
+          <Link href="/admin/tools" className={styles.navLink}>Tools</Link>
           <Link href="/admin/assets" className={styles.navLink}>Assets</Link>
           <Link href="/admin/pool" className={styles.navLink}>Pool</Link>
         </nav>

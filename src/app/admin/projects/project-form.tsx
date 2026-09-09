@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import {
+  createProject,
   updateProject,
   type ProjectFormValues,
 } from "@/app/admin/actions/projects";
@@ -40,7 +42,14 @@ function Field({
   );
 }
 
-export function ProjectForm({ initial }: { initial: ProjectFormValues }) {
+export function ProjectForm({
+  initial,
+  mode = "edit",
+}: {
+  initial: ProjectFormValues;
+  mode?: "edit" | "create";
+}) {
+  const router = useRouter();
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [message, setMessage] = useState<string | null>(null);
@@ -60,10 +69,15 @@ export function ProjectForm({ initial }: { initial: ProjectFormValues }) {
     setMessage(null);
 
     startTransition(async () => {
-      const result = await updateProject(values);
+      const result =
+        mode === "create"
+          ? await createProject(values)
+          : await updateProject(values);
+
       if (result.ok) {
         setErrors({});
         setSaved(true);
+        if (mode === "create") router.push(`/admin/projects/${values.id}`);
         return;
       }
       setErrors(result.fieldErrors ?? {});
@@ -73,6 +87,19 @@ export function ProjectForm({ initial }: { initial: ProjectFormValues }) {
 
   return (
     <form onSubmit={submit} className={styles.form}>
+      {mode === "create" && (
+        <Field
+          label="Id"
+          hint="Permanent key. Used by content.project_id and SHOWCASE — never edited later."
+          error={errors.id}
+        >
+          <Input
+            value={values.id}
+            onChange={(e) => set("id", e.target.value)}
+          />
+        </Field>
+      )}
+
       <div className={styles.formRow}>
         <Field label="Title" error={errors.title}>
           <Input

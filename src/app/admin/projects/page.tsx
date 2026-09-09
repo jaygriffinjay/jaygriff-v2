@@ -1,14 +1,6 @@
 import Link from "next/link";
 
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { getEveryProject } from "@/modules/projects/queries";
 import { projectUrl } from "@/modules/projects/links";
 import { isShowcased } from "@/modules/projects/showcase";
@@ -23,54 +15,44 @@ export default async function AdminProjectsPage() {
 
   return (
     <div className={styles.page}>
-      <h1 className={styles.heading}>Projects ({projects.length})</h1>
+      <div className={styles.pageHead}>
+        <h1 className={styles.heading}>Projects ({projects.length})</h1>
+        <Link href="/admin/projects/new" className={styles.newLink}>
+          New project
+        </Link>
+      </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Section</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Link</TableHead>
-            <TableHead>Order</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {projects.map((project) => {
-            const url = projectUrl(project);
-            return (
-              <TableRow key={project.id}>
-                <TableCell>
-                  <Link
-                    href={`/admin/projects/${project.id}`}
-                    className={styles.titleLink}
-                  >
-                    {project.title}
-                  </Link>
-                  <div className={styles.slug}>{project.slug}</div>
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant={isShowcased(project.id) ? "default" : "outline"}
-                    className={styles.showcaseBadge}
-                  >
-                    {isShowcased(project.id) ? "Apps" : "Experiments"}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <Badge variant="outline">{project.status}</Badge>
-                </TableCell>
-                <TableCell className={styles.muted}>
-                  {url ?? "none"}
-                </TableCell>
-                <TableCell className={styles.muted}>
-                  {project.sort_order}
-                </TableCell>
-              </TableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
+      <ul className={styles.list}>
+        {projects.map((project) => {
+          const url = projectUrl(project);
+          return (
+            <li key={project.id} className={styles.item}>
+              <div className={styles.itemMain}>
+                <Link
+                  href={`/admin/projects/${project.id}`}
+                  className={styles.titleLink}
+                >
+                  {project.title}
+                </Link>
+                <span className={styles.slug}>{project.slug}</span>
+              </div>
+
+              <div className={styles.itemMeta}>
+                <Badge
+                  variant={isShowcased(project.id) ? "default" : "outline"}
+                  className={styles.showcaseBadge}
+                >
+                  {isShowcased(project.id) ? "Apps" : "Experiments"}
+                </Badge>
+                <Badge variant="outline">{project.status}</Badge>
+                <span className={styles.order}>#{project.sort_order}</span>
+              </div>
+
+              <span className={styles.url}>{url ?? "no link"}</span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }
