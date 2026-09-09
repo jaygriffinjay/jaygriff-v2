@@ -10,9 +10,9 @@
   @apply mb-10 space-y-3;
 }
 
-/* portrait above the contact-page heading */
+/* portrait above the contact-page heading; matches the homepage treatment */
 .portrait {
-  @apply mx-auto mb-6 aspect-square size-44 rounded-md object-cover sm:size-48;
+  @apply border-border mx-auto mb-6 aspect-square size-44 rounded-full border-4 object-cover shadow-lg sm:size-48;
 }
 
 /* centered contact-page title */

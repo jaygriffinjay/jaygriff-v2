@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { H2, Link } from "@/components/typography";
+import { H1, H2, Link } from "@/components/typography";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default function ContactPage() {
 					priority
 					className={styles.portrait}
 				/>
-                <H2 className={styles.title}>Contact Me</H2>
+                <H1 className={styles.title}>Jay Griffin</H1>
 			</header>
 
 			<nav className={styles.links} aria-label="Contact links">
