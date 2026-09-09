@@ -61,15 +61,18 @@ function matches(row: ContentRow, collection: Collection) {
   return (row.tags ?? []).some((t) => collection.tags.includes(t));
 }
 
+/** Tag sets overlap, so a row belongs to the first collection it matches. */
+function ownerOf(row: ContentRow) {
+  return THOUGHT_COLLECTIONS.find((c) => matches(row, c))?.slug ?? null;
+}
+
 /** Oldest first — a collection is a trajectory, and recency-first spoils it. */
 export function collectionMembers(rows: ContentRow[], collection: Collection) {
   return rows
-    .filter((row) => matches(row, collection))
+    .filter((row) => ownerOf(row) === collection.slug)
     .sort((a, b) => a.created_at.localeCompare(b.created_at));
 }
 
 export function uncollected(rows: ContentRow[]) {
-  return rows.filter(
-    (row) => !THOUGHT_COLLECTIONS.some((c) => matches(row, c))
-  );
+  return rows.filter((row) => ownerOf(row) === null);
 }

@@ -2,7 +2,7 @@
 
 /* article max-width and vertical spacing */
 .article {
-  @apply max-w-3xl mx-auto py-6;
+  @apply max-w-3xl mx-auto pb-6;
 }
 
 /* header block above the content */
@@ -18,4 +18,9 @@
 /* separator between header and body */
 .divider {
   @apply my-8;
+}
+
+/* provenance notice, sat above the title */
+.disclosure {
+  @apply mb-6;
 }

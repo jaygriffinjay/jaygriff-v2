@@ -6,7 +6,6 @@ import { useTheme } from "next-themes";
 import {
   HomeIcon,
   NewspaperIcon,
-  BookOpenIcon,
   LayoutGridIcon,
   LightbulbIcon,
   ShieldIcon,
@@ -35,7 +34,6 @@ const navItems = [
   { label: "Projects", href: "/projects", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
   { label: "Thoughts", href: "/thoughts", icon: LightbulbIcon },
-  { label: "Docs", href: "/docs", icon: BookOpenIcon },
   { label: "About", href: "/about", icon: HelpCircleIcon },
   { label: "Contact", href: "/contact", icon: MailIcon },
   ...(process.env.NODE_ENV === "development"

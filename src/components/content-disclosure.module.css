@@ -1,0 +1,6 @@
+@reference "../app/globals.css";
+
+/* provenance notice: a quiet outlined card, not a blockquote */
+.disclosure {
+  @apply border-border bg-muted/30 text-muted-foreground rounded-lg border px-4 py-2.5 text-sm leading-relaxed;
+}

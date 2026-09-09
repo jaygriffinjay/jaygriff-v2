@@ -9,32 +9,29 @@ import { H1, H2, Paragraph, Small, Link } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { Container } from "@/components/layout/Container";
 import { HandwrittenBadge } from "@/components/handwritten-badge";
+import { DisclosureNotice } from "@/components/content-disclosure";
 import styles from "./thoughts.module.css";
 
 function ThoughtGrid({ rows }: { rows: ContentRow[] }) {
   return (
-    <div className={styles.grid}>
+    <ul className={styles.list}>
       {rows.map((thought) => (
-        <Link
-          key={thought.slug}
-          href={`/thoughts/${thought.slug}`}
-          className={styles.cardLink}
-        >
-          <span className={styles.cardTitle}>{thought.title}</span>
-          {thought.description && (
-            <span className={styles.cardDesc}>{thought.description}</span>
-          )}
-          <Small className={styles.cardDate}>
-            {new Date(thought.created_at).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-            <HandwrittenBadge authorship={thought.authorship} className="ml-2" />
-          </Small>
-        </Link>
+        <li key={thought.slug}>
+          <Link href={`/thoughts/${thought.slug}`} className={styles.row}>
+            <span className={styles.rowTitle}>{thought.title}</span>
+            <span className={styles.rowMeta}>
+              <HandwrittenBadge authorship={thought.authorship} />
+              <Small className={styles.rowDate}>
+                {new Date(thought.created_at).toLocaleDateString("en-US", {
+                  month: "short",
+                  year: "numeric",
+                })}
+              </Small>
+            </span>
+          </Link>
+        </li>
       ))}
-    </div>
+    </ul>
   );
 }
 
@@ -44,12 +41,12 @@ export default async function ThoughtsPage() {
 
   return (
     <Container className="max-w-4xl">
-      <div className="space-y-2">
+      <div className="space-y-4">
         <H1>Thoughts &amp; Ideas</H1>
-        <Paragraph className="text-lg text-muted-foreground">
-          Notes, half-formed ideas, and things I was chewing on. Dated on
-          purpose — these are passing thoughts, not positions I still hold.
-        </Paragraph>
+        <DisclosureNotice>
+          Mostly AI-generated summaries of work I did with a coding agent. See {" "}
+          <Link href="/posts">posts</Link> for my actual writing.
+        </DisclosureNotice>
       </div>
 
       <Separator className="my-6" />

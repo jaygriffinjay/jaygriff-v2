@@ -1,44 +1,49 @@
 @reference "../globals.css";
 
-/* two-column tile grid for the thought list */
-.grid {
-  @apply grid grid-cols-1 gap-4 sm:grid-cols-2;
+/* dense link list: thoughts sit below posts and projects in importance */
+.list {
+  @apply m-0 flex list-none flex-col p-0;
 }
 
-/* bordered thought tile, matching the treatment used on the homepage */
-.cardLink {
-  @apply surface-outline flex h-full flex-col items-start gap-2 rounded-2xl p-5 no-underline;
+/* one thought: title left, date right, single line */
+.row {
+  @apply text-muted-foreground hover:text-foreground border-border/40 flex items-baseline justify-between gap-4 border-b py-2 text-sm no-underline transition-colors;
 }
 
-/* thought title */
-.cardTitle {
-  @apply text-base font-semibold;
+/* last row has no divider so the section ends cleanly */
+.row:last-child {
+  @apply border-b-0;
 }
 
-/* thought description */
-.cardDesc {
-  @apply text-muted-foreground text-sm leading-relaxed;
+/* clip rather than wrap, keeping every row one line */
+.rowTitle {
+  @apply truncate;
 }
 
-/* published date, de-emphasized below the description */
-.cardDate {
-  @apply text-muted-foreground/60 mt-1;
+/* badge and date, pinned right */
+.rowMeta {
+  @apply flex shrink-0 items-baseline gap-2;
+}
+
+/* published date */
+.rowDate {
+  @apply text-muted-foreground/60 text-xs;
 }
 
 /* curated collection block */
 .section {
-  @apply mt-16;
+  @apply mt-10;
 }
 
 /* collection heading + blurb */
 .sectionHead {
-  @apply mb-6 space-y-2 text-center;
+  @apply mb-3 space-y-1;
 }
 
 .sectionTitle {
-  @apply text-3xl font-bold sm:text-4xl;
+  @apply text-xl font-semibold;
 }
 
 .sectionIntro {
-  @apply text-muted-foreground mx-auto max-w-2xl text-sm leading-relaxed;
+  @apply text-muted-foreground max-w-2xl text-sm leading-relaxed;
 }

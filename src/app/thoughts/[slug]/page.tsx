@@ -5,6 +5,7 @@ import { Container } from "@/components/layout/Container";
 import { H1, Paragraph, Small } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { HandwrittenBadge } from "@/components/handwritten-badge";
+import { ContentDisclosure } from "@/components/content-disclosure";
 import styles from "./thought.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -18,6 +19,7 @@ export default async function ThoughtPage({ params }: Props) {
   return (
     <Container>
       <article className={styles.article}>
+        <ContentDisclosure row={thought} className={styles.disclosure} />
         <header className={styles.header}>
           <H1>{thought.title}</H1>
           {thought.description && (

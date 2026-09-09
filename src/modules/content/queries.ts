@@ -90,6 +90,15 @@ export async function getAllContent(): Promise<ContentRow[]> {
   return result.rows.map((r) => parseRow(r as Record<string, unknown>));
 }
 
+export async function getContentById(id: string): Promise<ContentRow | null> {
+  const result = await db.execute({
+    sql: "SELECT * FROM content WHERE id = ?",
+    args: [id],
+  });
+  if (result.rows.length === 0) return null;
+  return parseRow(result.rows[0] as Record<string, unknown>);
+}
+
 function stripFrontmatter(content: string): string {
   if (!/^---(?:json|ya?ml)?\r?\n/.test(content)) return content;
 
