@@ -4,12 +4,13 @@ import NextLink from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 import { Container } from "@/components/layout/Container";
-import { H1, H2, Paragraph, Small } from "@/components/typography";
+import { H1, H2, List, ListItem, Paragraph, Small } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
 import { getAssetsFor, isSvg, pickAsset } from "@/modules/assets/queries";
 import { getContentByProject } from "@/modules/content/queries";
 import { getAllProjects, getProjectBySlug } from "@/modules/projects/queries";
 import { getProjectIcon } from "@/modules/projects/icons";
+import { versionsFor, type ProjectVersion } from "@/modules/projects/versions";
 import styles from "./project.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -37,6 +38,7 @@ export default async function ProjectPage({ params }: Props) {
   const related = await getContentByProject(project.id);
   const docs = related.filter((row) => row.type === "doc");
   const posts = related.filter((row) => row.type === "post");
+  const thoughts = related.filter((row) => row.type === "thought");
   const Icon = getProjectIcon(project.icon);
 
   const assets = await getAssetsFor("project", project.id);
@@ -142,7 +144,74 @@ export default async function ProjectPage({ params }: Props) {
 
       <ContentSection title="Docs" basePath="docs" rows={docs} />
       <ContentSection title="Posts" basePath="posts" rows={posts} />
+      <VersionCapsule versions={versionsFor(project.id)} />
+      <ThoughtList rows={thoughts} />
     </Container>
+  );
+}
+
+/** Earlier incarnations of the same project, kept online as a time capsule. */
+function VersionCapsule({ versions }: { versions: ProjectVersion[] }) {
+  if (versions.length === 0) return null;
+
+  return (
+    <section className={styles.versionsSection}>
+      <H2 className={styles.versionsTitle}>Previous versions</H2>
+      <Paragraph className={styles.versionsIntro}>
+        Still online, untouched. A record of where this started.
+      </Paragraph>
+      <List className={styles.versionsList}>
+        {versions.map((version) => (
+          <ListItem key={version.label}>
+            <a
+              href={version.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.versionLink}
+            >
+              <span className={styles.versionLabel}>{version.label}</span>
+              <span className={styles.versionNote}>{version.note}</span>
+              <span className={styles.versionHost}>
+                {version.href.replace(/^https?:\/\//, "")}
+              </span>
+            </a>
+          </ListItem>
+        ))}
+      </List>
+    </section>
+  );
+}
+
+/** Working notes, not documentation: a dense link list, deliberately quiet. */
+function ThoughtList({
+  rows,
+}: {
+  rows: Awaited<ReturnType<typeof getContentByProject>>;
+}) {
+  if (rows.length === 0) return null;
+
+  return (
+    <section className={styles.notesSection}>
+      <H2 className={styles.notesTitle}>Thoughts</H2>
+      <Paragraph className={styles.notesIntro}>
+        🤖 Mostly AI-generated summaries of work I did with a coding agent while working on this project.
+      </Paragraph>
+      <List className={styles.notesList}>
+        {rows.map((row) => (
+          <ListItem key={row.id}>
+            <NextLink href={`/thoughts/${row.slug}`} className={styles.noteLink}>
+              <span className={styles.noteTitle}>{row.title}</span>
+              <span className={styles.noteDate}>
+                {new Date(row.created_at).toLocaleDateString("en-US", {
+                  month: "short",
+                  year: "numeric",
+                })}
+              </span>
+            </NextLink>
+          </ListItem>
+        ))}
+      </List>
+    </section>
   );
 }
 

@@ -32,9 +32,10 @@
   @apply size-6 object-contain;
 }
 
-/* hero image, only rendered when one is assigned */
+/* hero image, only rendered when one is assigned. Capped so a tall screenshot
+   doesn't push the description and content below the fold. */
 .hero {
-  @apply border-border relative mb-6 w-full overflow-hidden rounded-2xl border;
+  @apply border-border relative mx-auto mb-6 max-w-lg overflow-hidden rounded-xl border;
 }
 
 /* height follows the image's own ratio — no fixed box, so nothing is cropped */
@@ -72,9 +73,9 @@
   @apply border-border hover:border-primary hover:text-primary rounded-full border px-4 py-2 text-sm font-medium no-underline transition-colors;
 }
 
-/* long-form project blurb */
+/* long-form project blurb, centred under the hero */
 .description {
-  @apply text-muted-foreground;
+  @apply text-muted-foreground mx-auto max-w-2xl text-center;
 }
 
 /* 16:9 box so the embed reserves its space before loading */
@@ -132,4 +133,83 @@
 /* publish date */
 .rowDate {
   @apply text-muted-foreground text-xs;
+}
+
+/* ─── Previous versions ─── */
+
+/* time capsule of earlier incarnations */
+.versionsSection {
+  @apply border-border/60 mt-12 border-t pt-6;
+}
+
+/* small heading, in line with the notes section below it */
+.versionsTitle {
+  @apply text-muted-foreground m-0 border-none pb-0 text-sm font-semibold;
+}
+
+/* one-line framing */
+.versionsIntro {
+  @apply text-muted-foreground/80 mt-0.5 mb-2 text-xs;
+}
+
+/* dense list of versions */
+.versionsList {
+  @apply m-0 flex list-none flex-col space-y-0 p-0 pl-0;
+}
+
+/* label, note, host on one line */
+.versionLink {
+  @apply text-muted-foreground hover:text-foreground flex flex-wrap items-baseline gap-x-2 py-1 text-sm no-underline transition-colors;
+}
+
+/* version number */
+.versionLabel {
+  @apply text-foreground/80 shrink-0 font-mono text-xs;
+}
+
+/* what it was */
+.versionNote {
+  @apply min-w-0 flex-1;
+}
+
+/* subdomain, right-aligned where there is room */
+.versionHost {
+  @apply text-muted-foreground/60 shrink-0 text-xs;
+}
+
+/* ─── Notes & logs ─── */
+
+/* section wrapper; the callout is the intro only, not the whole list */
+.notesSection {
+  @apply border-border/60 mt-12 border-t pt-6;
+}
+
+/* heading: bigger than the body, still below the docs and posts sections */
+.notesTitle {
+  @apply text-foreground m-0 border-none pb-0 text-lg font-semibold;
+}
+
+/* callout card, matching the AI disclosure treatment on thought pages */
+.notesIntro {
+  @apply border-border bg-muted/30 text-muted-foreground mt-2 mb-3 rounded-lg border px-4 py-2.5 text-sm leading-relaxed;
+}
+
+/* dense, unadorned link list */
+.notesList {
+  @apply m-0 flex list-none flex-col space-y-0 p-0 pl-0;
+}
+
+/* title left, date right, tight rows */
+.noteLink {
+  @apply text-muted-foreground hover:text-foreground flex items-baseline justify-between gap-3 py-1 text-sm no-underline transition-colors;
+}
+
+/* clip rather than wrap, so every row is one line */
+.noteTitle {
+  @apply truncate;
+}
+
+/* short date, right-aligned */
+.noteDate {
+  @apply text-muted-foreground/60 shrink-0 text-xs;
 }
