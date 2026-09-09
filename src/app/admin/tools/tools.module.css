@@ -1,0 +1,106 @@
+@reference "../../globals.css";
+
+/* page wrapper */
+.page {
+  @apply flex flex-col gap-6;
+}
+
+/* page title */
+.heading {
+  @apply text-2xl font-semibold tracking-tight;
+}
+
+/* back link above the editor */
+.backLink {
+  @apply text-muted-foreground hover:text-foreground inline-flex w-fit items-center gap-1 text-sm no-underline;
+}
+
+/* ─── List ─── */
+
+/* one section of tools */
+.section {
+  @apply flex flex-col;
+}
+
+/* section grouping heading in the list */
+.sectionRow {
+  @apply text-muted-foreground mt-5 mb-1 text-xs font-semibold tracking-widest uppercase;
+}
+
+/* dense divided rows: these pages are for scanning, not browsing */
+.list {
+  @apply m-0 flex list-none flex-col p-0;
+}
+
+/* one tool: title and meta on a single line wherever it fits */
+.item {
+  @apply border-border/40 flex flex-wrap items-center gap-x-3 gap-y-0.5 border-t py-1.5 text-sm;
+}
+
+/* name and description share the flexible column */
+.itemMain {
+  @apply flex min-w-0 flex-1 flex-wrap items-baseline gap-x-2;
+}
+
+/* status and note marker */
+.itemMeta {
+  @apply flex shrink-0 items-center gap-2;
+}
+
+/* marks a tool that has an expandable note written */
+.noteFlag {
+  @apply text-muted-foreground text-xs;
+}
+
+/* tool name cell, links to the editor */
+.titleLink {
+  @apply truncate font-medium no-underline hover:underline;
+}
+
+/* muted cell text */
+.muted {
+  @apply text-muted-foreground truncate text-sm;
+}
+
+/* ─── Form ─── */
+
+.form {
+  @apply flex max-w-2xl flex-col gap-5;
+}
+
+.formRow {
+  @apply grid grid-cols-1 gap-5 md:grid-cols-2;
+}
+
+.field {
+  @apply flex flex-col gap-1.5;
+}
+
+.label {
+  @apply text-sm font-medium;
+}
+
+.hint {
+  @apply text-muted-foreground text-xs;
+}
+
+.error {
+  @apply text-destructive text-xs;
+}
+
+/* checkbox sitting beside its label */
+.checkboxField {
+  @apply flex items-center gap-2 pt-6;
+}
+
+.actions {
+  @apply flex items-center gap-3 pt-2;
+}
+
+.saved {
+  @apply text-muted-foreground text-sm;
+}
+
+.formError {
+  @apply text-destructive text-sm;
+}

@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
-import { MyStackClient } from "./my-stack-client";
+import { getAllTools } from "@/modules/tools/queries";
+import { StackList } from "./stack-list";
 
 export const metadata: Metadata = {
   title: "My Stack",
   description: "Tools and technologies I use",
 };
 
-export default function MyStackPage() {
+export default async function MyStackPage() {
+  const tools = await getAllTools();
+
   return (
     <Container className="max-w-4xl">
-      <MyStackClient />
+      <StackList tools={tools} />
     </Container>
   );
 }

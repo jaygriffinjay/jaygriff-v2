@@ -1,4 +1,6 @@
+import { useState } from "react";
 import Image from "next/image";
+import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import styles from "./my-stack.module.css";
 
@@ -50,6 +52,7 @@ interface ToolCardProps {
   logo: string;
   title: string;
   description: string;
+  note?: string;
   logoSize?: number;
   invert?: boolean;
   status?: ToolStatus;
@@ -59,14 +62,16 @@ export function ToolCard({
   logo,
   title,
   description,
-  logoSize = 60,
+  note,
+  logoSize = 40,
   invert = false,
   status = "active",
 }: ToolCardProps) {
   const { label, markClass } = TOOL_STATUS_META[status];
+  const [open, setOpen] = useState(false);
 
-  return (
-    <div className={styles.toolCard}>
+  const body = (
+    <>
       <div
         className={styles.toolLogo}
         style={{ width: logoSize, height: logoSize }}
@@ -79,7 +84,7 @@ export function ToolCard({
           className={cn(styles.toolLogoImg, invert && styles.toolLogoInvert)}
         />
       </div>
-      <div>
+      <div className={styles.toolBody}>
         <strong className={styles.toolTitle}>
           {title}
           {markClass && (
@@ -94,6 +99,28 @@ export function ToolCard({
         </strong>
         <p className={styles.toolDescription}>{description}</p>
       </div>
+    </>
+  );
+
+  if (!note) {
+    return <div className={styles.toolCard}>{body}</div>;
+  }
+
+  return (
+    <div className={cn(styles.toolCard, styles.toolCardNoted)}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        className={styles.toolTrigger}
+      >
+        {body}
+        <ChevronDownIcon
+          aria-hidden="true"
+          className={cn(styles.toolChevron, open && styles.toolChevronOpen)}
+        />
+      </button>
+      {open && <p className={styles.toolNote}>{note}</p>}
     </div>
   );
 }

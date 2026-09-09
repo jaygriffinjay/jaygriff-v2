@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { H2, Paragraph } from "@/components/typography";
+import { H2 } from "@/components/typography";
 import { ToolCard, TOOL_STATUS_META, type ToolStatus } from "./ToolCard";
 import styles from "./my-stack.module.css";
 
@@ -9,6 +9,8 @@ interface Tool {
   logo: string;
   title: string;
   description: string;
+  // longer "how I actually use it" line, surfaced on hover
+  note?: string;
   invert?: boolean;
   status?: ToolStatus;
 }
@@ -16,7 +18,6 @@ interface Tool {
 interface Section {
   id: string;
   label: string;
-  description: React.ReactNode;
   tools: Tool[];
 }
 
@@ -38,54 +39,31 @@ const SECTIONS: Section[] = [
   {
     id: "languages",
     label: "Languages",
-    description: (
-      <Paragraph>
-        I&apos;m all-in on TypeScript now. TypeScript gets first-class support
-        for most modern web development tools and my interfaces are great AI food
-        and guardrails. I love Python but don&apos;t use it  much since I do
-        100% TypeScript webdev right now. But Python can be very good for backend processing tasks. I don&apos;t really write HTML directly
-        anymore but I do throw the occassional HTML element into my React and
-        Markdown pages. Shell I use daily for basic plumbing: installing
-        packages, file operations, git operations, CLI tools, and all the shell scripts agents make and use.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/typescript.svg", title: "TypeScript", description: "All in, full steam ahead" },
+      { logo: "/tool-logos/typescript.svg", title: "TypeScript", description: "All in, full steam ahead", note: "First-class support across modern web tooling, and my interfaces double as AI food and guardrails." },
       { logo: "/tool-logos/javascript.svg", title: "JavaScript", description: "The foundation" },
-      { logo: "/tool-logos/python.svg", title: "Python", description: "Love it", },
-      { logo: "/tool-logos/html.svg", title: "HTML", description: "Tim Berners is a real one" },
+      { logo: "/tool-logos/python.svg", title: "Python", description: "Love it", note: "Still read, study, and use it — a genuinely great modern tool. I just prefer a TypeScript codebase for web work, though Python sometimes has the library I want." },
+      { logo: "/tool-logos/html.svg", title: "HTML", description: "Tim Berners is a real one", note: "Still write it by hand more than you'd think — elements find their way into React components and Markdown pages constantly." },
       { logo: "/tool-logos/css.svg", title: "CSS", description: "Cascading good times" },
-      { logo: "/tool-logos/shell.svg", title: "Shell", description: "Programming vegetables" },
+      { logo: "/tool-logos/shell.svg", title: "Shell", description: "Programming vegetables", note: "Daily plumbing: installing packages, file operations, git, CLI tools, and every shell script the agents write and run." },
       { logo: "/tool-logos/lua.svg", title: "Lua", description: "Hammerspoon scripting", status: "occasional" },
     ],
   },
   {
     id: "core-dev-tools",
     label: "Core Dev Tools",
-    description: (
-      <Paragraph>
-        This is my daily toolkit. React and TypeScript are what I&apos;m writing
-        most of the day, and I&apos;m usually writing those inside of a Next.js
-        app deployed to Vercel. Cloudflare is my registrar, DNS management,
-        object storage, and CDN. GitHub Copilot is currently my AI coding
-        assistant of choice (Claude Sonnet 4.5 for general work, Claude Opus 4.6
-        for tough problems, GPT-4o for natural language editing). VS Code is
-        where I live. Chrome DevTools helps me with many aspects of my webapps.
-        Jaygriff.com is pretty helpful too, highly recommend.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/react.svg", title: "React", description: "Components <3" },
-      { logo: "/tool-logos/nextjs.svg", title: "Next.js", description: "React cloud wizardry" },
+      { logo: "/tool-logos/react.svg", title: "React", description: "Components <3", note: "What I'm writing most of the day." },
+      { logo: "/tool-logos/nextjs.svg", title: "Next.js", description: "React cloud wizardry", note: "Where the React lives. Almost everything I build starts as a Next.js app." },
       { logo: "/tool-logos/vite.svg", title: "Vite", description: "Build tool" },
-      { logo: "/tool-logos/vercel.svg", title: "Vercel", description: "A very good triangle" },
-      { logo: "/tool-logos/cloudflare.svg", title: "Cloudflare", description: "A very good cloud" },
+      { logo: "/tool-logos/vercel.svg", title: "Vercel", description: "A very good triangle", note: "Production hosting, automatic deploys from main." },
+      { logo: "/tool-logos/cloudflare.svg", title: "Cloudflare", description: "A very good cloud", note: "Registrar, DNS management, object storage, and CDN." },
       { logo: "/tool-logos/git.svg", title: "Git", description: "Version control" },
       { logo: "/tool-logos/github.svg", title: "GitHub", description: "Some cool code on here" },
-      { logo: "/tool-logos/githubcopilot.svg", title: "GitHub Copilot", description: "How the sausage is made" },
-      { logo: "/tool-logos/vscode.svg", title: "VS Code", description: "My IDE" },
-      { logo: "/tool-logos/chromedevtools.svg", title: "Chrome DevTools", description: "My CSS broke again" },
-      { logo: "/tool-logos/logo.svg", title: "jaygriff.com", description: "Pretty good imo" },
+      { logo: "/tool-logos/githubcopilot.svg", title: "GitHub Copilot", description: "How the sausage is made", note: "My AI coding assistant of choice. The tool and the models behind it keep getting more capable, and I reach for the strongest one available." },
+      { logo: "/tool-logos/vscode.svg", title: "VS Code", description: "My IDE", note: "Where I live." },
+      { logo: "/tool-logos/chromedevtools.svg", title: "Chrome DevTools", description: "My CSS broke again", note: "Where I fix and optimize my sites — layout bugs, network waterfalls, and everything that only breaks in the browser." },
+      { logo: "/tool-logos/logo.svg", title: "jaygriff.com", description: "Pretty good imo", note: "Pretty helpful too. Highly recommend." },
       { logo: "/tool-logos/cline.svg", title: "Cline", description: "Pretty solid!", status: "occasional" },
       { logo: "/tool-logos/openai.svg", title: "ChatGPT", description: "Openai changes it every day", invert: true },
       { logo: "/tool-logos/claude.svg", title: "Claude", description: "Thanks Anthropic very cool" },
@@ -104,41 +82,19 @@ const SECTIONS: Section[] = [
   {
     id: "data",
     label: "Data",
-    description: (
-      <Paragraph>
-        Turso is my primary database — SQLite on the edge with libSQL.
-        Lightweight, fast, and perfect for my apps. Supabase I&apos;m exploring
-        for projects that need Postgres, auth, and realtime out of the box.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/turso.svg", title: "Turso", description: "SQLite on the edge" },
-      { logo: "/tool-logos/supabase.svg", title: "Supabase", description: "Postgres + auth + realtime" },
+      { logo: "/tool-logos/turso.svg", title: "Turso", description: "SQLite on the edge", note: "My primary database." },
+      { logo: "/tool-logos/supabase.svg", title: "Supabase", description: "Postgres + auth + realtime", note: "Exploring it for projects that need Postgres" },
     ],
   },
   {
     id: "styling",
     label: "Styling & UI",
-    description: (
-      <>
-        <Paragraph>
-          Tailwind CSS v4 is my styling foundation now, paired with CSS Modules
-          for component-scoped styles. shadcn/ui (built on Radix primitives) is
-          my component library — it gives me accessible, composable UI out of
-          the box. The combo of Tailwind + Radix + shadcn is exactly the clean
-          setup I was looking for.
-        </Paragraph>
-        <Paragraph>
-          I&apos;ve also experimented with DaisyUI and Material UI in the past,
-          and I used Emotion CSS-in-JS on the previous version of this site.
-        </Paragraph>
-      </>
-    ),
     tools: [
-      { logo: "/tool-logos/tailwind.svg", title: "Tailwind", description: "UTILITY FIRST!" },
+      { logo: "/tool-logos/tailwind.svg", title: "Tailwind", description: "UTILITY FIRST!", note: "My styling foundation, paired with CSS Modules for component-scoped styles." },
       { logo: "/tool-logos/radix.svg", title: "Radix UI", description: "Accessible primitives", invert: true },
-      { logo: "/tool-logos/shadcn.svg", title: "shadcn/ui", description: "Composable components" },
-      { logo: "/tool-logos/emotion.png", title: "Emotion", description: "Previous site", status: "shelved" },
+      { logo: "/tool-logos/shadcn.svg", title: "shadcn/ui", description: "Composable components", note: "Accessible, composable UI out of the box. Tailwind + Radix + shadcn is exactly the clean setup I was looking for." },
+      { logo: "/tool-logos/emotion.png", title: "Emotion", description: "Previous site", status: "shelved", note: "CSS-in-JS on the previous version of this site." },
       { logo: "/tool-logos/mui.svg", title: "Material UI", description: "Solid components and docs", status: "shelved" },
       { logo: "/tool-logos/daisyui.svg", title: "DaisyUI", description: "Tailwind-heavy experiments", status: "shelved" },
     ],
@@ -147,42 +103,20 @@ const SECTIONS: Section[] = [
   {
     id: "productivity",
     label: "Productivity",
-    description: (
-      <Paragraph>
-        Notion is my main hub for writing and notes because it&apos;s fast for
-        capturing lots of content and syncs across all devices. I admire Obsidian
-        from afar (the hotkeys, settings, and aesthetic are amazing) but I
-        don&apos;t actively use it. Surprisingly little use for spreadsheets
-        these days given I&apos;m a former accountant—most of my needs are met
-        with Notion and custom coded tools. Current use case? Splitting expenses
-        with my roommate using Google Sheets. The Microsoft Office Suite I have
-        used for work when required. Locus is a custom Chrome extension I built
-        for bookmark launching—I use it daily.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/notion.svg", title: "Notion", description: "Main hub for writing" },
-      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar", status: "occasional" },
-      { logo: "/tool-logos/excel.svg", title: "Excel", description: "Do not cite the deep magic to me, witch" },
-      { logo: "/tool-logos/sheets.svg", title: "Google Sheets", description: "Apps Script pretty cool" },
-      { logo: "/tool-logos/office365.svg", title: "Office Suite", description: "For work if need be" },
-      { logo: "/tool-logos/locus.svg", title: "Locus", description: "My Chrome extension" },
+      { logo: "/tool-logos/notion.svg", title: "Notion", description: "Main hub for writing", note: "Fast for capturing lots of content and syncs across all devices." },
+      { logo: "/tool-logos/obsidian.svg", title: "Obsidian", description: "Admire from afar", status: "occasional", note: "The hotkeys, settings, and aesthetic are amazing. I still don't actively use it." },
+      { logo: "/tool-logos/excel.svg", title: "Excel", description: "Do not cite the deep magic to me, witch", note: "Former accountant, and yet: surprisingly little use for spreadsheets now that Notion and custom tools cover it." },
+      { logo: "/tool-logos/sheets.svg", title: "Google Sheets", description: "Apps Script pretty cool", note: "Current use case: splitting expenses with my roommate." },
+      { logo: "/tool-logos/office365.svg", title: "Office Suite", description: "For work if need be", note: "Used for work when required." },
+      { logo: "/tool-logos/locus.svg", title: "Locus", description: "My Chrome extension", note: "A custom Chrome extension I built for bookmark launching. I use it daily." },
     ],
   },
   {
     id: "photo",
     label: "Photo & Graphics",
-    description: (
-      <Paragraph>
-        Affinity is my go-to for image and vector graphic work—professional-grade
-        design tools without the Adobe subscription. I also use online SVG tools
-        when I need quick edits. I do very little photo editing these days—when I
-        do, it&apos;s practical stuff: cropping, aligning, background removal,
-        optimization, and fixing aspect ratios and pixel sizes.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/affinity.svg", title: "Affinity", description: "A dream come true" },
+      { logo: "/tool-logos/affinity.svg", title: "Affinity", description: "A dream come true", note: "Go-to for image and vector work — professional-grade tools without the Adobe subscription. Mostly practical stuff: cropping, aligning, background removal, optimisation, fixing aspect ratios." },
       { logo: "/tool-logos/canva.svg", title: "Canva", description: "Use less often now" },
       { logo: "/tool-logos/photoshop.svg", title: "Photoshop", description: "Expensive", status: "shelved" },
       { logo: "/tool-logos/photopea.svg", title: "Photopea", description: "Affinity wins", status: "shelved" },
@@ -193,66 +127,30 @@ const SECTIONS: Section[] = [
   {
     id: "video",
     label: "Video",
-    description: (
-      <Paragraph>
-        Recording demos of what I&apos;m programming to display functionality,
-        timelapse changes, and progress. OBS is powerful, free, and handles
-        everything I need for capturing. DaVinci Resolve for editing when I need
-        more than basic cuts.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/obs.svg", title: "OBS", description: "Recording demos" },
-      { logo: "/tool-logos/davinci-resolve.svg", title: "DaVinci Resolve", description: "Video editing" },
+      { logo: "/tool-logos/obs.svg", title: "OBS", description: "Recording demos", note: "Powerful, free, and handles everything I need: demos of what I'm building, timelapses, progress capture." },
+      { logo: "/tool-logos/davinci-resolve.svg", title: "DaVinci Resolve", description: "Video editing", note: "For editing when I need more than basic cuts." },
     ],
   },
   {
     id: "design",
     label: "Design & Color",
-    description: (
-      <Paragraph>
-        I&apos;ve used Figma for visualizing and wireframing sites. As a solo
-        dev who&apos;s a programmer first, I found it less helpful than
-        expected. I prefer vibecoding a rough version of the feature or page,
-        then iterating on the design in code. It&apos;s hard to wireframe
-        automated pages and systems and true interactions! Coolors helps me
-        generate and explore color palettes, though I often just ask AI for
-        color scheme suggestions.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/figma.svg", title: "Figma", description: "I am not an artist", status: "shelved" },
-      { logo: "/tool-logos/coolors.svg", title: "Coolors", description: "Color palettes" },
+      { logo: "/tool-logos/figma.svg", title: "Figma", description: "I am not an artist", status: "shelved", note: "Used it for wireframing. As a solo dev who's a programmer first, it helped less than expected — I'd rather vibecode a rough version and iterate in code. Hard to wireframe automated systems and real interactions." },
+      { logo: "/tool-logos/coolors.svg", title: "Coolors", description: "Color palettes", note: "Generating and exploring palettes, though I often just ask AI for scheme suggestions." },
     ],
   },
   {
     id: "os-automation",
     label: "OS Automation",
-    description: (
-      <Paragraph>
-        Hammerspoon lets me automate macOS with Lua scripts—creating custom
-        keyboard shortcuts and window management. AutoHotKey was for automating
-        computer use on Windows: text expansion, window control, tool launching,
-        and text manipulation. AI now does all the text expansion and
-        manipulation I need.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/hammerspoon.svg", title: "Hammerspoon", description: "MacOS automation" },
-      { logo: "/tool-logos/autohotkey.svg", title: "AutoHotKey", description: "Windows automation", status: "occasional" },
+      { logo: "/tool-logos/hammerspoon.svg", title: "Hammerspoon", description: "MacOS automation", note: "Automates macOS with Lua scripts — custom keyboard shortcuts and window management." },
+      { logo: "/tool-logos/autohotkey.svg", title: "AutoHotKey", description: "Windows automation", status: "occasional", note: "Text expansion, window control, tool launching. AI now does most of the text work I used it for." },
     ],
   },
   {
     id: "following",
     label: "Following",
-    description: (
-      <Paragraph>
-        These are the tools I&apos;m actively watching in the AI coding space.
-        The ones that made me realize AI isn&apos;t just a better search
-        engine—it&apos;s an action engine that can do fine-grained work in the
-        real world.
-      </Paragraph>
-    ),
     tools: [
       { logo: "/tool-logos/cursor.svg", title: "Cursor", description: "Very cool", invert: true },
       { logo: "/tool-logos/claudecode.svg", title: "Claude Code", description: "Absolutely epic" },
@@ -265,15 +163,8 @@ const SECTIONS: Section[] = [
   {
     id: "want-to-use",
     label: "Want to Use",
-    description: (
-      <Paragraph>
-        I&apos;m excited about these tools but haven&apos;t carved out time to
-        properly explore them. LangChain and LangSmith look powerful for
-        building AI applications and agent workflows.
-      </Paragraph>
-    ),
     tools: [
-      { logo: "/tool-logos/langchain.svg", title: "LangChain", description: "AI chains", invert: true, status: "wishlist" },
+      { logo: "/tool-logos/langchain.svg", title: "LangChain", description: "AI chains", invert: true, status: "wishlist", note: "Looks powerful for building AI applications and agent workflows. Haven't carved out the time." },
       { logo: "/tool-logos/langsmith.svg", title: "LangSmith", description: "Monitoring and debugging chains", invert: true, status: "wishlist" },
       { logo: "/tool-logos/terraform.svg", title: "Terraform", description: "Infrastructure as code", status: "wishlist" },
     ],
@@ -281,28 +172,6 @@ const SECTIONS: Section[] = [
   {
     id: "homelab",
     label: "Homelab",
-    description: (
-      <>
-        <Paragraph>
-          I don&apos;t run much personal infrastructure, but I study it
-          extensively. I&apos;ve realized that infra-aware software matters more
-          to me than running infrastructure for its own sake. My own apps
-          aren&apos;t at the level where they require or benefit from tons of
-          personal infra—there are a LOT of ways to achieve things with hosted
-          services these days. The main use-cases where homelab makes sense for
-          me: GPU compute, performant mass storage, privacy, security, and
-          learning.
-        </Paragraph>
-        <Paragraph>
-          My current plan for this site is to start implementing image and gif
-          composition support throughout all my articles—I&apos;ll save the files
-          locally, then host optimized versions in object storage. So a NAS is
-          in my future. Another project I may need personal infra for (if a
-          service doesn&apos;t meet the need) is sandboxed YOLO mode for AI
-          coding assistants.
-        </Paragraph>
-      </>
-    ),
     tools: [
       { logo: "/tool-logos/ollama.svg", title: "Ollama", description: "Run LLMs locally", invert: true, status: "wishlist" },
       { logo: "/tool-logos/openwebui.svg", title: "Open WebUI", description: "Self hosted ChatGPT UI", invert: true, status: "wishlist" },
@@ -360,7 +229,6 @@ export function MyStackClient() {
       {SECTIONS.map((s) => (
         <div key={s.id} id={s.id} className={styles.sectionBody}>
           <H2 className={styles.sectionHeading}>{s.label}</H2>
-          <div className={styles.sectionText}>{s.description}</div>
           <div className={styles.toolGrid}>
             {sortByStatus(s.tools).map((tool) => (
               <ToolCard key={tool.title} {...tool} />
