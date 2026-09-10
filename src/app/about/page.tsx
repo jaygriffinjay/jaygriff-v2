@@ -226,26 +226,24 @@ export default function AboutPage() {
             spraying. Resize again. Spray again. Switch to the largest size and
             see how long it takes to fill in. Be very interested in how it
             eventually managed to fill in perfectly. It&apos;s the same story
-            with the paint bucket. Put two colors on the bucket. Right click.
+            with the paint bucket. Put two colors on the color picker. Right click.
             Left click. Do this over and over until everything is one color and
             everything is erased.
           </Paragraph>
           <Paragraph>
             I was honing in on the power of the tools Paint made available to
-            me, and I liked playing with the tools themselves more than I liked
+            me. I liked playing with the tools themselves more than I liked
             drawing pictures with them.
           </Paragraph>
           <Paragraph>
             Fast forward to today. I am a software developer still driven by
             that same core insight I felt as a child but didn&apos;t have the
             words for: computers are incredibly powerful tools that are fun to
-            use. They enable us to do incredible things perfectly, instantly,
+            use. They can enable us to do incredible things perfectly, instantly,
             and at scale.
           </Paragraph>
           <Paragraph>
-            Despite the power and ease of computers, it remains difficult to
-            make something truly useful and impactful with them, and I now work
-            on software almost every single day trying to do this.
+            Despite the power and ease of computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do this.
           </Paragraph>
         </div>
       </section>
