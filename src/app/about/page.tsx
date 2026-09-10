@@ -78,6 +78,16 @@ const ABOUT_ME = [
     ),
   },
   {
+    question: "What do you use to build software?",
+    answer: (
+      <>
+        Languages, frameworks, editors, and everything else I reach for is
+        listed in <Link href="/my-stack">my stack</Link>, along with what I
+        actually use each one for and what I&apos;ve moved on from.
+      </>
+    ),
+  },
+  {
     question: "How did you learn to code?",
     answer: (
       <>
@@ -147,11 +157,12 @@ const ABOUT_SITE = [
     question: "What's under the hood?",
     answer: (
       <>
-        On the frontend it just looks like a website. On the backend it&apos;s a
-        testbed for the application framework I use to make all my apps. The
-        site is partly an excuse to improve that framework and factor out my
-        best work into a reusable system. The full toolchain is in{" "}
-        <Link href="/my-stack">my stack</Link>.
+        More than a website. There&apos;s a content pipeline that syncs markdown
+        and TSX files into a database, which also models my projects and the
+        tools I use, and an admin area for editing all of it. Several of my apps
+        run inside this repo rather than being linked out to. So it&apos;s a
+        publishing platform, a CMS, a portfolio, and a testbed for the framework
+        I keep reusing — all at once, which is exactly why I keep working on it.
       </>
     ),
   },
