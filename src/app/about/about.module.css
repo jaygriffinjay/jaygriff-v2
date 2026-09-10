@@ -7,7 +7,12 @@
 
 /* page title block */
 .header {
-  @apply space-y-2;
+  @apply flex flex-col items-center space-y-2 text-center;
+}
+
+/* portrait above the title, matching the homepage and contact treatment */
+.portrait {
+  @apply border-border mb-4 aspect-square size-40 rounded-full border-4 object-cover shadow-lg sm:size-48;
 }
 
 /* rule under the page header */

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { H1, H2, Paragraph, Link } from "@/components/typography";
 import { Separator } from "@/components/ui/separator";
@@ -169,66 +170,71 @@ export default function AboutPage() {
   return (
     <Container className={styles.container}>
       <header className={styles.header}>
+        <Image
+          src="/images/me.jpg"
+          alt="Jay Griffin"
+          width={200}
+          height={200}
+          priority
+          className={styles.portrait}
+        />
         <H1>About</H1>
         <Paragraph className={styles.intro}>
-          A bit about how I got here, plus questions I get asked and a few I ask
-          myself.
+          A bit about how I got here, plus a Q&A for fun.
         </Paragraph>
       </header>
 
       <Separator className={styles.divider} />
 
       <section className={styles.section}>
-        <H2 className={styles.sectionTitle}>Background</H2>
         <div className={styles.bio}>
           <Paragraph>
-            I&apos;ve been living inside computers since I was five — Paint and
-            Pinball first, then PC gaming, modding, running game servers,
-            building machines from parts, and reinstalling Linux more times than
-            I can count. By the time I wrote a line of code I was already
-            comfortable with filesystems, config files, and the command line. I
-            just didn&apos;t know yet that being unafraid of the machine was
-            most of the battle.
+            I&apos;ve been living inside computers since I was five.
           </Paragraph>
           <Paragraph>
-            The click came from AutoHotkey. I wanted one hotkey that opened the
-            five websites I checked every morning. It worked — and then I
-            realized the list could just as easily be a hundred. That&apos;s the
-            whole idea of a program: write the instructions once, and the
-            machine runs them instantly, perfectly, every time.
+            I remember being very curious about our family Windows PC growing
+            up. I would navigate through the Start Menu like a maze, and I
+            enjoyed playing Microsoft Paint, Pinball, and Solitaire.
           </Paragraph>
           <Paragraph>
-            Everything since has been self-taught and problem-first. I learn by
-            building something I want to exist, getting it working end to end,
-            and writing down what I figured out along the way. These days that
-            means full-stack TypeScript, a database, an LLM somewhere in the
-            loop, and a deployed URL at the end of it — the whole setup is in{" "}
-            <Link href="/my-stack">my stack</Link>.
+            Over time I have realized something important about the many times I
+            sat at a computer completely enamored. I realized that the source of
+            my curiosity and persistence with using computers usually revolved
+            around the mechanics of using them and how they work.
           </Paragraph>
           <Paragraph>
-            About five years of writing code in, the shape of it is clear:
-            backend and full-stack, on the web, with a preference for owning the
-            whole path from schema to deployed URL. I&apos;m not a designer and
-            I&apos;m a genuinely terrible artist, but I think UI and UX matter
-            enormously — I just get there by studying patterns that already work
-            and iterating on them rather than drawing something beautiful from a
-            blank canvas. The one-page version of all this is on my{" "}
-            <Link href="/resume">resume</Link>.
+            Microsoft Paint is a good example of what I mean. You see, after all
+            those years of playing Paint as a child, you might think I managed
+            to produce at least a few decent pieces of artwork. You could not be
+            more wrong. All I ever managed to create in Paint were artistic
+            atrocities.
           </Paragraph>
           <Paragraph>
-            I work with AI agents daily and I&apos;m opinionated about how.
-            They&apos;re very good at execution and still need someone holding
-            the architecture. I write down decisions as I make them — why a
-            format was chosen, why an approach failed — which is partly how I
-            learn and partly so the reasoning survives past the moment.
+            So what was I doing then? Well, I remember the spray paint and the
+            paint bucket the most. I loved resizing the spray paint and just…
+            spraying. Resize again. Spray again. Switch to the largest size and
+            see how long it takes to fill in. Be very interested in how it
+            eventually managed to fill in perfectly. It&apos;s the same story
+            with the paint bucket. Put two colors on the bucket. Right click.
+            Left click. Do this over and over until everything is one color and
+            everything is erased.
           </Paragraph>
           <Paragraph>
-            Away from the keyboard I collect Rubik&apos;s cubes, and I hike,
-            bike, run, and lift. I track most of it, which is where a lot of my
-            projects actually come from — <Link href="/food-math">Food Math</Link>{" "}
-            exists because I wanted a faster way to log what I ate, not because
-            I set out to build a nutrition app. Most of what I build starts as
-            something I wanted to use.
+            I was honing in on the power of the tools Paint made available to
+            me, and I liked playing with the tools themselves more than I liked
+            drawing pictures with them.
+          </Paragraph>
+          <Paragraph>
+            Fast forward to today. I am a software developer still driven by
+            that same core insight I felt as a child but didn&apos;t have the
+            words for: computers are incredibly powerful tools that are fun to
+            use. They enable us to do incredible things perfectly, instantly,
+            and at scale.
+          </Paragraph>
+          <Paragraph>
+            Despite the power and ease of computers, it remains difficult to
+            make something truly useful and impactful with them, and I now work
+            on software almost every single day trying to do this.
           </Paragraph>
         </div>
       </section>
