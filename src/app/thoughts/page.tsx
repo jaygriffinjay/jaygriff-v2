@@ -44,7 +44,7 @@ export default async function ThoughtsPage() {
       <div className="space-y-4">
         <H1>Thoughts &amp; Ideas</H1>
         <DisclosureNotice>
-          Mostly AI-generated summaries of work I did with a coding agent. See {" "}
+          Mostly AI-generated artifacts of work I did with a coding agent. See {" "}
           <Link href="/posts">posts</Link> for my actual writing.
         </DisclosureNotice>
       </div>

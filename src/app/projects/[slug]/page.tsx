@@ -194,7 +194,7 @@ function ThoughtList({
     <section className={styles.notesSection}>
       <H2 className={styles.notesTitle}>Thoughts</H2>
       <Paragraph className={styles.notesIntro}>
-        🤖 Mostly AI-generated summaries of work I did with a coding agent while working on this project.
+        🤖 Mostly AI-generated artifacts of work I did with a coding agent while working on this project.
       </Paragraph>
       <List className={styles.notesList}>
         {rows.map((row) => (

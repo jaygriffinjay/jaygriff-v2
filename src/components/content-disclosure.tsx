@@ -9,7 +9,7 @@ import styles from "./content-disclosure.module.css";
  * and `handwritten` opts a row out entirely.
  */
 export const DEFAULT_NOTE =
-  "An AI-generated summary of work I did with a coding agent. Reference material, not finished writing.";
+  "An AI-generated artifact of work I did with a coding agent. Reference material, not finished writing.";
 
 /** Presentational half, so the index page can use the same treatment. */
 export function DisclosureNotice({
