@@ -7,7 +7,6 @@ import {
   HomeIcon,
   NewspaperIcon,
   LayoutGridIcon,
-  LightbulbIcon,
   ShieldIcon,
   MailIcon,
   HelpCircleIcon,
@@ -33,7 +32,6 @@ const navItems = [
   { label: "Home", href: "/", icon: HomeIcon },
   { label: "Projects", href: "/projects", icon: LayoutGridIcon },
   { label: "Posts", href: "/posts", icon: NewspaperIcon },
-  { label: "Thoughts", href: "/thoughts", icon: LightbulbIcon },
   { label: "About", href: "/about", icon: HelpCircleIcon },
   { label: "Contact", href: "/contact", icon: MailIcon },
   ...(process.env.NODE_ENV === "development"

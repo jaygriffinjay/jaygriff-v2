@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
+import { FileTextIcon, GithubIcon, LinkedinIcon, MailIcon } from "lucide-react";
 import { Container } from "@/components/layout/Container";
 import { H1, H2, Link } from "@/components/typography";
 import styles from "./contact.module.css";
@@ -15,6 +15,12 @@ const links = [
 		href: "mailto:jay@jaygriff.com",
 		label: "jay@jaygriff.com",
 		icon: MailIcon,
+		external: false,
+	},
+	{
+		href: "/resume",
+		label: "Resume",
+		icon: FileTextIcon,
 		external: false,
 	},
 	{

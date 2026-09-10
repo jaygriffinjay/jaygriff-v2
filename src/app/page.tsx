@@ -57,14 +57,6 @@ export default async function Home() {
       <AvailabilityBanner />
 
       <section className={styles.hero}>
-        <Image
-          src="/images/me.jpg"
-          alt="Jay Griffin"
-          width={200}
-          height={200}
-          priority
-          className={styles.portrait}
-        />
         <H1 className={styles.heading}>Hi, I'm Jay</H1>
         <Paragraph className={styles.subtitle}>
           Welcome to my website where I do my work and publish it too! On here I document my development work, share my thoughts, and maybe even post some personal stuff.
