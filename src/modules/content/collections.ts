@@ -16,9 +16,9 @@ export type Collection = {
 export const THOUGHT_COLLECTIONS: Collection[] = [
   {
     slug: "modeling-content",
-    title: "Modeling content data",
+    title: "Modeling Content Data",
     description:
-      "The long argument with myself about how to model content for the web — markdown, frontmatter, MDX, TSX, and what a CMS should actually be. Oldest first; I changed my mind more than once.",
+      "The long argument with myself about how to model content and code for the web.",
     tags: [
       "data-modeling",
       "architecture",
@@ -35,9 +35,9 @@ export const THOUGHT_COLLECTIONS: Collection[] = [
   },
   {
     slug: "ai-and-agents",
-    title: "AI & agents",
+    title: "AI & Agents",
     description:
-      "Working with models and agents daily — skills, instructions, MCP, and where the leverage actually is.",
+      "Working with AI agents, AI APIs, skills, instructions, prompts, and more",
     tags: [
       "ai",
       "ai-agents",
@@ -51,10 +51,10 @@ export const THOUGHT_COLLECTIONS: Collection[] = [
     ],
   },
   {
-    slug: "styling",
-    title: "Styling & frontend",
+    slug: "frontend",
+    title: "Frontend Development",
     description:
-      "CSS, Tailwind, and the styling conventions this site keeps rewriting itself around.",
+      "CSS, Tailwind, and the styling conventions I use to build apps.",
     tags: ["css", "tailwind", "emotion", "css-in-js", "styling", "design-system"],
   },
 ];
