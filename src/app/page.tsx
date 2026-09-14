@@ -78,7 +78,7 @@ export default async function Home() {
         <div className={styles.sectionHead}>
           <H2 className={styles.sectionTitle}>Projects</H2>
           <Paragraph className={styles.sectionIntro}>
-            A few things I&apos;ve built — click into any of them.
+            Stuff I made
           </Paragraph>
         </div>
 
@@ -128,7 +128,7 @@ export default async function Home() {
           <div className={styles.sectionHead}>
             <H2 className={styles.sectionTitle}>Recent writing</H2>
             <Paragraph className={styles.sectionIntro}>
-              What I&apos;ve been working through lately.
+              Some of my thoughts I felt important to write down
             </Paragraph>
           </div>
 
@@ -161,7 +161,7 @@ export default async function Home() {
           <div className={styles.sectionHead}>
             <H2 className={styles.sectionTitle}>Recent work</H2>
             <Paragraph className={styles.sectionIntro}>
-              Designs and working notes, newest first.
+              Work artifacts from my recent projects
             </Paragraph>
           </div>
 
