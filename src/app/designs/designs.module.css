@@ -1,0 +1,26 @@
+@reference "../globals.css";
+
+/* dense link list, matching the thoughts index */
+.list {
+  @apply m-0 flex list-none flex-col p-0;
+}
+
+/* one design: title left, date right, single line */
+.row {
+  @apply text-muted-foreground hover:text-foreground border-border/40 flex items-baseline justify-between gap-4 border-b py-2 text-sm no-underline transition-colors;
+}
+
+/* last row has no divider so the list ends cleanly */
+.row:last-child {
+  @apply border-b-0;
+}
+
+/* clip rather than wrap, keeping every row one line */
+.rowTitle {
+  @apply truncate;
+}
+
+/* date, pinned right */
+.rowDate {
+  @apply text-muted-foreground/60 shrink-0 text-xs;
+}
