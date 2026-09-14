@@ -23,18 +23,24 @@
   @apply text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-sm;
 }
 
-/* separator between contact links; the first one doesn't get a bullet */
+/* one contact entry: its leading dot (if any) plus the link, kept together for wrapping */
+.contactItem {
+  @apply flex items-center gap-x-3;
+}
+
+/* separator dot, a sibling of the link rather than living inside its box — so link hover
+   underline never touches it, regardless of decoration-painting quirks */
+.contactDot {
+  @apply text-muted-foreground font-normal;
+}
+
 .contactLink {
   @apply text-foreground font-medium no-underline hover:underline;
 }
 
-.contactLink + .contactLink::before {
-  @apply text-muted-foreground mr-3 font-normal content-['•'];
-}
-
-/* nudged down from the contact row */
+/* nudged away from the name heading below it */
 .download {
-  @apply mt-2;
+  @apply mb-2;
 }
 
 /* ─── Sections ───────────────────────────────────────────────── */
@@ -76,6 +82,12 @@
   @apply text-base font-bold;
 }
 
+/* project name, linked to its /projects page — plain next/link, not the typography Link
+   component, so there's no competing base "underline"/"text-primary" class to fight. */
+.entryLink {
+  @apply text-foreground no-underline transition-colors hover:text-primary hover:underline;
+}
+
 /* the "— Personal Platform" half of a project title */
 .tagline {
   @apply text-muted-foreground font-normal;
@@ -89,6 +101,11 @@
 /* achievement list under an entry */
 .bullets {
   @apply text-muted-foreground mt-1 list-disc space-y-0.5 pl-5 text-sm leading-relaxed;
+}
+
+/* degree honor, sat quietly below the header */
+.honor {
+  @apply text-muted-foreground mt-0.5 block text-sm italic;
 }
 
 /* ─── Skills ─────────────────────────────────────────────────── */
@@ -113,18 +130,109 @@
   @apply text-muted-foreground;
 }
 
-/* ─── Closing ────────────────────────────────────────────────── */
+/* ─── Print ──────────────────────────────────────────────────────
+   Printing this page (Save as PDF) is how the resume PDF is produced, so the
+   printed sheet has to be the resume alone — real selectable text, no app
+   chrome. These rules only ship with the resume route's stylesheet. */
 
-/* availability note under the last section */
-.closing {
-  @apply border-border border-t pt-6;
+@page {
+  margin: 0.5in;
 }
 
-/* ─── Print ──────────────────────────────────────────────────── */
-
-/* the PDF is the canonical print artifact, so just drop the button */
 @media print {
-  .download {
+  /* the button and banner are navigation, not resume content */
+  .download,
+  .banner {
     @apply hidden;
+  }
+
+  /* sidebar, mobile header and footer live in the root layout, outside this
+     page's DOM, so they have to be reached globally */
+  :global([data-slot="sidebar"]),
+  :global([data-slot="sidebar-inset"] > header),
+  :global(footer) {
+    display: none !important;
+  }
+
+  /* the inset is inset and framed to sit beside the sidebar; reclaim the sheet */
+  :global([data-slot="sidebar-inset"]) {
+    margin: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  /* dark theme text is near-white and Chrome drops backgrounds when printing,
+     which would print pale grey on white — so print the light palette whatever
+     theme the browser is in */
+  :global(html.dark) {
+    color-scheme: light;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.28 0.01 75);
+    --primary: oklch(0.28 0.01 75);
+    --muted-foreground: oklch(0.52 0.012 75);
+    --border: oklch(0.85 0.018 75);
+  }
+
+  /* ── Fit one sheet ──
+     Screen sizing is far too generous for paper; everything below is tightened
+     so the whole resume lands on a single page. */
+
+  /* Container ships mt-16 mb-30 for the web; on paper @page owns the margins */
+  .container {
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .header {
+    @apply mb-4 gap-1 pb-3;
+  }
+
+  .name {
+    @apply text-3xl;
+  }
+
+  .contact {
+    @apply gap-x-2 text-xs;
+  }
+
+  .contactItem {
+    @apply gap-x-2;
+  }
+
+  .section {
+    @apply mb-4;
+  }
+
+  .sectionHeader {
+    @apply mb-2;
+  }
+
+  .sectionTitle {
+    @apply text-base;
+  }
+
+  .entry {
+    @apply mb-2;
+    /* don't split a job, degree or project across two pages */
+    break-inside: avoid;
+  }
+
+  .entryTitle {
+    @apply text-sm;
+  }
+
+  .bullets {
+    @apply mt-0.5 space-y-0 pl-4 text-xs leading-snug;
+  }
+
+  .dates,
+  .honor,
+  .sectionLink {
+    @apply text-xs;
+  }
+
+  .skills {
+    @apply space-y-0.5 text-xs;
   }
 }
