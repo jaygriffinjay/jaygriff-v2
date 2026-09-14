@@ -7,14 +7,12 @@ import { getAllProjects } from "@/modules/projects/queries";
 import { getProjectIcon } from "@/modules/projects/icons";
 import styles from "./home.module.css";
 
-// hand-picked slugs, rendered in this order; unmatched slugs are skipped
-const FEATURED_SLUGS = [
-  "how-i-learned-to-code",
-  "how-i-use-ai",
-  "content-pipeline-deep-dive",
-  "frontmatter-is-a-dead-end",
-  "programs-not-documents",
-];
+// non-writing content that flows into the Recent work feed, and where each
+// type is routed. Posts are deliberately absent — they have their own section.
+const WORK_TYPES = {
+  design: { label: "Design", basePath: "designs" },
+  thought: { label: "Thought", basePath: "thoughts" },
+} as const;
 
 function formatDate(value: string) {
   return new Date(value).toLocaleDateString("en-US", {
@@ -44,12 +42,14 @@ export default async function Home() {
     projects.map((p) => p.id)
   );
 
-  const featured = FEATURED_SLUGS.map((slug) =>
-    posts.find((post) => post.slug === slug),
-  ).filter((post) => post !== undefined);
+  const recent = posts.slice(0, 5);
 
-  const recent = posts
-    .filter((post) => !FEATURED_SLUGS.includes(post.slug))
+  const [thoughts, designs] = await Promise.all([
+    getAllPublished("thought"),
+    getAllPublished("design"),
+  ]);
+  const recentWork = [...designs, ...thoughts]
+    .sort((a, b) => b.created_at.localeCompare(a.created_at))
     .slice(0, 5);
 
   return (
@@ -123,35 +123,6 @@ export default async function Home() {
         </Paragraph>
       </section>
 
-      {featured.length > 0 && (
-        <section className={styles.section}>
-          <div className={styles.sectionHead}>
-            <H2 className={styles.sectionTitle}>Featured writing</H2>
-            <Paragraph className={styles.sectionIntro}>
-              If you only read a few, read these.
-            </Paragraph>
-          </div>
-
-          <div className={styles.grid}>
-            {featured.map((post) => (
-              <Link
-                key={post.slug}
-                href={`/posts/${post.slug}`}
-                className={styles.cardLink}
-              >
-                <span className={styles.appCardTitle}>{post.title}</span>
-                {post.description && (
-                  <span className={styles.appCardDesc}>{post.description}</span>
-                )}
-                <Small className={styles.postDate}>
-                  {formatDate(post.created_at)}
-                </Small>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
-
       {recent.length > 0 && (
         <section className={styles.section}>
           <div className={styles.sectionHead}>
@@ -182,6 +153,42 @@ export default async function Home() {
           <Paragraph className={styles.sectionFooter}>
             Everything in <Link href="/posts">posts</Link>.
           </Paragraph>
+        </section>
+      )}
+
+      {recentWork.length > 0 && (
+        <section className={styles.section}>
+          <div className={styles.sectionHead}>
+            <H2 className={styles.sectionTitle}>Recent work</H2>
+            <Paragraph className={styles.sectionIntro}>
+              Designs and working notes, newest first.
+            </Paragraph>
+          </div>
+
+          <div className={styles.recentList}>
+            {recentWork.map((row) => {
+              const { label, basePath } =
+                WORK_TYPES[row.type as keyof typeof WORK_TYPES];
+              return (
+                <Link
+                  key={row.id}
+                  href={`/${basePath}/${row.slug}`}
+                  className={styles.recentRow}
+                >
+                  <span className={styles.workMeta}>
+                    <span className={styles.workType}>{label}</span>
+                    <Small className={styles.recentDate}>
+                      {formatDate(row.created_at)}
+                    </Small>
+                  </span>
+                  <span className={styles.recentTitle}>{row.title}</span>
+                  {row.description && (
+                    <span className={styles.recentDesc}>{row.description}</span>
+                  )}
+                </Link>
+              );
+            })}
+          </div>
         </section>
       )}
     </>

@@ -148,3 +148,13 @@
   @apply text-muted-foreground/60;
 }
 
+/* type label and date, above the title in the mixed work feed */
+.workMeta {
+  @apply flex items-baseline gap-2;
+}
+
+/* which kind of thing this row is, since the feed mixes types */
+.workType {
+  @apply border-border text-muted-foreground rounded-full border px-2 py-0.5 text-xs;
+}
+
