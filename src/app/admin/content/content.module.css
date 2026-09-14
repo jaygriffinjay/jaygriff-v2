@@ -27,6 +27,38 @@
   @apply text-muted-foreground text-xs;
 }
 
+/* ─── Filters ─── */
+
+/* the type row stacked above the status row */
+.filterGroups {
+  @apply flex flex-col gap-2;
+}
+
+/* one row of chips; wraps rather than scrolls as values are added */
+.filters {
+  @apply flex flex-wrap items-center gap-2;
+}
+
+/* which dimension this row filters */
+.filterLabel {
+  @apply text-muted-foreground/70 w-14 shrink-0 text-xs font-medium tracking-wide uppercase;
+}
+
+/* inactive filter chip */
+.filter {
+  @apply border-border text-muted-foreground hover:border-primary hover:text-foreground rounded-full border px-3 py-1 text-xs capitalize no-underline transition-colors;
+}
+
+/* the filter currently applied */
+.filterActive {
+  @apply border-primary bg-primary/10 text-foreground rounded-full border px-3 py-1 text-xs capitalize no-underline;
+}
+
+/* how many rows sit behind each chip */
+.filterCount {
+  @apply text-muted-foreground/60 ml-1 tabular-nums;
+}
+
 /* ─── List ─── */
 
 /* dense divided rows: these pages are for scanning, not browsing */
