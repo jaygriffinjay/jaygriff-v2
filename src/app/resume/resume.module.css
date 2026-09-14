@@ -235,4 +235,17 @@
   .skills {
     @apply space-y-0.5 text-xs;
   }
+
+  /* iOS Safari lays out for print at the device viewport width, so on a phone
+     the sm: breakpoints never fire and these stack — eight skill rows become
+     sixteen lines, which is what pushes the sheet onto a second page. Force
+     the wide layout rather than relying on a breakpoint that print won't hit. */
+  .skillRow {
+    flex-direction: row;
+  }
+
+  .skillLabel {
+    width: 8rem;
+    flex-shrink: 0;
+  }
 }
