@@ -1,13 +1,15 @@
 import type { ContentRow } from "@/modules/content/queries";
 
 /**
- * Curated groupings for /thoughts. Tag sets rather than single tags because the
- * pipeline generates tags per-file, so the vocabulary drifts (agents/ai-agents).
+ * Curated groupings for /thoughts and /posts. Tag sets rather than single tags
+ * because the pipeline generates tags per-file, so the vocabulary drifts
+ * (agents/ai-agents). New collections should still favor one concise tag
+ * where possible.
  */
 export type Collection = {
   slug: string;
   title: string;
-  description: string;
+  description?: string;
   tags: string[];
 };
 
@@ -57,22 +59,39 @@ export const THOUGHT_COLLECTIONS: Collection[] = [
   },
 ];
 
+export const POST_COLLECTIONS: Collection[] = [
+  {
+    slug: "ai",
+    title: "AI",
+    tags: ["ai"],
+  },
+  {
+    slug: "finance",
+    title: "Finance",
+    tags: ["finance"],
+  },
+];
+
 function matches(row: ContentRow, collection: Collection) {
   return (row.tags ?? []).some((t) => collection.tags.includes(t));
 }
 
-/** Tag sets overlap, so a row belongs to the first collection it matches. */
-function ownerOf(row: ContentRow) {
-  return THOUGHT_COLLECTIONS.find((c) => matches(row, c))?.slug ?? null;
+/** Tag sets can overlap, so a row belongs to the first collection it matches. */
+function ownerOf(row: ContentRow, collections: Collection[]) {
+  return collections.find((c) => matches(row, c))?.slug ?? null;
 }
 
-/** Oldest first — a collection is a trajectory, and recency-first spoils it. */
-export function collectionMembers(rows: ContentRow[], collection: Collection) {
+/** Newest first within a collection. */
+export function collectionMembers(
+  rows: ContentRow[],
+  collection: Collection,
+  collections: Collection[]
+) {
   return rows
-    .filter((row) => ownerOf(row) === collection.slug)
-    .sort((a, b) => a.created_at.localeCompare(b.created_at));
+    .filter((row) => ownerOf(row, collections) === collection.slug)
+    .sort((a, b) => b.created_at.localeCompare(a.created_at));
 }
 
-export function uncollected(rows: ContentRow[]) {
-  return rows.filter((row) => ownerOf(row) === null);
+export function uncollected(rows: ContentRow[], collections: Collection[]) {
+  return rows.filter((row) => ownerOf(row, collections) === null);
 }

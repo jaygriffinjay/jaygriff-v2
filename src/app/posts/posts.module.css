@@ -24,3 +24,21 @@
 .cardDate {
   @apply text-muted-foreground/60 mt-1;
 }
+
+/* curated collection block */
+.section {
+  @apply mt-10;
+}
+
+/* collection heading + optional blurb */
+.sectionHead {
+  @apply mb-3 space-y-1;
+}
+
+.sectionTitle {
+  @apply text-xl font-semibold;
+}
+
+.sectionIntro {
+  @apply text-muted-foreground max-w-2xl text-sm leading-relaxed;
+}

@@ -37,14 +37,14 @@ function ThoughtGrid({ rows }: { rows: ContentRow[] }) {
 
 export default async function ThoughtsPage() {
   const thoughts = await getAllPublished("thought");
-  const rest = uncollected(thoughts);
+  const rest = uncollected(thoughts, THOUGHT_COLLECTIONS);
 
   return (
     <Container className="max-w-4xl">
       <div className="space-y-4">
         <H1>Thoughts &amp; Ideas</H1>
         <DisclosureNotice>
-          Mostly AI-generated artifacts of work I did with a coding agent. See {" "}
+          Mostly AI-generated notes of work I did with a coding agent. See {" "}
           <Link href="/posts">posts</Link> for my actual writing.
         </DisclosureNotice>
       </div>
@@ -55,30 +55,25 @@ export default async function ThoughtsPage() {
         <Paragraph className="text-muted-foreground">Nothing published yet.</Paragraph>
       ) : (
         <>
+          {rest.length > 0 && <ThoughtGrid rows={rest} />}
+
           {THOUGHT_COLLECTIONS.map((collection) => {
-            const members = collectionMembers(thoughts, collection);
+            const members = collectionMembers(thoughts, collection, THOUGHT_COLLECTIONS);
             if (members.length === 0) return null;
             return (
               <section key={collection.slug} className={styles.section}>
                 <div className={styles.sectionHead}>
                   <H2 className={styles.sectionTitle}>{collection.title}</H2>
-                  <Paragraph className={styles.sectionIntro}>
-                    {collection.description}
-                  </Paragraph>
+                  {collection.description && (
+                    <Paragraph className={styles.sectionIntro}>
+                      {collection.description}
+                    </Paragraph>
+                  )}
                 </div>
                 <ThoughtGrid rows={members} />
               </section>
             );
           })}
-
-          {rest.length > 0 && (
-            <section className={styles.section}>
-              <div className={styles.sectionHead}>
-                <H2 className={styles.sectionTitle}>Everything else</H2>
-              </div>
-              <ThoughtGrid rows={rest} />
-            </section>
-          )}
         </>
       )}
     </Container>
