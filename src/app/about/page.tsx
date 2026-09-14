@@ -22,9 +22,9 @@ const ABOUT_ME = [
     question: "What's your background?",
     answer: (
       <>
-        I have a bachelor&apos;s degree in agricultural economics, a
-        master&apos;s degree in accounting, and I worked in public tax
-        accounting before transitioning to software development. I&apos;ve also
+        I have a bachelor's degree in agricultural economics, a
+        master's degree in accounting, and I worked in public tax
+        accounting before transitioning to software development. I've also
         worked as a professional mover and driver.
       </>
     ),
@@ -33,7 +33,7 @@ const ABOUT_ME = [
     question: "What kind of developer are you?",
     answer: (
       <>
-        I am interested in a wide spectrum of computing across hardware and software, but the majority of my work is in webapp development and scaling webapps.
+        I build full-stack TypeScript webapps on Vite or Next.js. I also do lots of backend work: working with APIs and cloud services, performance optimization, data modelling, asset pipelines, and the framework and dev tooling I built. Most of it is on this site or linked from <Link href="/projects">projects</Link>.
       </>
     ),
   },
@@ -41,8 +41,8 @@ const ABOUT_ME = [
     question: "What are you focused on right now?",
     answer: (
       <>
-        Currently I&apos;m spending significant time on this website — building
-        new features, improving the framework, and writing. I&apos;m also
+        Currently I'm spending significant time on this website — building
+        new features, improving the framework, and writing. I'm also
         actively working on AI-native dev tools and workflows, AI-native apps,
         and data analysis apps.
       </>
@@ -60,10 +60,9 @@ const ABOUT_ME = [
     question: "Do you freelance?",
     answer: (
       <>
-        Currently no. I&apos;m looking for a full-time role, and I&apos;m also
+        Currently no. I'm looking for a full-time role, and I'm also
         interested in selling my own software products. I want to focus on those
-        things right now, but maybe in the future I&apos;ll be open to freelance
-        work.
+        things right now, but maybe in the future.
       </>
     ),
   },
@@ -72,7 +71,7 @@ const ABOUT_ME = [
     answer: (
       <>
         I want to create my own software businesses to support my life and work
-        indefinitely. I&apos;d also love to work with talented developers and
+        indefinitely. I'd also love to work with talented developers and
         learn from them.
       </>
     ),
@@ -83,7 +82,7 @@ const ABOUT_ME = [
       <>
         Languages, frameworks, editors, and everything else I reach for is
         listed in <Link href="/my-stack">my stack</Link>, along with what I
-        actually use each one for and what I&apos;ve moved on from.
+        actually use each one for and what I've moved on from.
       </>
     ),
   },
@@ -100,7 +99,7 @@ const ABOUT_ME = [
     question: "How do you use AI in your work?",
     answer: (
       <>
-        It&apos;s changed how I work pretty fundamentally. I wrote up the full
+        It's changed how I work pretty fundamentally. I wrote up the full
         story in <Link href="/posts/how-i-use-ai">How I Use AI</Link>.
       </>
     ),
@@ -109,7 +108,7 @@ const ABOUT_ME = [
     question: "Will AI replace you?",
     answer: (
       <>
-        I don&apos;t think AI will replace me. I think it has replaced some
+        I don't think AI will replace me. I think it has replaced some
         types of work though. AI is just like any other innovation: it has
         changed how we do things, made some things obsolete, and created new
         opportunities.
@@ -120,9 +119,8 @@ const ABOUT_ME = [
     question: "What are you excited to build next?",
     answer: (
       <>
-        AI-native apps. They can solve problems in ways we couldn&apos;t achieve
-        even a few years ago. This is keeping me busy because it takes plenty of
-        real work to build them.
+        AI-adjacent apps. They can solve problems in ways we couldn't achieve
+        even a few years ago. Many entire new categories of software are emerging. This is keeping me busy because it takes plenty of real work to build all this. Even with AI assistance, building good software still requires careful thought and effort.
       </>
     ),
   },
@@ -130,8 +128,8 @@ const ABOUT_ME = [
     question: "What would you build with unlimited time?",
     answer: (
       <>
-        With unlimited time I think I&apos;d get bored of regular work and build
-        tools for science — either biology or space. So trying to get to the
+        With unlimited time I think I'd get bored of regular work and build
+        tools for science. Either biology or space. So trying to get to the
         bottom of life or the universe.
       </>
     ),
@@ -148,7 +146,7 @@ const ABOUT_SITE = [
     answer: (
       <>
         A custom-built web app that serves as both my workspace and publishing
-        platform. It&apos;s the container for a lot of my other apps, because I
+        platform. It's the container for a lot of my other apps, because I
         can build them in this repo and then host and demo them here.
       </>
     ),
@@ -157,10 +155,10 @@ const ABOUT_SITE = [
     question: "What's under the hood?",
     answer: (
       <>
-        More than a website. There&apos;s a content pipeline that syncs markdown
+        More than a website. There's a content pipeline that syncs markdown
         and TSX files into a database, which also models my projects and the
         tools I use, and an admin area for editing all of it. Several of my apps
-        run inside this repo rather than being linked out to. So it&apos;s a
+        run inside this repo rather than being linked out to. So it's a
         publishing platform, a CMS, a portfolio, and a testbed for the framework
         I keep reusing — all at once, which is exactly why I keep working on it.
       </>
@@ -200,7 +198,7 @@ export default function AboutPage() {
       <section className={styles.section}>
         <div className={styles.bio}>
           <Paragraph>
-            I&apos;ve been living inside computers since I was five.
+            I've been living inside computers since I was five.
           </Paragraph>
           <Paragraph>
             I remember being very curious about our family Windows PC growing
@@ -216,34 +214,27 @@ export default function AboutPage() {
           <Paragraph>
             Microsoft Paint is a good example of what I mean. You see, after all
             those years of playing Paint as a child, you might think I managed
-            to produce at least a few decent pieces of artwork. You could not be
-            more wrong. All I ever managed to create in Paint were artistic
-            atrocities.
+            to produce at least a few decent pieces of artwork. You would be wrong. All I ever managed to create in Paint were artistic abominations.
           </Paragraph>
           <Paragraph>
-            So what was I doing then? Well, I remember the spray paint and the
-            paint bucket the most. I loved resizing the spray paint and just…
-            spraying. Resize again. Spray again. Switch to the largest size and
-            see how long it takes to fill in. Be very interested in how it
-            eventually managed to fill in perfectly. It&apos;s the same story
-            with the paint bucket. Put two colors on the color picker. Right click.
-            Left click. Do this over and over until everything is one color and
+            So what was I doing then? Well, I liked playing with the tools themselves more than I liked drawing pictures with them. I remember the spray paint and the paint bucket the most. I loved resizing the spray paint and just…
+            spraying. I was very interested in how it randomly fills in pixels then eventually fills in perfectly. 
+            
+            It's the same story
+            with the paint bucket. Put two colors on the color picker. Right click to fill one color.
+            Left click to fill the other. Do this over and over until everything is one color and
             everything is erased.
           </Paragraph>
-          <Paragraph>
-            I was honing in on the power of the tools Paint made available to
-            me. I liked playing with the tools themselves more than I liked
-            drawing pictures with them.
-          </Paragraph>
+
           <Paragraph>
             Fast forward to today. I am a software developer still driven by
-            that same core insight I felt as a child but didn&apos;t have the
+            that same core insight I felt as a child but didn't have the
             words for: computers are incredibly powerful tools that are fun to
             use. They can enable us to do incredible things perfectly, instantly,
             and at scale.
           </Paragraph>
           <Paragraph>
-            Despite the power and ease of computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do this.
+            Despite the power and ease of computers, it remains difficult to make something truly useful and impactful with them. I now work on software almost every single day trying to do that.
           </Paragraph>
         </div>
       </section>
