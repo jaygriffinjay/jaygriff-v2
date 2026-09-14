@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ArrowLeftIcon } from "lucide-react";
 
 import { getContentById } from "@/modules/content/queries";
+import { getEveryProject } from "@/modules/projects/queries";
 
 import { ContentForm } from "../content-form";
 import styles from "../content.module.css";
@@ -15,7 +16,10 @@ export default async function EditContentPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const row = await getContentById(id);
+  const [row, projects] = await Promise.all([
+    getContentById(id),
+    getEveryProject(),
+  ]);
   if (!row) notFound();
 
   return (
@@ -29,6 +33,7 @@ export default async function EditContentPage({
       <p className={styles.filePath}>{row.file_path}</p>
 
       <ContentForm
+        projects={projects}
         initial={{
           id: row.id,
           slug: row.slug,
@@ -43,6 +48,8 @@ export default async function EditContentPage({
           project_id: row.project_id,
           source_url: row.source_url,
           feature: row.feature,
+          created_at: row.created_at,
+          updated_at: row.updated_at,
         }}
       />
     </div>

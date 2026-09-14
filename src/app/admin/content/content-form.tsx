@@ -19,9 +19,19 @@ import {
 
 import styles from "./content.module.css";
 
-const TYPES = ["post", "doc", "thought", "link"] as const;
+const TYPES = ["post", "doc", "thought", "link", "design"] as const;
 const STATUSES = ["draft", "published", "archived", "deleted"] as const;
 const AUTHORSHIP = ["default", "handwritten", "ai-generated"] as const;
+
+function toDatetimeLocal(iso: string) {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+function fromDatetimeLocal(value: string) {
+  return new Date(value).toISOString();
+}
 
 function Field({
   label,
@@ -44,7 +54,15 @@ function Field({
   );
 }
 
-export function ContentForm({ initial }: { initial: ContentFormValues }) {
+type ProjectOption = { id: string; slug: string; title: string };
+
+export function ContentForm({
+  initial,
+  projects,
+}: {
+  initial: ContentFormValues;
+  projects: ProjectOption[];
+}) {
   const [values, setValues] = useState(initial);
   const [errors, setErrors] = useState<Record<string, string[]>>({});
   const [message, setMessage] = useState<string | null>(null);
@@ -205,14 +223,26 @@ export function ContentForm({ initial }: { initial: ContentFormValues }) {
 
       <div className={styles.formRow}>
         <Field
-          label="Project id"
+          label="Project"
           hint="Links this to a project row."
           error={errors.project_id}
         >
-          <Input
-            value={values.project_id ?? ""}
-            onChange={(e) => set("project_id", e.target.value)}
-          />
+          <Select
+            value={values.project_id ?? "none"}
+            onValueChange={(v) => set("project_id", v === "none" ? null : v)}
+          >
+            <SelectTrigger>
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="none">No project</SelectItem>
+              {projects.map((p) => (
+                <SelectItem key={p.id} value={p.id}>
+                  {p.title} ({p.slug})
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </Field>
 
         <Field
@@ -233,6 +263,28 @@ export function ContentForm({ initial }: { initial: ContentFormValues }) {
           onChange={(e) => set("feature", e.target.value)}
         />
       </Field>
+
+      <div className={styles.formRow}>
+        <Field label="Published" error={errors.created_at}>
+          <Input
+            type="datetime-local"
+            value={toDatetimeLocal(values.created_at)}
+            onChange={(e) =>
+              set("created_at", fromDatetimeLocal(e.target.value))
+            }
+          />
+        </Field>
+
+        <Field label="Last edited" error={errors.updated_at}>
+          <Input
+            type="datetime-local"
+            value={toDatetimeLocal(values.updated_at)}
+            onChange={(e) =>
+              set("updated_at", fromDatetimeLocal(e.target.value))
+            }
+          />
+        </Field>
+      </div>
 
       <div className={styles.actions}>
         <Button type="submit" disabled={pending}>

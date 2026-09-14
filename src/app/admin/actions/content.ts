@@ -40,7 +40,7 @@ const ContentSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "Lowercase letters, numbers and dashes only"),
   title: z.string().trim().min(1, "Title is required"),
   description: optionalText,
-  type: z.enum(["post", "doc", "thought", "link"]),
+  type: z.enum(["post", "doc", "thought", "link", "design"]),
   status: z.enum(["draft", "published", "archived", "deleted"]),
   authorship: z.enum(["default", "handwritten", "ai-generated"]),
   authorship_note: optionalText,
@@ -49,6 +49,8 @@ const ContentSchema = z.object({
   project_id: optionalText,
   source_url: optionalText,
   feature: optionalText,
+  created_at: z.iso.datetime({ offset: true }),
+  updated_at: z.iso.datetime({ offset: true }),
 });
 
 export type ContentFormValues = z.input<typeof ContentSchema>;
@@ -97,7 +99,8 @@ export async function updateContent(
     sql: `UPDATE content SET
             slug = ?, title = ?, description = ?, type = ?, status = ?,
             authorship = ?, authorship_note = ?, authors = ?, tags = ?,
-            project_id = ?, source_url = ?, feature = ?, updated_at = ?
+            project_id = ?, source_url = ?, feature = ?,
+            created_at = ?, updated_at = ?
           WHERE id = ?`,
     args: [
       c.slug,
@@ -113,7 +116,8 @@ export async function updateContent(
       c.project_id,
       c.source_url,
       c.feature,
-      new Date().toISOString(),
+      c.created_at,
+      c.updated_at,
       c.id,
     ],
   });
