@@ -16,21 +16,21 @@
 
 I was five or six when I first sat in front of a Windows PC, and I was enamored by it. Microsoft Paint, Pinball, card games, educational games, the Start Menu.
 
-That never really stopped. By the time I was a teenager I was a PC gamer and deep into the surrounding culture — modding games, running game servers, eventually building PCs from parts and getting interested in Linux.
+That never really stopped. By the time I was a teenager I was a PC gamer and I was modding games, running game servers, building computers from parts and getting interested in Linux.
 
-All of this meant that by the time I ever wrote a line of code, I was already extremely comfortable with computers. Filesystems, operating systems, config files, basic commands, BIOSes, flashing firmware, reinstalling OSes — none of that was scary or foreign. I'd been living inside these systems for years.
+This meant that by the time I ever wrote a line of code, I was already extremely comfortable with computers. Filesystems, operating systems, config files, basic commands, BIOSes, flashing firmware, reinstalling OSes? None of that was scary or foreign. I'd been living inside computers for years.
 
-That's the context that made everything click faster once I started.
+That's the context that made everything click faster once I started coding. 
 
 ## It started with a problem I wanted to solve
 
 I became weirdly obsessed with doing things faster. I love hotkeys and searchboxes. I hate hunting around for something. I love to just search and find what I'm looking for instantly.
 
-That interest led me to [AutoHotkey](https://www.autohotkey.com), a tool for automating Windows with hotkeys. My first goal was quite simple: open my most-used websites (pretty boring ones too - my email, calendar, and bank account and credit cards) with a hotkey instead of clicking on my bookmarks every time. Why open the same five bookmarks every day when I can click one button each morning? 
+That interest led me to AutoHotkey, a tool for automating Windows with hotkeys. My first goal was quite simple: open my most-used websites (pretty boring ones too - my email, calendar, and bank account and credit cards) with a hotkey instead of clicking on my bookmarks every time. Why open the same five bookmarks every day when I can click one button each morning? 
 
 So here is how I implemented this in AutoHotKey 👇
 
-## My First Script Ever
+## Level 1: My First Script Ever
 
 ```ahk
 ; Ctrl + Shift + = (email + calendar)
@@ -59,7 +59,7 @@ I realized if I can open one website... I can open five. Or ten. Or a HUNDRED we
 
 **That's when it clicked.** That's what it means to execute a program. You write instructions once, and the computer does them instantly, at scale, perfectly, every time.
 
-Then I discovered AutoHotkey could create right-click menus. These are kind of like how you might right-click to copy and paste. This made me realize making UI isn't as hard as I thought. You don't need to understand how to render pixels on the screen all the way down to binary instructions. You just... write some code that says "make a right-click menu." That's it. 👇 
+Then I discovered AutoHotkey could create right-click menus. You know, when you right-click to copy and paste? AutoHotkey made it very easy to make those. This made me realize making UI isn't as hard as I thought. You don't need to understand how to render pixels on the screen all the way down to binary instructions. You just... write some code that says "make a right-click menu." That's it. 👇 
 
 ```ahk
 Menu, MyMenu, Add, Copy, DoCopy
@@ -79,11 +79,11 @@ I started playing around with HTML and CSS in earnest, making simple pages and l
 
 ## Level 3: Python
 
-Once I felt like I truly "got" it, I got very excited. I thought that maybe I really can do this after all. Even though I knew it was a long uphill battle of learning ahead. But I really was loving it so I moved forward. I [completed](https://certificates.cs50.io/36ac7977-4aa6-4dd8-bd5c-54398fa0c952.pdf?size=letter) Harvard's [CS50P](https://www.edx.org/learn/python/harvard-university-cs50-s-introduction-to-programming-with-python) (Introduction to Programming with Python) and became literate in Python. Finally felt like a "real" programmer.
+Once I felt like I truly "got" it, I got very excited. I thought that maybe I really can do this after all. Even though I knew it was a long uphill battle of learning ahead. But I really was loving it so I moved forward. I completed Harvard's CS50P (Introduction to Programming with Python) and became literate in Python. Finally felt like a "real" programmer.
 
 ## Level 4: The Python Web Problem
 
-I started working on Harvard's [CS50W](https://www.edx.org/learn/web-development/harvard-university-cs50-s-web-programming-with-python-and-javascript) (Web Programming with Python and JavaScript). Didn't finish it, but I did make some functional sites. I learned Django properly, picked up some JavaScript fundamentals, and started to understand how some programming on the web actually worked.
+I started working on Harvard's CS50W (Web Programming with Python and JavaScript). Didn't finish it, but I did make some functional sites. I learned Django properly, picked up some JavaScript fundamentals, and started to understand how some programming on the web actually worked.
 
 Here's where things got frustrating. I knew Python. I could build web backends with Flask or Django. But for any interactivity on the frontend, I needed JavaScript.
 
@@ -101,13 +101,13 @@ I started a Scrimba course on React. Did not finish it. But I did learn the fund
 
 Then I didn't code for several months. Not sure why. Life happened.
 
-When I came back to it, React clicked even more. And then I fell in love with it. The component model finally made JavaScript make sense to me: build small pieces, compose them together. Super easy to do after a while, and super powerful!
+When I came back to it, React clicked even more. And then I fell in love with it. The component model made so much sense to me: build small pieces, compose them together. Super easy to do after a while, and super powerful!
 
 Since then? I've written as much React as possible.
 
 And Vite made the development experience actually pleasant. Fast refresh, just write code and see it work.
 
-This was it. I could finally do full JavaScript without fighting Express. Just build powerful frontends and worry about backends later when I really needed them.
+This was it. I could finally do full JavaScript without fighting Express. Just build powerful frontends and worry about backends later when I really needed them. 
 
 ## The SSG Detour: Hugo, Jekyll, Eleventy
 

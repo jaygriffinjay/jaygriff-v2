@@ -14,19 +14,25 @@
 
 I think AI is great. I also think it's a very real and highly useful innovation. Not hype. Not a bubble. Not doom. Just mostly good old-fashioned human ingenuity moving the world forward.
 
-But "AI" is a wildly overloaded term right now, so let me be specific about what I mean. There's the foundational stuff — neural networks, backpropagation, reinforcement learning, embeddings, the machinery that makes all of it go. That's been around for decades and it's what powers data analysis, classification, recommendation systems, all of it.
+But "AI" is a wildly overloaded term right now, so let me be specific about what I mean. After all, "AI" can mean about 200 different things right now. New AI-adjacent innovations are spawning daily that need new terms just to talk about them accurately.
 
-Then there's a newer layer that applied all that analysis capability into something new: synthesis and generation. With LLMs being perhaps the most transformative.
+AI, at its core, is various methods for doing data analysis and synthesis. Neural networks, backpropagation, reinforcement learning, embeddings, attention, weights. After these methods proved useful for analyzing data and generating data with incredibly accurate and useful results, many, many more services and methods have continued to be built on top of these core building-block AI methods. 
+
+AI is now such a ubiquitous tool used in so many contexts of computers that it is no different than a CPU calculating things for you. Said another way, we should stop attaching AI to everything, because it has lost all meaning. We do not call new apps "CPU-calculated software", now do we? However, the category of AI is still moving so fast and doing so much, that we don't have the right words to turn everything into a unique category yet, so "AI" branding remains.
+
+## An important NEW AI layer
+
+There's a newer layer that applied all that analysis capability into something new: synthesis and generation. With LLMs being perhaps the most transformative.
 
 - **Image analysis** → image generation (Midjourney, DALL·E, Stable Diffusion)
 - **Music analysis** → music generation (Suno, Udio)
 - **Video analysis** → video generation (Sora, Runway)
 
-And then embeddings and attention — key ingredients in the very powerful ability of AI to approximately understand *meaning and intent*. That's what makes semantic search, RAG, and context-aware tools actually work. It's also how content and recommendation algorithms work now — TikTok's feed, Spotify's Discover Weekly, YouTube's autoplay. And Google has been using AI in search for years (RankBrain since 2015, then BERT, then MUM). The "AI is new" narrative is a little funny when you realize it's been surfacing your search results for a decade.
+And then embeddings and attention: key ingredients in the very powerful ability of AI to approximately understand *meaning and intent*. That's what makes semantic search, RAG, and context-aware tools actually work. It's also how content and recommendation algorithms work now. Google Search, TikTok's feed, Spotify's Discover Weekly.
 
-When you combine all of this and point it at software development specifically, something unusual happens. The ability of models to reason about code is now good enough that it.. reasons reliably not just about what code does, what code means, but when to execute code too. 
+When you combine all of this and point it at software development specifically, something unusual happens. The ability of models to reason about code is now good enough that it.. reasons reliably not just about what code does, what code means, but when to execute code too. And when you can simultaneously generate code, reason about code, and then run that code in an automated loop, you get agents. 
 
-And it turns out.. a lot of things can be controlled by code. A lot. 
+And it turns out.. a lot of things can be controlled by code. A lot. And agents are proving to be very useful and lucrative. 
 
 That's the AI I'm talking about. And this stuff really works. And it's awesome.
 
@@ -58,7 +64,7 @@ And then the thing that made it personally interesting: all these tools run on R
 
 There's something I understood pretty early that I think a lot of people may underestimate: AI is unfairly good at programming compared to other knowledge-intensive fields.
 
-The reason is that programming is the one domain where work product, documentation, and culture all live on the internet — the actual code, the reasoning behind it, the decisions that shaped it. All of that got trained into these models. So when you ask an AI about a library, an architecture pattern, a debugging strategy — it's drawing on real-world practice, not just documentation.
+The reason is that programming is the one domain where work product, documentation, and culture all live on the internet - the actual code, the reasoning behind it, the decisions that shaped it. All of that got trained into these models. So when you ask an AI about a library, an architecture pattern, a debugging strategy - it's drawing on real-world practice, not just documentation.
 
 Compare that to law or accounting. The rules are codified, sure, and AI has seen those. But the actual work that lawyers and accountants do every day? Strictly proprietary. No open-source tax returns. No public workpapers. AI has to reason from principles without the corpus of practice to back it up.
 
@@ -66,40 +72,38 @@ I was painfully aware of this contrast because I'm a former accountant. In accou
 
 But there's an even more fundamental reason coding models are overpowered: code is inherently testable. When a model generates code, you can run it. It either compiles or it doesn't. The tests pass or they fail. The function returns the right value or the wrong one. That feedback loop is automatic, verifiable, and scales to billions of training examples. No human evaluator needed.
 
-Compare that to generating a legal brief or a medical diagnosis. How do you automatically verify that at scale? You can't. You need expensive human review, and even then experts disagree. Code is one of the only knowledge domains where the output carries its own verification mechanism built in. That's why reinforcement learning works so absurdly well for coding — the reward signal is free and unambiguous. It's like training a model in a domain where every answer comes with an answer key.
+Compare that to generating a legal brief or a medical diagnosis. How do you automatically verify that at scale? You can't. You need expensive human review, and even then experts disagree. Code is one of the only knowledge domains where the output carries its own verification mechanism built in. That's why reinforcement learning works so absurdly well for coding - the reward signal is free and unambiguous.
 
 ## Agents Are Nutty
 
-One of the most underrated things about AI is how it significantly chips away at the brittleness problem in software. Where we used to rely on regex, manual edge case handling, and fragile ETL pipelines, AI just handles the messy middle — it's an incredible translator that deals with arbitrary requirements without needing every case accounted for in advance. 
+One of the most underrated things about AI is how it significantly chips away at the brittleness problem in software. Where we used to rely on regex, manual edge case handling, and fragile ETL pipelines, agents just handles the messy parts. They're incredible translators that deal with arbitrary requirements without needing every case accounted for in advance. 
 
 
-The same logic applies to agent skills and workflows. Instead of building and maintaining a whole script or system for every automation need, you can describe the intent in plain English and get 90%+ of the value immediately, with none of the debugging overhead. And then there's the best-of-both-worlds scenario: build a real system where precision matters, and hook AI up to it as the interface layer. You get deterministic reliability underneath and natural language flexibility on top. Telling the AI what to do is real — and the threshold for what's worth automating just dropped by an order of magnitude.
+The same logic applies to agent skills and workflows. Instead of building and maintaining a whole script or system for every automation need, you can describe the intent in plain English and get 90%+ of the value immediately, with none of the debugging overhead. And then there's the best-of-both-worlds scenario: build a real system where precision matters, and hook agents up to it as the interface layer. You get deterministic reliability underneath and natural language flexibility on top. Telling the agent what to do is real and the threshold for what's worth automating just dropped by an order of magnitude.
 
-## Agents Are Gonna Be Ubiquitous In Office Work
+## Desktop Agents Are Gonna Be Ubiquitous In Office Work
 
 At some point I stopped writing in my notes app almost entirely. 
 
 The reason is context. When I'm writing about a component I built, my coding agent can read the actual component, the related files, the git history. It knows the project. In Notion I'd be manually copying context over, hoping I got the right pieces, switching tabs constantly.
 
-And multi-file operations. I can generate a post, add metadata, update navigation, cross-link related content — all in one conversation. The AI creates the files. I approve them. Done.
+And multi-file operations. I can generate a post, add metadata, update navigation, cross-link related content - all in one conversation. The agent creates the files. I approve them. Done.
 
-When AI handles the synthesis work, you can go from idea to published in minutes. That changes what feels worth doing. Documenting a debugging session, writing up a feature as I build it — stuff that used to feel like overhead now has low enough activation energy that it just happens.
+When agents handle the synthesis work, you can go from idea to published in minutes. That changes what feels worth doing. Documenting a debugging session, writing up a feature as I build it - stuff that used to feel like overhead now has low enough activation energy that it just happens.
 
 And this functionality is actively being rolled out to all office work, not just for programming.
 
 ## Now I Think About AI as a Fundamental Building Block in Software
 
-The more I used AI the more I started caring about *how* you structure the interaction — not just what you prompt. In software you run into many cases in your workflow where you want specific conventions to be followed and so you need AI to know these things at the right time. And then the same is true for when you integrate AI into software - integrating AI into an app is almost like employing it to do a tiny little job with custom prompts, data, and instructions.
-
-I'm also thinking about AI at the workflow level — custom tools and skills for coding assistants that encode my specific codebase patterns. Instead of generic commands, a natural language interface that speaks my project's dialect. "Make sure all my posts have complete metadata" — and it knows exactly what my PostMeta interface requires, checks every file, flags what's missing. Not a linter rule. Encoded expertise.
+In just the last few years, revolutionary new services and APIs have been shipped that make building software much easier, faster, and better. I reach for these new services constantly, and I can make much more powerful software thanks to them. All I'm doing is composing higher-level AI building blocks and I can make new and interesting tools. But since AI has touched multiple parts of the software I made, I'm tempted to call it "AI-powered!", when really, that's now a catchall that's.. not helpful!
 
 ## Code Is Now Free (but Code Knowledge Isn't)
 
 The clearest thing I've taken from all of this: code is free now. If you can describe what you want with enough precision, the code gets written. The constraint has moved.
 
-What matters now is everything above writing the code. Critical thinking. System design. Architecture. Knowing what to build and why, and having strong enough taste to recognize when the output is wrong. Those skills matter more than ever, not less — because now the bottleneck is you specifying the problem correctly and verifying the solutions, not you typing the solution.
+What matters now is everything above writing the code. Critical thinking. System design. Architecture. Knowing what to build and why, and having strong enough taste to recognize when the output is wrong. Those skills matter more than ever, not less. Because now the bottleneck is making good, useful apps and solving all the hard problems. 
 
-But I want to push back on one thing: code knowledge still matters. Maybe as much as before. The nature of it shifts — when AI writes the code, you stop caring about syntax and start caring about blocks of logic. You're reading at a higher level of abstraction. But reading at that level well, understanding what each chunk actually does, knowing when something is subtly wrong — that requires being genuinely good at your language. Mastery is still highly rewarded, even if the pace of AI development makes it tempting to skip.
+I want to push back on one thing: code knowledge still matters. Maybe as much as before. The nature of it has shifted - when AI writes the code, you stop caring about syntax and start caring about blocks of logic. You're reading at a higher level of abstraction. But reading at that level well, understanding what each chunk actually does, knowing when something is subtly wrong - that requires being genuinely good at your language. Mastery is still highly rewarded, even if the pace of AI development makes it tempting to skip.
 
 What I actually believe: mastery and productivity are both necessary, and you have to balance them deliberately. The good news is that velocity makes mastery easier to build, not harder. When AI accelerates what you can learn, build, debug, and experiment with, you're encountering more code, more edge cases, more patterns. You learn faster because you're moving faster. The ceiling goes up.
 
@@ -107,9 +111,9 @@ The golden rule: [delegate, don't abdicate](https://sive.rs/abdicate).
 
 ## Programming Is More Fun Now
 
-One more thing nobody talks about enough: programming is way more fun now. Syntax friction is a joy killer. The gap between having an idea and having a thing that works used to be filled with the tedious parts — boilerplate, looking up the docs, googling 5 terms and reading articles about them, googling syntax. That gap is nearly gone. You type what you want and you get it.
+One more thing nobody talks about enough: programming is way more fun now. Syntax friction is a joy killer. The gap between having an idea and having a thing that works used to be filled with the tedious parts - boilerplate, looking up the docs, googling 5 terms and reading articles about them, googling syntax. That gap is nearly gone. You type what you want and you get it.
 
-But making what I *really* want — production-grade apps that solve real problems, that scale, that handle edge cases, that are actually good — still quite difficult. The hard parts are still hard. But features? Demos? Prototypes? Those are free now and the fun-to-friction ratio has never been better.
+But making what I *really* want - production-grade apps that solve real problems, that scale, that handle edge cases, that are actually good - still quite difficult. The hard parts are still hard. But features? Demos? Prototypes? Those are free now and the fun-to-friction ratio has never been better.
 
 ## What I Haven't Figured Out
 
