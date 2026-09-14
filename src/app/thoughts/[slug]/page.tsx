@@ -2,10 +2,7 @@ import { notFound } from "next/navigation";
 import { getContentBySlug } from "@/modules/content/queries";
 import { ContentBody } from "@/modules/content/render";
 import { Container } from "@/components/layout/Container";
-import { H1, Paragraph, Small } from "@/components/typography";
-import { Separator } from "@/components/ui/separator";
-import { HandwrittenBadge } from "@/components/handwritten-badge";
-import { ContentDisclosure } from "@/components/content-disclosure";
+import { ContentHeader } from "@/components/content-header";
 import styles from "./thought.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -19,19 +16,10 @@ export default async function ThoughtPage({ params }: Props) {
   return (
     <Container>
       <article className={styles.article}>
-        <ContentDisclosure row={thought} className={styles.disclosure} />
-        <header className={styles.header}>
-          <H1>{thought.title}</H1>
-          {thought.description && (
-            <Paragraph className={styles.description}>{thought.description}</Paragraph>
-          )}
-          <Small>
-            {new Date(thought.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
-            <HandwrittenBadge authorship={thought.authorship} className="ml-2" />
-          </Small>
-        </header>
-        <Separator className={styles.divider} />
-        <ContentBody row={thought} />
+        <ContentHeader row={thought} />
+        <div className={styles.body}>
+          <ContentBody row={thought} />
+        </div>
       </article>
     </Container>
   );

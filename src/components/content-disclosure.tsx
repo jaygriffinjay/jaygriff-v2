@@ -1,21 +1,12 @@
 import { cn } from "@/lib/utils";
-import type { ContentRow } from "@/modules/content/queries";
 
 import styles from "./content-disclosure.module.css";
 
 /**
- * Thoughts and designs are AI-assisted by default, so the notice is driven
- * by type rather than tagged per row. `authorship_note` overrides the
- * wording, and `handwritten` opts a row out entirely.
+ * Index-page provenance notice, covering a whole listing at once. Per-row
+ * disclosure lives in ContentHeader now — on the meta line beside the date
+ * rather than in a callout above the title.
  */
-const DEFAULT_NOTES: Partial<Record<ContentRow["type"], string>> = {
-  thought:
-    "AI-generated note of work I did with a coding agent",
-  design:
-    "AI-generated design experiment",
-};
-
-/** Presentational half, so the index page can use the same treatment. */
 export function DisclosureNotice({
   children,
   className,
@@ -27,22 +18,5 @@ export function DisclosureNotice({
     <aside className={cn(styles.disclosure, className)}>
       <span aria-hidden="true">🤖</span> {children}
     </aside>
-  );
-}
-
-export function ContentDisclosure({
-  row,
-  className,
-}: {
-  row: ContentRow;
-  className?: string;
-}) {
-  const defaultNote = DEFAULT_NOTES[row.type];
-  if (!defaultNote || row.authorship === "handwritten") return null;
-
-  return (
-    <DisclosureNotice className={className}>
-      {row.authorship_note ?? defaultNote}
-    </DisclosureNotice>
   );
 }

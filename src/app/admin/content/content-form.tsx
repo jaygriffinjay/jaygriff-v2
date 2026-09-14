@@ -21,7 +21,12 @@ import styles from "./content.module.css";
 
 const TYPES = ["post", "doc", "thought", "link", "design"] as const;
 const STATUSES = ["draft", "published", "archived", "deleted"] as const;
-const AUTHORSHIP = ["default", "handwritten", "ai-generated"] as const;
+const AUTHORSHIP = [
+  "default",
+  "handwritten",
+  "ai-assisted",
+  "ai-generated",
+] as const;
 
 function toDatetimeLocal(iso: string) {
   const d = new Date(iso);

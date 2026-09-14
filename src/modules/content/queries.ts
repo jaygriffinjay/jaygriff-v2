@@ -15,7 +15,7 @@ export type ContentRow = {
   status: "draft" | "published" | "archived" | "deleted";
   format: "md" | "tsx";
   authors: string[] | null;
-  authorship: "handwritten" | "ai-generated" | null;
+  authorship: "handwritten" | "ai-assisted" | "ai-generated" | null;
   authorship_note: string | null;
   tags: string[] | null;
   updated_dates: string[] | null;

@@ -1,0 +1,54 @@
+@reference "../../app/globals.css";
+
+/* kind, title, standfirst, meta line, hairline */
+.header {
+  @apply flex flex-col gap-3;
+}
+
+/* what kind of thing this is, for anyone who arrived from search */
+.kind {
+  @apply text-muted-foreground/70 text-xs font-medium tracking-[0.14em] uppercase;
+}
+
+.title {
+  @apply text-3xl font-bold tracking-tight;
+}
+
+.description {
+  @apply text-muted-foreground text-lg leading-relaxed;
+}
+
+/* date and provenance share one quiet line */
+.meta {
+  @apply text-muted-foreground/80 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm;
+}
+
+.authorship {
+  @apply inline-flex items-center gap-1.5;
+}
+
+.authorshipIcon {
+  @apply size-3.5;
+}
+
+/* a faint dotted underline is the only hint there's more to read */
+.disclosureTrigger {
+  @apply decoration-muted-foreground/30 hover:decoration-muted-foreground/60 hover:text-foreground cursor-default underline decoration-dotted underline-offset-4 transition-colors;
+}
+
+/* quieter than the shared tooltip, which is a solid inverted slab with an arrow.
+   Lightness set per theme rather than by fading muted-foreground: that token is
+   already light in dark mode, so lowering its opacity dims it into the
+   background instead of lifting it. */
+.tooltip {
+  @apply border-border/70 bg-popover animate-in fade-in-0 z-50 max-w-xs rounded-lg border px-3 py-2 text-xs leading-relaxed shadow-sm;
+  color: oklch(0.68 0.012 75);
+}
+
+:global(html.dark) .tooltip {
+  color: oklch(0.9 0.008 75);
+}
+
+.rule {
+  @apply bg-border/60 mt-1 h-px w-full;
+}

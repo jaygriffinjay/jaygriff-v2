@@ -42,7 +42,12 @@ const ContentSchema = z.object({
   description: optionalText,
   type: z.enum(["post", "doc", "thought", "link", "design"]),
   status: z.enum(["draft", "published", "archived", "deleted"]),
-  authorship: z.enum(["default", "handwritten", "ai-generated"]),
+  authorship: z.enum([
+    "default",
+    "handwritten",
+    "ai-assisted",
+    "ai-generated",
+  ]),
   authorship_note: optionalText,
   authors: z.string().trim(),
   tags: z.string().trim(),
@@ -108,7 +113,8 @@ export async function updateContent(
       c.description,
       c.type,
       c.status,
-      // "default" is the site-wide AI-assisted default, stored as NULL
+      // "default" stores NULL, which ContentHeader resolves by type:
+      // handwritten for posts, AI-generated for thoughts and designs
       c.authorship === "default" ? null : c.authorship,
       c.authorship_note,
       authors.length > 0 ? JSON.stringify(authors) : null,

@@ -2,8 +2,7 @@ import { notFound } from "next/navigation";
 import { getContentBySlug } from "@/modules/content/queries";
 import { ContentBody } from "@/modules/content/render";
 import { Container } from "@/components/layout/Container";
-import { H1, Paragraph, Small } from "@/components/typography";
-import { Separator } from "@/components/ui/separator";
+import { ContentHeader } from "@/components/content-header";
 import styles from "./doc.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -17,15 +16,10 @@ export default async function DocPage({ params }: Props) {
   return (
     <Container>
       <article className={styles.article}>
-        <header className={styles.header}>
-          <H1>{doc.title}</H1>
-          {doc.description && (
-            <Paragraph className={styles.description}>{doc.description}</Paragraph>
-          )}
-          <Small>{new Date(doc.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}</Small>
-        </header>
-        <Separator className={styles.divider} />
-        <ContentBody row={doc} />
+        <ContentHeader row={doc} />
+        <div className={styles.body}>
+          <ContentBody row={doc} />
+        </div>
       </article>
     </Container>
   );
