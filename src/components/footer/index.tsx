@@ -8,6 +8,7 @@ import { ThemeToggle } from "./theme-toggle";
 const readLinks = [
   { label: "Posts", href: "/posts" },
   { label: "Thoughts", href: "/thoughts" },
+  { label: "Designs", href: "/designs" },
 ];
 
 const workLinks = [
