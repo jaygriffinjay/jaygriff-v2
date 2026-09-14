@@ -48,16 +48,6 @@
   @apply text-muted-foreground text-lg;
 }
 
-/* horizontal, wrapping list of tag pills */
-.tags {
-  @apply flex list-none flex-wrap gap-2 p-0;
-}
-
-/* individual tag pill */
-.tag {
-  @apply border-border text-muted-foreground rounded-full border px-2.5 py-0.5 text-xs;
-}
-
 /* call-to-action row */
 .actions {
   @apply flex flex-wrap items-center gap-3 pt-1;
@@ -182,11 +172,6 @@
 /* section wrapper; the callout is the intro only, not the whole list */
 .notesSection {
   @apply border-border/60 mt-12 border-t pt-6;
-}
-
-/* heading: bigger than the body, still below the docs and posts sections */
-.notesTitle {
-  @apply text-foreground m-0 border-none pb-0 text-lg font-semibold;
 }
 
 /* callout card, matching the AI disclosure treatment on thought pages */

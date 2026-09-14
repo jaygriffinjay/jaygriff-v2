@@ -8,7 +8,7 @@ const MetadataSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Must be a valid slug"),
   description: z.string(),
   tags: z.array(z.string()),
-  type: z.enum(["post", "doc"]),
+  type: z.enum(["post", "doc", "design"]),
 });
 
 export type GeneratedMetadata = z.infer<typeof MetadataSchema>;
@@ -23,7 +23,7 @@ const TOOL: Anthropic.Tool = {
       slug: { type: "string", description: "URL-friendly slug (lowercase, hyphens only)" },
       description: { type: "string", description: "One punchy sentence summarizing the content" },
       tags: { type: "array", items: { type: "string" }, description: "3-8 lowercase tags" },
-      type: { type: "string", enum: ["post", "doc"], description: "post = narrative/opinion, doc = reference/technical" },
+      type: { type: "string", enum: ["post", "doc", "design"], description: "post = narrative/opinion, doc = reference/technical, design = standalone TSX page/UI experiment" },
     },
     required: ["title", "slug", "description", "tags", "type"],
   },

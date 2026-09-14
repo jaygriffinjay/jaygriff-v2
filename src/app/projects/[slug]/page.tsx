@@ -8,6 +8,7 @@ import { H1, H2, List, ListItem, Paragraph, Small } from "@/components/typograph
 import { Separator } from "@/components/ui/separator";
 import { getAssetsFor, isSvg, pickAsset } from "@/modules/assets/queries";
 import { getContentByProject } from "@/modules/content/queries";
+import { DisclosureNotice } from "@/components/content-disclosure";
 import { getAllProjects, getProjectBySlug } from "@/modules/projects/queries";
 import { getProjectIcon } from "@/modules/projects/icons";
 import { versionsFor, type ProjectVersion } from "@/modules/projects/versions";
@@ -39,6 +40,7 @@ export default async function ProjectPage({ params }: Props) {
   const docs = related.filter((row) => row.type === "doc");
   const posts = related.filter((row) => row.type === "post");
   const thoughts = related.filter((row) => row.type === "thought");
+  const designs = related.filter((row) => row.type === "design");
   const Icon = getProjectIcon(project.icon);
 
   const assets = await getAssetsFor("project", project.id);
@@ -69,15 +71,6 @@ export default async function ProjectPage({ params }: Props) {
         <H1>{project.title}</H1>
         {project.tagline && (
           <Paragraph className={styles.tagline}>{project.tagline}</Paragraph>
-        )}
-        {project.tags && project.tags.length > 0 && (
-          <ul className={styles.tags}>
-            {project.tags.map((tag) => (
-              <li key={tag} className={styles.tag}>
-                {tag}
-              </li>
-            ))}
-          </ul>
         )}
         <div className={styles.actions}>
           {project.app_href && (
@@ -142,10 +135,20 @@ export default async function ProjectPage({ params }: Props) {
         </div>
       )}
 
+      <VersionCapsule versions={versionsFor(project.id)} />
+      <ContentSection
+        title="Designs"
+        basePath="designs"
+        rows={designs}
+        notice={
+          <DisclosureNotice>
+            Mostly AI-generated design experiments.
+          </DisclosureNotice>
+        }
+      />
+      <ThoughtList rows={thoughts} />
       <ContentSection title="Docs" basePath="docs" rows={docs} />
       <ContentSection title="Posts" basePath="posts" rows={posts} />
-      <VersionCapsule versions={versionsFor(project.id)} />
-      <ThoughtList rows={thoughts} />
     </Container>
   );
 }
@@ -192,9 +195,9 @@ function ThoughtList({
 
   return (
     <section className={styles.notesSection}>
-      <H2 className={styles.notesTitle}>Thoughts</H2>
+      <H2 className={styles.sectionTitle}>Thoughts</H2>
       <Paragraph className={styles.notesIntro}>
-        🤖 Mostly AI-generated artifacts of work I did with a coding agent while working on this project.
+        🤖 Mostly AI-generated notes of work I did with a coding agent.
       </Paragraph>
       <List className={styles.notesList}>
         {rows.map((row) => (
@@ -219,16 +222,19 @@ function ContentSection({
   title,
   basePath,
   rows,
+  notice,
 }: {
   title: string;
   basePath: string;
   rows: Awaited<ReturnType<typeof getContentByProject>>;
+  notice?: React.ReactNode;
 }) {
   if (rows.length === 0) return null;
 
   return (
     <section className={styles.section}>
       <H2 className={styles.sectionTitle}>{title}</H2>
+      {notice}
       <div className={styles.list}>
         {rows.map((row) => (
           <NextLink

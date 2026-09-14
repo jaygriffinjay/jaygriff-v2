@@ -11,7 +11,7 @@ export type ContentRow = {
   content_hash: string | null;
   title: string;
   description: string | null;
-  type: "post" | "doc" | "thought" | "link";
+  type: "post" | "doc" | "thought" | "link" | "design";
   status: "draft" | "published" | "archived" | "deleted";
   format: "md" | "tsx";
   authors: string[] | null;
