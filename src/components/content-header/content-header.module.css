@@ -10,6 +10,11 @@
   @apply text-muted-foreground/70 text-xs font-medium tracking-[0.14em] uppercase;
 }
 
+/* the kind label doubles as a link back to the section index */
+.kindLink {
+  @apply text-muted-foreground/70 hover:underline text-xs font-medium tracking-[0.14em] uppercase underline-offset-4;
+}
+
 .title {
   @apply text-3xl font-bold tracking-tight;
 }
@@ -34,6 +39,11 @@
 /* a faint dotted underline is the only hint there's more to read */
 .disclosureTrigger {
   @apply decoration-muted-foreground/30 hover:decoration-muted-foreground/60 hover:text-foreground cursor-default underline decoration-dotted underline-offset-4 transition-colors;
+}
+
+/* project link on the meta line: underline on hover, no color change */
+.projectLink {
+  @apply hover:underline underline-offset-4;
 }
 
 /* quieter than the shared tooltip, which is a solid inverted slab with an arrow.
