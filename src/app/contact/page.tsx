@@ -42,7 +42,7 @@ export default function ContactPage() {
 		<Container className={styles.container}>
 			<header className={styles.header}>
 				<Image
-					src="/images/me.jpg"
+					src="/images/me2.jpg"
 					alt="Jay Griffin"
 					width={200}
 					height={200}
